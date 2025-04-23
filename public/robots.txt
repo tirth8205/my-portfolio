@@ -1,8 +1,9 @@
+# *
 User-agent: *
-Disallow: /wp-admin/
-Disallow: /wp-content/
-Disallow: /wp-includes/
-Disallow: /blog/  # Adjust this if your WordPress was in a different directory
 Allow: /
 
+# Host
+Host: https://www.tirthkanani.com
+
+# Sitemaps
 Sitemap: https://www.tirthkanani.com/sitemap.xml
