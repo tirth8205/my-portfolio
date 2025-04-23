@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import styles from "../styles/Home.module.css";
 import { Experience, PageInfo, Skill, Project, Social } from "../typings";
-import { fetchPageInfo } from "../utils/fetchPageInfo";
 import { fetchExperiences } from "../utils/fetchExperience";
 import { fetchProjects } from "../utils/fetchProjects";
 import { fetchSkills } from "../utils/fetchSkills";
@@ -18,6 +17,12 @@ import ContactMe from "../components/ContactMe";
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import Script from "next/script";
+import { groq } from "next-sanity";
+import { sanityClient } from "../sanity";
+
+const pageInfoQuery = groq`
+    *[_type == 'pageInfo'][0]
+`;
 
 type Props = {
   pageInfo: PageInfo;
@@ -28,12 +33,12 @@ type Props = {
 };
 
 const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
-  console.log("Socials:", socials); // Add this line to debug
+  console.log("Socials:", socials);
 
   return (
     <div
       className="bg-lightBackground text-darkBlack h-screen snap-y snap-mandatory
-    overflow-y-scroll overflow-x-hidden z-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-darkGreen/80"
+      overflow-y-scroll overflow-x-hidden z-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-darkGreen/80"
     >
       <Head>
         <link
@@ -57,48 +62,40 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
         <title>{"Tirth's Portfolio"}</title>
       </Head>
 
-      {/* Google Analytics */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-LV1LN9VBT0"
         strategy="afterInteractive"
       ></Script>
       <Script id="google-analytics" strategy="afterInteractive">
         {`window.dataLayer = window.dataLayer || [];
-           function gtag(){dataLayer.push(arguments);}
-           gtag('js', new Date());
-           gtag('config', 'G-LV1LN9VBT0')`}
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         gtag('config', 'G-LV1LN9VBT0')`}
         ;
       </Script>
 
-      {/* Header */}
       <Header socials={socials} />
 
-      {/* Hero */}
       <section id="hero" className="snap-start">
         <Hero pageInfo={pageInfo} />
       </section>
 
-      {/* About */}
       <section id="about" className="snap-center">
         <About pageInfo={pageInfo} />
       </section>
 
-      {/* Experiences */}
       <section id="experience" className="snap-center">
         <WorkExperience experiences={experiences} />
       </section>
 
-      {/* Skills */}
       <section id="skills" className="snap-start">
         <Skills skills={skills} />
       </section>
 
-      {/* Projects */}
       <section id="projects" className="snap-start">
         <Projects projects={projects} />
       </section>
 
-      {/* Contact */}
       <section id="contact" className="snap-start">
         <ContactMe />
       </section>
@@ -119,7 +116,7 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pageInfo = await fetchPageInfo();
+  const pageInfo: PageInfo = await sanityClient.fetch(pageInfoQuery);
   const experiences = await fetchExperiences();
   const skills = await fetchSkills();
   const projects = await fetchProjects();
