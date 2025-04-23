@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /blog/  # Adjust this if your WordPress was in a different directory
+Allow: /
+
+Sitemap: https://www.tirthkanani.com/sitemap.xml
