@@ -41,6 +41,25 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
       overflow-y-scroll overflow-x-hidden z-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-darkGreen/80"
     >
       <Head>
+        <title>Tirth Kanani - Software & Machine Learning Engineer</title>
+        <meta
+          name="description"
+          content="Tirth Kanani, a Software & Machine Learning Engineer in the UK, passionate about AI, HCI, and open-source. Seeking opportunities to drive innovative solutions."
+        />
+        <meta
+          property="og:title"
+          content="Tirth Kanani - Software & Machine Learning Engineer"
+        />
+        <meta
+          property="og:description"
+          content="Tirth Kanani, a Software & Machine Learning Engineer in the UK, passionate about AI, HCI, and open-source. Seeking opportunities to drive innovative solutions."
+        />
+        <meta
+          property="og:image"
+          content="https://www.tirthkanani.com/android-chrome-512x512.png"
+        />
+        <meta property="og:url" content="https://www.tirthkanani.com" />
+        <meta property="og:type" content="website" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -59,7 +78,6 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-        <title>{"Tirth's Portfolio"}</title>
       </Head>
 
       <Script
