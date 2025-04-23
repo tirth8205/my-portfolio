@@ -31,11 +31,23 @@ export default function Header({ socials }: Props) {
         {socials
           .filter((social) => !(social.url?.includes("huggingface.co"))) // Exclude Hugging Face with safeguard
           .map((social) => {
-            // Explicitly set network for X/Twitter
-            const network =
-              social.url?.includes("x.com") || social.url?.includes("twitter.com")
-                ? "twitter"
-                : undefined;
+            // Parse the URL and check the host against a whitelist
+            let network;
+            try {
+              const url = new URL(social.url);
+              const host = url.hostname.toLowerCase();
+              const allowedHosts = ["x.com", "twitter.com"];
+              // Check if the host exactly matches or is a subdomain of an allowed host
+              const isAllowed = allowedHosts.some(
+                (allowedHost) =>
+                  host === allowedHost ||
+                  host.endsWith(`.${allowedHost}`)
+              );
+              network = isAllowed ? "twitter" : undefined;
+            } catch (error) {
+              // If URL parsing fails, default to undefined
+              network = undefined;
+            }
 
             return (
               <SocialIcon

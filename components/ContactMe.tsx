@@ -14,7 +14,10 @@ type Inputs = {
 export default function ContactMe({}: Props) {
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    window.location.href = `mailto:tirthkanani18@gmail.com?subject=${formData.subject}&body=Hi, my name is ${formData.name}.${formData.message}`;
+    const encodedSubject = encodeURIComponent(formData.subject);
+    const encodedMessage = encodeURIComponent(formData.message);
+    const encodedName = encodeURIComponent(formData.name);
+    window.location.href = `mailto:tirthkanani18@gmail.com?subject=${encodedSubject}&body=Hi, my name is ${encodedName}.${encodedMessage}`;
   };
 
   return (
@@ -24,7 +27,7 @@ export default function ContactMe({}: Props) {
       </h3>
       <div className="flex flex-col space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-10">
         <h4 className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl font-semibold text-center">
-        Ready to bring your ideas to life?{" "}
+          Ready to bring your ideas to life?{" "}
           <br />
           <span className="decoration-darkGreen/50 underline">Let’s connect and make it happen!</span>
         </h4>
