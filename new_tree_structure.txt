@@ -1,0 +1,94 @@
+.
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── components
+│   ├── About.tsx
+│   ├── BackgroundCircles.tsx
+│   ├── ContactMe.tsx
+│   ├── ExperienceCard.tsx
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── Projects.tsx
+│   ├── Skill.tsx
+│   ├── Skills.tsx
+│   └── WorkExperience.tsx
+├── new_tree_structure.txt
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── pages
+│   ├── _app.tsx
+│   ├── api
+│   │   ├── getExperience.ts
+│   │   ├── getPageInfo.ts
+│   │   ├── getProjects.ts
+│   │   ├── getSkills.ts
+│   │   ├── getSocials.ts
+│   │   └── hello.ts
+│   └── index.tsx
+├── postcss.config.js
+├── public
+│   ├── about.txt
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── site.webmanifest
+│   └── vercel.svg
+├── README.md
+├── sanity
+│   ├── .eslintrc
+│   ├── .npmignore
+│   ├── config
+│   │   ├── .checksums
+│   │   └── @sanity
+│   │       ├── data-aspects.json
+│   │       ├── default-layout.json
+│   │       ├── default-login.json
+│   │       ├── form-builder.json
+│   │       └── vision.json
+│   ├── dist
+│   │   ├── index.html
+│   │   └── static
+│   │       ├── .gitkeep
+│   │       ├── css
+│   │       │   └── main.css
+│   │       ├── favicon.ico
+│   │       └── js
+│   │           ├── app.bundle.js
+│   │           └── vendor.bundle.js
+│   ├── package.json
+│   ├── plugins
+│   │   └── .gitkeep
+│   ├── README.md
+│   ├── sanity.json
+│   ├── schemas
+│   │   ├── experience.js
+│   │   ├── pageInfo.js
+│   │   ├── project.js
+│   │   ├── schema.js
+│   │   ├── skill.js
+│   │   └── social.js
+│   ├── static
+│   │   ├── .gitkeep
+│   │   └── favicon.ico
+│   ├── tsconfig.json
+│   └── yarn.lock
+├── sanity.ts
+├── styles
+│   ├── globals.css
+│   └── Home.module.css
+├── tailwind.config.js
+├── tsconfig.json
+├── typings.d.ts
+└── utils
+    ├── fetchExperience.ts
+    ├── fetchPageInfo.ts
+    ├── fetchProjects.ts
+    ├── fetchSkills.ts
+    └── fetchSocials.ts
+
+17 directories, 75 files
