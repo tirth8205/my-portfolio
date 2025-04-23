@@ -46,7 +46,7 @@ export default function Projects({ projects }: Props) {
                   <img
                     key={technology._id}
                     className="h-10 w-10 rounded-full object-cover"
-                    src={urlFor(technology?.image).url()}
+                    src={technology?.image ? urlFor(technology.image).url() : ""}
                     alt=""
                   />
                 ))}
