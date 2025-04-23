@@ -1895,10 +1895,10 @@
     lodash "^4.17.15"
     rxjs "^6.5.3"
 
-"@sanity/vision@^2.35.0":
-  version "2.35.0"
-  resolved "https://registry.npmjs.org/@sanity/vision/-/vision-2.35.0.tgz"
-  integrity sha512-VEX+EBgCJPZPU1esOF9a/FldYXxj+9L3GMfqZgw6iUFI23x4/jVAbY/7eXJZ0u9MBYox4IZv5kypwoqSj/5GkA==
+"@sanity/vision@^2.36.6":
+  version "2.36.6"
+  resolved "https://registry.yarnpkg.com/@sanity/vision/-/vision-2.36.6.tgz#c40ccea746b6dcb8e1076b4e71f58cab051c0da3"
+  integrity sha512-b7COLLcsiendKgLD/IQlTqwP8M6XPFf8ljtI8gvV5GoXhS0dhzbf/pSdUsU6/OewMDRLOQycT6xCVDdgS5dsIg==
   dependencies:
     "@juggle/resize-observer" "^3.3.1"
     "@sanity/icons" "^1.3.4"
@@ -1906,7 +1906,7 @@
     classnames "^2.2.5"
     codemirror "^5.47.0"
     is-hotkey "^0.1.6"
-    json5 "^1.0.1"
+    json5 "^2.2.3"
     lodash "^4.17.15"
     query-string "^4.3.2"
     react-codemirror2 "^6.0.0"
@@ -6414,12 +6414,7 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-json5@^2.1.2:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz"
-  integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
-
-json5@^2.2.3:
+json5@^2.1.2, json5@^2.2.3:
   version "2.2.3"
   resolved "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
