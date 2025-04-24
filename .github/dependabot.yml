@@ -1,0 +1,31 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Update npm dependencies in the root directory
+  - package-ecosystem: "npm" # Use npm for JavaScript dependencies
+    directory: "/" # Location of the root package.json
+    schedule:
+      interval: "weekly" # Check for updates weekly
+    open-pull-requests-limit: 10 # Limit the number of open PRs to 10
+    versioning-strategy: auto # Let Dependabot decide the versioning strategy
+    commit-message:
+      prefix: "chore" # Prefix commit messages with "chore"
+      include: "scope" # Include the scope in the commit message
+
+  # Update npm dependencies in the /sanity directory
+  - package-ecosystem: "npm" # Use npm for JavaScript dependencies
+    directory: "/sanity" # Location of the sanity package.json
+    schedule:
+      interval: "weekly" # Check for updates weekly
+    open-pull-requests-limit: 10 # Limit the number of open PRs to 10
+    versioning-strategy: auto # Let Dependabot decide the versioning strategy
+    commit-message:
+      prefix: "chore" # Prefix commit messages with "chore"
+      include: "scope" # Include the scope in the commit message
+    labels:
+      - "dependencies" # Add the "dependencies" label to PRs
+      - "javascript" # Add the "javascript" label to PRs
