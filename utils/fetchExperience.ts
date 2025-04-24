@@ -3,7 +3,15 @@ import { sanityClient } from "../sanity";
 import { Experience } from "../typings";
 
 const query = groq`
-    *[_type == "experience"] | order(_createdAt desc)
+    *[_type == "experience"] | order(_createdAt desc) {
+        ...,
+        technologies[]-> {
+            _id,
+            image,
+            title,
+            progress
+        }
+    }
 `;
 
 export const fetchExperiences = async () => {
