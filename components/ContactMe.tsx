@@ -30,31 +30,31 @@ export default function ContactMe({}: Props) {
   };
 
   return (
-    <div className="min-h-screen flex relative flex-col text-center md:text-left md:flex-row max-w-7xl px-4 sm:px-6 md:px-10 justify-evenly mx-auto items-center pt-16 sm:pt-20 md:pt-24">
-      <h3 className="absolute top-0 left-0 right-0 text-center pt-4 sm:pt-6 md:pt-8 uppercase tracking-[20px] text-gray-500 text-xl sm:text-2xl md:text-3xl">
+    <div className="min-h-screen flex relative flex-col text-center md:text-left max-w-7xl px-4 sm:px-6 md:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20">
+      <h3 className="absolute top-0 left-0 right-0 text-center pt-4 sm:pt-6 md:pt-8 uppercase tracking-[15px] sm:tracking-[20px] text-gray-500 text-lg sm:text-xl md:text-2xl lg:text-3xl">
         Contact
       </h3>
 
-      <div className="flex flex-col space-y-10 sm:space-y-12 md:space-y-14 lg:space-y-16 xl:space-y-18 2xl:space-y-20">
-        <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-center">
+      <div className="flex flex-col items-center justify-center space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-14 xl:space-y-16 2xl:space-y-18 w-full">
+        <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
           Ready to bring your ideas to life?{" "}
           <br className="hidden sm:block" />
           <span className="decoration-darkGreen/50 underline">Let’s connect and make it happen!</span>
         </h4>
 
-        <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-7">
-          <div className="flex items-center space-x-5 justify-center">
-            <PhoneIcon className="text-darkGreen h-6 w-6 sm:h-7 sm:w-7 animate-pulse" />
+        <div className="space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+          <div className="flex items-center justify-center space-x-4 sm:space-x-5">
+            <PhoneIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
             <p className="text-sm sm:text-base md:text-lg lg:text-xl">+44 7741918549</p>
           </div>
-          <div className="flex items-center space-x-5 justify-center">
-            <EnvelopeIcon className="text-darkGreen h-6 w-6 sm:h-7 sm:w-7 animate-pulse" />
+          <div className="flex items-center justify-center space-x-4 sm:space-x-5">
+            <EnvelopeIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
             <p className="text-sm sm:text-base md:text-lg lg:text-xl">
               tirthkanani18@gmail.com
             </p>
           </div>
-          <div className="flex items-center space-x-5 justify-center">
-            <MapPinIcon className="text-darkGreen h-6 w-6 sm:h-7 sm:w-7 animate-pulse" />
+          <div className="flex items-center justify-center space-x-4 sm:space-x-5">
+            <MapPinIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
             <p className="text-sm sm:text-base md:text-lg lg:text-xl">
               Birmingham, United Kingdom
             </p>
@@ -63,9 +63,9 @@ export default function ContactMe({}: Props) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-4 sm:space-y-5 md:space-y-6 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
+          className="flex flex-col space-y-3 sm:space-y-4 md:space-y-5 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
         >
-          <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row md:space-x-4 space-y-3 md:space-y-0">
             <input
               {...register("name")}
               placeholder="Name"
@@ -97,11 +97,11 @@ export default function ContactMe({}: Props) {
         </form>
 
         {/* Footer with "Crafted with ❤️ by Tirth" */}
-        <div className="text-center mt-8 sm:mt-10 md:mt-12">
-          <p className="text-gray-500 text-xs sm:text-sm md:text-base">
+        <div className="w-full text-center mt-6 sm:mt-8 md:mt-10">
+          <p className="text-gray-500 text-xs sm:text-sm md:text-base flex items-center justify-center">
             Crafted with{" "}
             <motion.span
-              className="inline-block cursor-pointer"
+              className="inline-block align-middle mx-1 cursor-pointer"
               onClick={handleHeartClick}
               animate={
                 isHeartClicked
