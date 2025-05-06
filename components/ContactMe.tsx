@@ -30,32 +30,32 @@ export default function ContactMe({}: Props) {
   };
 
   return (
-    <div className="min-h-screen flex relative flex-col text-center md:text-left max-w-7xl px-4 sm:px-6 md:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20">
-      <h3 className="absolute top-0 left-0 right-0 text-center pt-4 sm:pt-6 md:pt-8 uppercase tracking-[15px] sm:tracking-[20px] text-gray-500 text-lg sm:text-xl md:text-2xl lg:text-3xl">
+    <div className="min-h-screen flex relative flex-col text-center max-w-7xl px-4 sm:px-6 md:px-10 mx-auto items-center pt-16 sm:pt-20 md:pt-24">
+      <h3 className="absolute top-0 left-0 right-0 text-center pt-4 sm:pt-6 md:pt-8 uppercase tracking-[15px] sm:tracking-[20px] text-gray-500 text-xl md:text-2xl">
         Contact
       </h3>
 
-      <div className="flex flex-col items-center justify-center space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-14 xl:space-y-16 2xl:space-y-18 w-full">
-        <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-          Ready to bring your ideas to life?{" "}
+      <div className="flex flex-col items-center justify-center space-y-6 w-full">
+        <h4 className="text-lg md:text-2xl lg:text-4xl font-semibold text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mt-4">
+          Need a creative mind? Look no further!{" "}
           <br className="hidden sm:block" />
-          <span className="decoration-darkGreen/50 underline">Let’s connect and make it happen!</span>
+          <span className="decoration-darkGreen/50 underline">Let's join forces</span> and make magic happen. Coffee's on me – unless you prefer tea!
         </h4>
 
-        <div className="space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+        <div className="space-y-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
           <div className="flex items-center justify-center space-x-4 sm:space-x-5">
             <PhoneIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl">+44 7741918549</p>
+            <p className="text-sm md:text-base lg:text-lg">+44 7741918549</p>
           </div>
           <div className="flex items-center justify-center space-x-4 sm:space-x-5">
             <EnvelopeIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+            <p className="text-sm md:text-base lg:text-lg">
               tirthkanani18@gmail.com
             </p>
           </div>
           <div className="flex items-center justify-center space-x-4 sm:space-x-5">
             <MapPinIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+            <p className="text-sm md:text-base lg:text-lg">
               Birmingham, United Kingdom
             </p>
           </div>
@@ -63,41 +63,41 @@ export default function ContactMe({}: Props) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-3 sm:space-y-4 md:space-y-5 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
+          className="flex flex-col space-y-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
         >
-          <div className="flex flex-col md:flex-row md:space-x-4 space-y-3 md:space-y-0">
+          <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
             <input
               {...register("name")}
               placeholder="Name"
-              className="contactInput w-full text-sm sm:text-base md:text-lg"
+              className="contactInput w-full text-sm md:text-base lg:text-lg"
               type="text"
             />
             <input
               {...register("email")}
               placeholder="Email"
-              className="contactInput w-full text-sm sm:text-base md:text-lg"
+              className="contactInput w-full text-sm md:text-base lg:text-lg"
               type="email"
             />
           </div>
           <input
             {...register("subject")}
             placeholder="Subject"
-            className="contactInput w-full text-sm sm:text-base md:text-lg"
+            className="contactInput w-full text-sm md:text-base lg:text-lg"
             type="text"
           />
           <textarea
             {...register("message")}
             placeholder="Message"
-            className="contactInput w-full text-sm sm:text-base md:text-lg"
+            className="contactInput w-full text-sm md:text-base lg:text-lg"
             rows={4}
           />
-          <button className="bg-lightGreen py-2 sm:py-3 md:py-4 px-8 sm:px-10 rounded-lg text-white font-bold text-sm sm:text-base md:text-lg">
+          <button className="bg-lightGreen py-2 sm:py-3 md:py-4 px-8 sm:px-10 rounded-lg text-white font-bold text-sm md:text-base lg:text-lg">
             Submit
           </button>
         </form>
 
         {/* Footer with "Crafted with ❤️ by Tirth" */}
-        <div className="w-full text-center mt-6 sm:mt-8 md:mt-10">
+        <div className="w-full text-center mt-4">
           <p className="text-gray-500 text-xs sm:text-sm md:text-base flex items-center justify-center">
             Crafted with{" "}
             <motion.span
