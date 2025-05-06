@@ -39,7 +39,7 @@ export default function ContactMe({}: Props) {
         <h4 className="text-lg md:text-2xl lg:text-4xl font-semibold text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mt-4">
           Need a creative mind? Look no further!{" "}
           <br className="hidden sm:block" />
-          <span className="decoration-darkGreen/50 underline">Let's join forces</span> and make magic happen. Coffee's on me – unless you prefer tea!
+          <span className="decoration-darkGreen/50 underline">Let’s join forces</span> and make magic happen. Coffee’s on me – unless you prefer tea!
         </h4>
 
         <div className="space-y-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
