@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
-import { SocialIcon } from "react-social-icons";
+import { FaLinkedin, FaTwitter, FaGithub, FaMedium, FaEnvelope } from "react-icons/fa";
+import { IconType } from "react-icons";
 import { Social } from "../typings";
 
 type Props = {
@@ -9,6 +10,24 @@ type Props = {
 };
 
 export default function Header({ socials }: Props) {
+  // Define the desired order of social platforms
+  const order = ["LinkedIn", "X", "GitHub", "Medium"];
+
+  // Sort socials based on the defined order
+  const sortedSocials = [...socials].sort((a, b) => {
+    const aIndex = order.indexOf(a.title);
+    const bIndex = order.indexOf(b.title);
+    return aIndex - bIndex;
+  });
+
+  // Map social titles to their corresponding icons with proper typing
+  const iconMap: { [key: string]: IconType } = {
+    LinkedIn: FaLinkedin,
+    X: FaTwitter,
+    GitHub: FaGithub,
+    Medium: FaMedium,
+  };
+
   return (
     <header className="sticky top-0 p-5 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center">
       <motion.div
@@ -25,71 +44,74 @@ export default function Header({ socials }: Props) {
         transition={{
           duration: 1.5,
         }}
-        className="flex flex-row items-center"
+        className="flex flex-row items-center space-x-3"
       >
         {/* Social icons */}
-        {socials
-          .filter((social) => !(social.url?.includes("huggingface.co"))) // Exclude Hugging Face with safeguard
+        {sortedSocials
+          .filter((social) => !(social.url?.includes("huggingface.co")))
           .map((social) => {
-            // Parse the URL and check the host against a whitelist
-            let network;
-            try {
-              const url = new URL(social.url);
-              const host = url.hostname.toLowerCase();
-              const allowedHosts = ["x.com", "twitter.com"];
-              // Check if the host exactly matches or is a subdomain of an allowed host
-              const isAllowed = allowedHosts.some(
-                (allowedHost) =>
-                  host === allowedHost ||
-                  host.endsWith(`.${allowedHost}`)
-              );
-              network = isAllowed ? "twitter" : undefined;
-            } catch (error) {
-              // If URL parsing fails, default to undefined
-              network = undefined;
-            }
+            const IconComponent: IconType | undefined = iconMap[social.title];
+            if (!IconComponent) return null;
+
+            // Explicitly render as a React component
+            const Icon = IconComponent as React.ComponentType<{ size?: number }>;
 
             return (
-              <SocialIcon
+              <a
                 key={social._id}
-                url={social.url}
-                network={network}
-                fgColor="gray"
-                bgColor="transparent"
-                className="hover:opacity-80 transition-opacity"
-              />
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-300 transition-colors"
+                style={{
+                  display: "inline-block",
+                  width: "24px", // Reduced from 40px
+                  height: "24px", // Reduced from 40px
+                  lineHeight: "24px", // Reduced from 40px
+                  textAlign: "center",
+                }}
+              >
+                <Icon size={24} /> {/* Reduced from 40 */}
+              </a>
             );
           })}
       </motion.div>
 
-      <Link href="#contact">
-        <motion.div
-          initial={{
-            x: 500,
-            opacity: 0.5,
-            scale: 0.5,
+      <motion.div
+        initial={{
+          x: 500,
+          opacity: 0.5,
+          scale: 0.5,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{
+          duration: 1.5,
+        }}
+        className="flex flex-row items-center space-x-3"
+      >
+        <a
+          href="#contact"
+          className="text-gray-500 hover:text-gray-300 transition-colors"
+          style={{
+            display: "inline-block",
+            width: "24px", // Reduced from 40px
+            height: "24px", // Reduced from 40px
+            lineHeight: "24px", // Reduced from 40px
+            textAlign: "center",
           }}
-          animate={{
-            x: 0,
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 1.5,
-          }}
-          className="flex flex-row items-center text-gray-300 cursor-pointer"
         >
-          <SocialIcon
-            className="cursor-pointer"
-            network="email"
-            fgColor="grey"
-            bgColor="transparent"
-          />
+          {React.createElement(FaEnvelope as React.ComponentType<{ size?: number }>, { size: 24 })} {/* Reduced from 40 */}
+        </a>
+        <Link href="#contact">
           <p className="uppercase hidden md:inline-flex text-sm text-gray-400">
             Get in touch
           </p>
-        </motion.div>
-      </Link>
+        </Link>
+      </motion.div>
     </header>
   );
 }
