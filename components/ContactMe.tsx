@@ -140,7 +140,7 @@ export default function ContactMe({}: Props) {
 
         {submitStatus === "success" && (
           <p className="text-green-600 text-[10px] sm:text-xs md:text-sm mt-0.5 sm:mt-1">
-            Message sent successfully! I'll get back to you soon.
+            Message sent successfully! I’ll get back to you soon.
           </p>
         )}
         {submitStatus === "error" && (
