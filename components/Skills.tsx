@@ -19,9 +19,10 @@ export default function Skills({ skills }: Props) {
       transition={{ duration: 1.5 }}
       className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-7xl px-4 sm:px-6 md:px-10 justify-center mx-auto items-center"
     >
-      <h3 className="absolute top-16 sm:top-20 md:top-24 uppercase tracking-[12px] sm:tracking-[16px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
+      <h3 className="absolute left-0 right-0 mx-auto text-center top-16 sm:top-20 md:top-24 uppercase tracking-[10px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Skills
       </h3>
+
       <h3 className="absolute top-28 sm:top-32 md:top-36 uppercase tracking-[2px] sm:tracking-[3px] text-gray-500 text-xs sm:text-sm">
         Hover over a skill for current proficiency
       </h3>

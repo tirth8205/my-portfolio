@@ -65,7 +65,7 @@ export default function Projects({ projects }: Props) {
       className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0"
     >
       {/* Reduced Y-position title */}
-      <h3 className="absolute top-12 md:top-16 uppercase tracking-[20px] text-gray-500 text-xl md:text-2xl">
+      <h3 className="absolute left-0 right-0 mx-auto text-center top-16 sm:top-20 md:top-24 uppercase tracking-[10px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Projects
       </h3>
 
