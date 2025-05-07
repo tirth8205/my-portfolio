@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
+import dynamic from "next/dynamic";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+
+// Dynamically import Heroicons with SSR disabled to lazy-load them
+const PhoneIcon = dynamic(() => import("@heroicons/react/24/solid").then((mod) => mod.PhoneIcon), { ssr: false });
+const MapPinIcon = dynamic(() => import("@heroicons/react/24/solid").then((mod) => mod.MapPinIcon), { ssr: false });
+const EnvelopeIcon = dynamic(() => import("@heroicons/react/24/solid").then((mod) => mod.EnvelopeIcon), { ssr: false });
 
 type Props = {};
 
@@ -57,18 +62,18 @@ export default function ContactMe({}: Props) {
 
   return (
     <div className="h-screen flex relative flex-col text-center max-w-7xl px-3 sm:px-4 md:px-8 lg:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20">
-      <h3 className="absolute top-16 sm:top-20 md:top-16 left-0 right-0 text-center pt-2 sm:pt-3 md:pt-4 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
+      <h3 className="absolute top-16 sm:top-20 md:top-14 lg:top-2 left-0 right-0 text-center pt-2 sm:pt-3 md:pt-4 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Contact
       </h3>
 
-      <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-5 md:space-y-6 w-full h-full">
-        <h4 className="text-sm sm:text-base md:text-lg lg:text-3xl font-semibold text-center max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto mt-5 sm:mt-6 md:mt-7">
+      <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8 w-full h-full">
+        <h4 className="text-sm sm:text-base md:text-lg lg:text-3xl font-semibold text-center max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto mt-5 sm:mt-6 md:mt-7 lg:mt-8">
           Need a creative mind? Look no further!{" "}
           <br className="hidden sm:block" />
           <span className="decoration-darkGreen/50 underline">Let’s join forces</span> and make magic happen. Coffee’s on me – unless you prefer tea!
         </h4>
 
-        <div className="space-y-1 sm:space-y-2 md:space-y-3 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto">
+        <div className="space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto">
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
             <PhoneIcon className="text-darkGreen h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 animate-pulse flex-shrink-0" />
             <p className="text-[10px] sm:text-xs md:text-sm lg:text-base">+44 7741918549</p>
@@ -82,14 +87,14 @@ export default function ContactMe({}: Props) {
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
             <MapPinIcon className="text-darkGreen h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 animate-pulse flex-shrink-0" />
             <p className="text-[10px] sm:text-xs md:text-sm lg:text-base">
-              Birmingham, United Kingdom
+              London, United Kingdom
             </p>
           </div>
         </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-1 sm:space-y-2 md:space-y-3 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto"
+          className="flex flex-col space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto"
         >
           <div className="flex flex-col md:flex-row md:space-x-3 space-y-1 sm:space-y-2 md:space-y-0">
             <div className="w-full">
