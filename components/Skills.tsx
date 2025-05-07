@@ -18,16 +18,16 @@ export default function Skills({ skills }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-[90%] sm:max-w-[95%] md:max-w-[1200px] lg:max-w-[1400px] xl:max-w-[1600px] px-4 sm:px-6 md:px-8 lg:px-10 min-h-screen justify-center xl:space-y-0 mx-auto items-center"
+      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-[95%] xs:max-w-[90%] sm:max-w-[85%] md:max-w-[1200px] lg:max-w-[1400px] px-2 xs:px-4 sm:px-6 md:px-8 lg:px-10 min-h-screen justify-center xl:space-y-0 mx-auto items-center"
     >
-      <h3 className="absolute top-20 md:top-24 uppercase tracking-[20px] text-gray-500 text-xl md:text-2xl">
+      <h3 className="absolute top-16 xs:top-18 sm:top-20 md:top-24 uppercase tracking-[12px] xs:tracking-[14px] sm:tracking-[16px] md:tracking-[20px] text-gray-500 text-lg xs:text-lg sm:text-xl md:text-2xl">
         Skills
       </h3>
-      <h3 className="absolute top-32 md:top-36 uppercase tracking-[3px] text-gray-500 text-sm">
+      <h3 className="absolute top-28 xs:top-30 sm:top-32 md:top-36 uppercase tracking-[2px] xs:tracking-[3px] text-gray-500 text-xs xs:text-sm sm:text-sm md:text-sm">
         Hover over a skill for current proficiency
       </h3>
 
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-5">
+      <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-2 xs:gap-3 sm:gap-4 md:gap-5 overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide snap-x snap-mandatory">
         {skills?.slice(0, skills.length / 2).map((skill) => (
           <Skill
             key={skill._id}
