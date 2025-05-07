@@ -69,8 +69,8 @@ export default function ContactMe({}: Props) {
         Contact
       </h3>
 
-      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-10 w-full mt-24 sm:mt-20 md:mt-0">
-        <h4 className="text-base sm:text-lg md:text-xl lg:text-3xl font-semibold text-center">
+      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-10 w-full mt-24 sm:mt-20 md:mt-0 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto">
+        <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center">
           Need a creative mind? Look no further!{" "}
           <span className="decoration-darkGreen/50 underline">Let&apos;s join forces</span> and make magic happen. Coffee&apos;s on me – unless you prefer tea!
         </h4>
@@ -92,7 +92,7 @@ export default function ContactMe({}: Props) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2 sm:space-y-3 md:space-y-4 w-full px-4 mx-auto"
+          className="flex flex-col space-y-2 sm:space-y-3 md:space-y-4 w-full mx-auto px-0 sm:px-4 md:px-8 lg:px-12"
         >
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 md:space-x-4">
             <input
@@ -117,14 +117,27 @@ export default function ContactMe({}: Props) {
           <textarea
             {...register("message")}
             placeholder="Message"
-            className="contactInput text-xs sm:text-sm md:text-base"
+            className="contactInput text-xs sm:text-sm md:text-base min-h-[100px] md:min-h-[120px]"
           />
           <button
             type="submit"
             className="bg-gradient-to-r from-darkGreen to-lightGreen py-2 sm:py-3 md:py-4 px-4 sm:px-6 md:px-10 rounded-md text-white font-bold text-xs sm:text-sm md:text-base"
+            disabled={isSubmitting}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
+          
+          {submitStatus === "success" && (
+            <p className="text-green-500 text-xs sm:text-sm md:text-base">
+              Message sent successfully!
+            </p>
+          )}
+          
+          {submitStatus === "error" && (
+            <p className="text-red-500 text-xs sm:text-sm md:text-base">
+              Error sending message. Please try again.
+            </p>
+          )}
         </form>
 
         <div className="w-full text-center mt-4 sm:mt-6 md:mt-8">
