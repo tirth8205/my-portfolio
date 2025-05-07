@@ -61,7 +61,7 @@ export default function ContactMe({}: Props) {
   };
 
   return (
-    <div className="h-screen flex relative flex-col text-center max-w-7xl px-3 sm:px-4 md:px-8 lg:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20">
+    <div className="h-screen md:min-h-screen flex relative flex-col text-center max-w-7xl px-3 sm:px-4 md:px-8 lg:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-24 lg:pb-28">
       <h3 className="absolute top-16 sm:top-20 md:top-14 lg:top-2 left-0 right-0 text-center pt-2 sm:pt-3 md:pt-4 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Contact
       </h3>
@@ -93,7 +93,6 @@ export default function ContactMe({}: Props) {
         </div>
 
         <form
-          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto"
         >
           <div className="flex flex-col md:flex-row md:space-x-3 space-y-1 sm:space-y-2 md:space-y-0">
@@ -155,8 +154,8 @@ export default function ContactMe({}: Props) {
         )}
 
         {/* Footer with "Crafted with ❤️ by Tirth" */}
-        <div className="w-full text-center mt-2 sm:mt-3 md:mt-4">
-          <p className="text-gray-500 text-[10px] sm:text-xs md:text-sm flex items-center justify-center">
+        <div className="w-full text-center mt-2 sm:mt-3 md:mt-6 lg:mt-8 md:pb-6 lg:pb-8">
+          <p className="text-gray-500 text-[10px] sm:text-xs md:text-xs lg:text-sm flex items-center justify-center">
             Crafted with{" "}
             <motion.span
               className="inline-block align-middle mx-0.5 sm:mx-1 cursor-pointer"
