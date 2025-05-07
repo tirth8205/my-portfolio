@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 type Props = {};
 
@@ -13,14 +14,39 @@ type Inputs = {
 };
 
 export default function ContactMe({}: Props) {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
   const [isHeartClicked, setIsHeartClicked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    const encodedSubject = encodeURIComponent(formData.subject);
-    const encodedMessage = encodeURIComponent(formData.message);
-    const encodedName = encodeURIComponent(formData.name);
-    window.location.href = `mailto:tirthkanani18@gmail.com?subject=${encodedSubject}&body=Hi, my name is ${encodedName}.${encodedMessage}`;
+  // Initialize EmailJS with your Public Key
+  useEffect(() => {
+    emailjs.init("cRWCBKWsBFk_Ns1k9"); // Your EmailJS Public Key
+  }, []);
+
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      await emailjs.send(
+        "service_viiik3f", // Your EmailJS Service ID
+        "template_r2t4t8e", // Your EmailJS Template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      );
+      setSubmitStatus("success");
+      reset(); // Clear the form after successful submission
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Handle heart click for animation in footer
@@ -30,32 +56,32 @@ export default function ContactMe({}: Props) {
   };
 
   return (
-    <div className="min-h-screen flex relative flex-col text-center max-w-7xl px-4 sm:px-6 md:px-10 mx-auto items-center pt-16 sm:pt-20 md:pt-24">
-      <h3 className="absolute top-0 left-0 right-0 text-center pt-4 sm:pt-6 md:pt-8 uppercase tracking-[15px] sm:tracking-[20px] text-gray-500 text-xl md:text-2xl">
+    <div className="h-screen flex relative flex-col text-center max-w-7xl px-3 sm:px-4 md:px-8 lg:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20">
+      <h3 className="absolute top-0 left-0 right-0 text-center pt-3 sm:pt-4 md:pt-6 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Contact
       </h3>
 
-      <div className="flex flex-col items-center justify-center space-y-6 w-full">
-        <h4 className="text-lg md:text-2xl lg:text-4xl font-semibold text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mt-4">
+      <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-5 md:space-y-6 w-full h-full">
+        <h4 className="text-sm sm:text-base md:text-lg lg:text-3xl font-semibold text-center max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto mt-5 sm:mt-6 md:mt-7">
           Need a creative mind? Look no further!{" "}
           <br className="hidden sm:block" />
           <span className="decoration-darkGreen/50 underline">Let’s join forces</span> and make magic happen. Coffee’s on me – unless you prefer tea!
         </h4>
 
-        <div className="space-y-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
-          <div className="flex items-center justify-center space-x-4 sm:space-x-5">
-            <PhoneIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
-            <p className="text-sm md:text-base lg:text-lg">+44 7741918549</p>
+        <div className="space-y-1 sm:space-y-2 md:space-y-3 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
+            <PhoneIcon className="text-darkGreen h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 animate-pulse flex-shrink-0" />
+            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base">+44 7741918549</p>
           </div>
-          <div className="flex items-center justify-center space-x-4 sm:space-x-5">
-            <EnvelopeIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
-            <p className="text-sm md:text-base lg:text-lg">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
+            <EnvelopeIcon className="text-darkGreen h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 animate-pulse flex-shrink-0" />
+            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base">
               tirthkanani18@gmail.com
             </p>
           </div>
-          <div className="flex items-center justify-center space-x-4 sm:space-x-5">
-            <MapPinIcon className="text-darkGreen h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 animate-pulse flex-shrink-0" />
-            <p className="text-sm md:text-base lg:text-lg">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
+            <MapPinIcon className="text-darkGreen h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 animate-pulse flex-shrink-0" />
+            <p className="text-[10px] sm:text-xs md:text-sm lg:text-base">
               Birmingham, United Kingdom
             </p>
           </div>
@@ -63,45 +89,72 @@ export default function ContactMe({}: Props) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
+          className="flex flex-col space-y-1 sm:space-y-2 md:space-y-3 w-full max-w-[90%] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto"
         >
-          <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-            <input
-              {...register("name")}
-              placeholder="Name"
-              className="contactInput w-full text-sm md:text-base lg:text-lg"
-              type="text"
-            />
-            <input
-              {...register("email")}
-              placeholder="Email"
-              className="contactInput w-full text-sm md:text-base lg:text-lg"
-              type="email"
-            />
+          <div className="flex flex-col md:flex-row md:space-x-3 space-y-1 sm:space-y-2 md:space-y-0">
+            <div className="w-full">
+              <input
+                {...register("name")}
+                placeholder="Name"
+                className="contactInput w-full text-[10px] sm:text-xs md:text-sm lg:text-base"
+                type="text"
+              />
+            </div>
+            <div className="w-full">
+              <input
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Please enter a valid email address",
+                  },
+                })}
+                placeholder="Email"
+                className="contactInput w-full text-[10px] sm:text-xs md:text-sm lg:text-base"
+                type="email"
+              />
+              {errors.email && (
+                <p className="text-red-600 text-[10px] sm:text-xs mt-0.5">{errors.email.message}</p>
+              )}
+            </div>
           </div>
           <input
             {...register("subject")}
             placeholder="Subject"
-            className="contactInput w-full text-sm md:text-base lg:text-lg"
+            className="contactInput w-full text-[10px] sm:text-xs md:text-sm lg:text-base"
             type="text"
           />
           <textarea
             {...register("message")}
             placeholder="Message"
-            className="contactInput w-full text-sm md:text-base lg:text-lg"
-            rows={4}
+            className="contactInput w-full text-[10px] sm:text-xs md:text-sm lg:text-base"
+            rows={3}
           />
-          <button className="bg-lightGreen py-2 sm:py-3 md:py-4 px-8 sm:px-10 rounded-lg text-white font-bold text-sm md:text-base lg:text-lg">
-            Submit
+          <button
+            className="bg-lightGreen py-0.5 sm:py-1 md:py-2 px-4 sm:px-6 md:px-8 rounded-lg text-white font-bold text-[10px] sm:text-xs md:text-sm lg:text-base disabled:opacity-50"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Sending..." : "Submit"}
           </button>
         </form>
 
+        {submitStatus === "success" && (
+          <p className="text-green-600 text-[10px] sm:text-xs md:text-sm mt-0.5 sm:mt-1">
+            Message sent successfully! I'll get back to you soon.
+          </p>
+        )}
+        {submitStatus === "error" && (
+          <p className="text-red-600 text-[10px] sm:text-xs md:text-sm mt-0.5 sm:mt-1">
+            Failed to send message. Please try again later.
+          </p>
+        )}
+
         {/* Footer with "Crafted with ❤️ by Tirth" */}
-        <div className="w-full text-center mt-4">
-          <p className="text-gray-500 text-xs sm:text-sm md:text-base flex items-center justify-center">
+        <div className="w-full text-center mt-2 sm:mt-3 md:mt-4">
+          <p className="text-gray-500 text-[10px] sm:text-xs md:text-sm flex items-center justify-center">
             Crafted with{" "}
             <motion.span
-              className="inline-block align-middle mx-1 cursor-pointer"
+              className="inline-block align-middle mx-0.5 sm:mx-1 cursor-pointer"
               onClick={handleHeartClick}
               animate={
                 isHeartClicked
