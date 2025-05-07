@@ -6,6 +6,15 @@ import { Experience } from "../typings";
 type Props = { experience: Experience };
 
 export default function ExperienceCard({ experience }: Props) {
+  // Function to abbreviate month names with proper type annotation
+  const formatDate = (dateString: string): string => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const month = date.toLocaleDateString("en-US", { month: "long" }).slice(0, 3);
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+  };
+
   return (
     <article className="flex drop-shadow-xl flex-col rounded-3xl items-center space-y-0 flex-shrink-0 w-[90%] xs:w-72 md:w-[600px] xl:w-[700px] snap-center bg-[#FFFFFF] bg-gradient-to-tr from-white to-darkGreen/20 p-4 xs:p-5 md:p-10 hover:opacity-100 opacity-100 cursor-pointer transition-opacity duration-200">
       {experience?.companyImage ? (
@@ -30,16 +39,10 @@ export default function ExperienceCard({ experience }: Props) {
               
               {/* Date - positioned normally on mobile, next to title on desktop */}
               <p className="hidden md:block uppercase text-gray-500 text-sm md:text-lg md:ml-4">
-                {new Date(experience?.dateStarted).toLocaleDateString("en-US", {
-                  month: "long",
-                  year: "numeric",
-                })} -{" "}
+                {formatDate(experience?.dateStarted)} -{" "}
                 {experience.isCurrentlyWorkingHere
                   ? "Present"
-                  : new Date(experience?.dateEnded).toLocaleDateString("en-US", {
-                      month: "long",
-                      year: "numeric",
-                    })}
+                  : formatDate(experience?.dateEnded)}
               </p>
             </div>
             
@@ -49,16 +52,10 @@ export default function ExperienceCard({ experience }: Props) {
             
             {/* Date for mobile only */}
             <p className="md:hidden uppercase py-2 text-gray-500 text-sm">
-              {new Date(experience?.dateStarted).toLocaleDateString("en-US", {
-                month: "long",
-                year: "numeric",
-              })} -{" "}
+              {formatDate(experience?.dateStarted)} -{" "}
               {experience.isCurrentlyWorkingHere
                 ? "Present"
-                : new Date(experience?.dateEnded).toLocaleDateString("en-US", {
-                    month: "long",
-                    year: "numeric",
-                  })}
+                : formatDate(experience?.dateEnded)}
             </p>
             
             {/* Fixed skills icons with flex-wrap */}
@@ -86,7 +83,9 @@ export default function ExperienceCard({ experience }: Props) {
           ) : null}
         </div>
       </div>
-      <div className="w-full px-0 md:px-10 max-h-[200px] xs:max-h-[250px] md:max-h-[300px] overflow-hidden">
+      
+      {/* Added mt-4 for spacing between skills and points */}
+      <div className="w-full px-0 md:px-10 max-h-[200px] xs:max-h-[250px] md:max-h-[300px] overflow-hidden mt-4">
         <ul className="list-disc text-black space-y-2 pr-5 text-justify ml-0 text-sm md:text-lg pl-5 h-full overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-darkGreen/80">
           {(experience?.points ?? []).map((point, i) => (
             <li key={i} className="mb-2">{point}</li>
