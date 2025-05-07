@@ -21,13 +21,46 @@ export default function ExperienceCard({ experience }: Props) {
       ) : null}
       <div className="w-full px-0 md:px-10">
         <div className="md:flex md:justify-between items-center">
-          <div>
-            <h4 className="text-lg md:text-3xl font-light text-black">
-              {experience?.jobTitle}
-            </h4>
+          <div className="md:flex-1">
+            {/* Title and date container - rearranged for desktop */}
+            <div className="md:flex md:items-center md:justify-between">
+              <h4 className="text-lg md:text-3xl font-light text-black">
+                {experience?.jobTitle}
+              </h4>
+              
+              {/* Date - positioned normally on mobile, next to title on desktop */}
+              <p className="hidden md:block uppercase text-gray-500 text-sm md:text-lg md:ml-4">
+                {new Date(experience?.dateStarted).toLocaleDateString("en-US", {
+                  month: "long",
+                  year: "numeric",
+                })} -{" "}
+                {experience.isCurrentlyWorkingHere
+                  ? "Present"
+                  : new Date(experience?.dateEnded).toLocaleDateString("en-US", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+              </p>
+            </div>
+            
             <p className="font-bold text-md md:text-2xl mt-1 text-lightGreen">
               {experience?.company}
             </p>
+            
+            {/* Date for mobile only */}
+            <p className="md:hidden uppercase py-2 text-gray-500 text-sm">
+              {new Date(experience?.dateStarted).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })} -{" "}
+              {experience.isCurrentlyWorkingHere
+                ? "Present"
+                : new Date(experience?.dateEnded).toLocaleDateString("en-US", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+            </p>
+            
             <div className="flex space-x-2 my-2">
               {experience?.technologies.map((technology) => (
                 <img
@@ -51,18 +84,6 @@ export default function ExperienceCard({ experience }: Props) {
             />
           ) : null}
         </div>
-        <p className="uppercase py-2 md:py-5 text-gray-500 text-sm md:text-lg">
-          {new Date(experience?.dateStarted).toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          })} -{" "}
-          {experience.isCurrentlyWorkingHere
-            ? "Present"
-            : new Date(experience?.dateEnded).toLocaleDateString("en-US", {
-                month: "long",
-                year: "numeric",
-              })}
-        </p>
       </div>
       <div className="w-full px-0 md:px-10 max-h-[200px] xs:max-h-[250px] md:max-h-[300px] overflow-hidden">
         <ul className="list-disc text-black space-y-2 pr-5 text-justify ml-0 text-sm md:text-lg pl-5 h-full overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-darkGreen/80">
