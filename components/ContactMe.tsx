@@ -57,7 +57,7 @@ export default function ContactMe({}: Props) {
 
   return (
     <div className="h-screen flex relative flex-col text-center max-w-7xl px-3 sm:px-4 md:px-8 lg:px-10 mx-auto items-center pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20">
-      <h3 className="absolute top-0 sm:top-18 md:top-16 left-0 right-0 text-center pt-2 sm:pt-3 md:pt-4 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
+      <h3 className="absolute top-16 sm:top-20 md:top-16 left-0 right-0 text-center pt-2 sm:pt-3 md:pt-4 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Contact
       </h3>
 
@@ -140,7 +140,7 @@ export default function ContactMe({}: Props) {
 
         {submitStatus === "success" && (
           <p className="text-green-600 text-[10px] sm:text-xs md:text-sm mt-0.5 sm:mt-1">
-            Message sent successfully! I&apos;ll get back to you soon.
+            Message sent successfully! I'll get back to you soon.
           </p>
         )}
         {submitStatus === "error" && (
