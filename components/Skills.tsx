@@ -27,7 +27,33 @@ export default function Skills({ skills }: Props) {
         Hover over a skill for current proficiency
       </h3>
 
-      <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-2 xs:gap-3 sm:gap-4 md:gap-5 overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide snap-x snap-mandatory">
+      {/* For small screens: flexbox with horizontal scrolling */}
+      <div className="md:hidden w-full overflow-x-auto scrollbar-hide py-4">
+        <div className="flex flex-row flex-nowrap gap-3 xs:gap-4 sm:gap-5 justify-start min-w-max">
+          {skills?.slice(0, skills.length / 2).map((skill) => (
+            <div key={skill._id} className="flex-shrink-0 w-[40px] xs:w-[48px] sm:w-[56px]">
+              <Skill
+                skill={skill}
+                isActive={activeSkillId === skill._id}
+                onClick={() => handleSkillClick(skill._id)}
+              />
+            </div>
+          ))}
+          {skills?.slice(skills.length / 2, skills.length).map((skill) => (
+            <div key={skill._id} className="flex-shrink-0 w-[40px] xs:w-[48px] sm:w-[56px]">
+              <Skill
+                skill={skill}
+                directionLeft
+                isActive={activeSkillId === skill._id}
+                onClick={() => handleSkillClick(skill._id)}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* For medium and larger screens: grid layout */}
+      <div className="hidden md:grid md:grid-cols-5 lg:grid-cols-6 gap-3 xs:gap-4 sm:gap-4 md:gap-5">
         {skills?.slice(0, skills.length / 2).map((skill) => (
           <Skill
             key={skill._id}
@@ -36,7 +62,6 @@ export default function Skills({ skills }: Props) {
             onClick={() => handleSkillClick(skill._id)}
           />
         ))}
-
         {skills?.slice(skills.length / 2, skills.length).map((skill) => (
           <Skill
             key={skill._id}
