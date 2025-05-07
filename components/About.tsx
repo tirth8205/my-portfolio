@@ -60,13 +60,13 @@ export default function About({ pageInfo }: Props) {
         src={urlFor(pageInfo?.profilePic).url()}
       />
       
-      <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-7 px-4 sm:px-6 md:px-10 max-w-md lg:max-w-lg">
+      <div className="space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-5 px-4 sm:px-6 md:px-10 max-w-md lg:max-w-lg">
         <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold">
           Here is a{" "}
           <span className="underline decoration-darkGreen/50">little</span>{" "}
           background
         </h4>
-        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-justify">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-justify">
           {pageInfo?.backgroundInformation}
         </p>
       </div>
