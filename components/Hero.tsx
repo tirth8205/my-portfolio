@@ -10,9 +10,8 @@ import BackgroundCircles from "./BackgroundCircles";
 type Props = { pageInfo: PageInfo };
 
 export default function Hero({ pageInfo }: Props) {
-  // Add state to track client-side rendering
   const [isClient, setIsClient] = useState(false);
-  
+
   // Set isClient to true after component mounts (after hydration)
   useEffect(() => {
     setIsClient(true);
@@ -26,7 +25,9 @@ export default function Hero({ pageInfo }: Props) {
       "And I'm addicted to ☕️",
     ],
     loop: true,
-    delaySpeed: 2000,
+    delaySpeed: 3000, // Increased delay to reduce update frequency
+    typeSpeed: 100, // Slower typing to reduce DOM updates
+    deleteSpeed: 50,
   });
 
   return (
