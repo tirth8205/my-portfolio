@@ -69,24 +69,24 @@ export default function ContactMe({}: Props) {
         Contact
       </h3>
 
-      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-10 w-full mt-24 sm:mt-20 md:mt-16 lg:mt-8 max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto">
+      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-4 xl:space-y-2 w-full mt-24 sm:mt-20 md:mt-16 lg:mt-8 max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-2xl mx-auto">
         <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center">
           Need a creative mind? Look no further!{" "}
           <span className="decoration-darkGreen/50 underline">Let&apos;s join forces</span> and make magic happen. Coffee&apos;s on me – unless you prefer tea!
         </h4>
 
-        <div className="space-y-2 sm:space-y-3 md:space-y-4">
-          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
-            <PhoneIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 animate-pulse" />
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg">+44 7741918549</p>
+        <div className="space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-2 xl:space-y-1 lg:flex lg:flex-row lg:space-x-6 lg:justify-center lg:items-center">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-2">
+            <PhoneIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 animate-pulse" />
+            <p className="text-xs sm:text-sm md:text-base lg:text-sm">+44 7741918549</p>
           </div>
-          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
-            <EnvelopeIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 animate-pulse" />
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg">tirthkanani18@gmail.com</p>
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-2">
+            <EnvelopeIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 animate-pulse" />
+            <p className="text-xs sm:text-sm md:text-base lg:text-sm">tirthkanani18@gmail.com</p>
           </div>
-          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4">
-            <MapPinIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 animate-pulse" />
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg">London, United Kingdom</p>
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-2">
+            <MapPinIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 animate-pulse" />
+            <p className="text-xs sm:text-sm md:text-base lg:text-sm">London, United Kingdom</p>
           </div>
         </div>
 
