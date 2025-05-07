@@ -65,11 +65,11 @@ export default function ContactMe({}: Props) {
       transition={{ duration: 1.5 }}
       className="h-screen relative flex flex-col text-center md:text-left md:flex-row max-w-7xl px-4 sm:px-6 md:px-10 justify-evenly mx-auto items-center"
     >
-      <h3 className="absolute top-16 sm:top-20 md:top-24 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
+      <h3 className="absolute top-16 sm:top-20 md:top-12 lg:top-10 uppercase tracking-[12px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl z-10">
         Contact
       </h3>
 
-      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-10 w-full mt-24 sm:mt-20 md:mt-0 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto">
+      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-10 w-full mt-24 sm:mt-20 md:mt-16 lg:mt-8 max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto">
         <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center">
           Need a creative mind? Look no further!{" "}
           <span className="decoration-darkGreen/50 underline">Let&apos;s join forces</span> and make magic happen. Coffee&apos;s on me – unless you prefer tea!
@@ -94,17 +94,17 @@ export default function ContactMe({}: Props) {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-2 sm:space-y-3 md:space-y-4 w-full mx-auto px-0 sm:px-4 md:px-8 lg:px-12"
         >
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 md:space-x-4">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 md:space-x-4 w-full">
             <input
               {...register("name", { required: true })}
               placeholder="Name"
-              className="contactInput text-xs sm:text-sm md:text-base"
+              className="contactInput text-xs sm:text-sm md:text-base flex-1"
               type="text"
             />
             <input
               {...register("email", { required: true })}
               placeholder="Email"
-              className="contactInput text-xs sm:text-sm md:text-base"
+              className="contactInput text-xs sm:text-sm md:text-base flex-1"
               type="email"
             />
           </div>
