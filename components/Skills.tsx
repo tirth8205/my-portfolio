@@ -9,7 +9,6 @@ export default function Skills({ skills }: Props) {
   const [activeSkillId, setActiveSkillId] = useState<string | null>(null);
 
   const handleSkillClick = (skillId: string) => {
-    // Toggle the active skill: if the same skill is clicked again, hide the popup; otherwise, show the new skill's popup
     setActiveSkillId((prev) => (prev === skillId ? null : skillId));
   };
 
@@ -18,31 +17,23 @@ export default function Skills({ skills }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-[95%] xs:max-w-[90%] sm:max-w-[85%] md:max-w-[1200px] lg:max-w-[1400px] px-2 xs:px-3 sm:px-4 md:px-8 lg:px-10 min-h-screen justify-center xl:space-y-0 mx-auto items-center"
+      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-7xl px-4 sm:px-6 md:px-10 justify-center mx-auto items-center"
     >
-      <h3 className="absolute top-16 xs:top-18 sm:top-20 md:top-24 uppercase tracking-[10px] xs:tracking-[12px] sm:tracking-[14px] md:tracking-[20px] text-gray-500 text-base xs:text-lg sm:text-xl md:text-2xl">
+      <h3 className="absolute top-16 sm:top-20 md:top-24 uppercase tracking-[12px] sm:tracking-[16px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Skills
       </h3>
-      <h3 className="absolute top-28 xs:top-30 sm:top-32 md:top-36 uppercase tracking-[2px] xs:tracking-[3px] text-gray-500 text-xs xs:text-sm sm:text-sm md:text-sm">
+      <h3 className="absolute top-28 sm:top-32 md:top-36 uppercase tracking-[2px] sm:tracking-[3px] text-gray-500 text-xs sm:text-sm">
         Hover over a skill for current proficiency
       </h3>
 
-      {/* For small screens: grid with vertical scrolling */}
-      <div className="md:hidden w-full h-[60vh] overflow-y-auto scrollbar-hide py-4">
-        <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 gap-2 xs:gap-3 sm:gap-4">
-          {skills?.slice(0, skills.length / 2).map((skill) => (
+      {/* Mobile grid (3 columns) */}
+      <div className="md:hidden w-full max-h-[60vh] overflow-y-auto mt-36 sm:mt-32">
+        <div className="grid grid-cols-3 gap-4 sm:gap-5">
+          {skills?.map((skill) => (
             <Skill
               key={skill._id}
               skill={skill}
-              isActive={activeSkillId === skill._id}
-              onClick={() => handleSkillClick(skill._id)}
-            />
-          ))}
-          {skills?.slice(skills.length / 2, skills.length).map((skill) => (
-            <Skill
-              key={skill._id}
-              skill={skill}
-              directionLeft
+              directionLeft={skills.indexOf(skill) >= skills.length / 2}
               isActive={activeSkillId === skill._id}
               onClick={() => handleSkillClick(skill._id)}
             />
@@ -50,8 +41,8 @@ export default function Skills({ skills }: Props) {
         </div>
       </div>
 
-      {/* For medium and larger screens: grid layout */}
-      <div className="hidden md:grid md:grid-cols-5 lg:grid-cols-6 gap-3 xs:gap-4 sm:gap-4 md:gap-5">
+      {/* Desktop grid (multiple columns) */}
+      <div className="hidden md:grid md:grid-cols-4 lg:grid-cols-6 gap-5 md:gap-6 lg:gap-8 mt-32">
         {skills?.slice(0, skills.length / 2).map((skill) => (
           <Skill
             key={skill._id}
