@@ -25,8 +25,8 @@ export default function Hero({ pageInfo }: Props) {
       "And I'm addicted to ☕️",
     ],
     loop: true,
-    delaySpeed: 3000, // Increased delay to reduce update frequency
-    typeSpeed: 100, // Slower typing to reduce DOM updates
+    delaySpeed: 3000,
+    typeSpeed: 100,
     deleteSpeed: 50,
   });
 
@@ -39,7 +39,7 @@ export default function Hero({ pageInfo }: Props) {
         <img
           className="relative rounded-full h-32 w-32 mx-auto object-cover"
           src={pageInfo?.heroImage ? urlFor(pageInfo.heroImage).url() : "/placeholder.png"}
-          alt=""
+          alt={pageInfo?.name || "Profile image"}
         />
       ) : (
         // Placeholder with same dimensions for server rendering

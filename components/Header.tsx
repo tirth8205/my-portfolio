@@ -44,7 +44,7 @@ export default function Header({ socials }: Props) {
         transition={{
           duration: 1.5,
         }}
-        className="flex flex-row items-center space-x-3"
+        className="flex flex-row items-center space-x-3 sm:space-x-4"
       >
         {/* Social icons */}
         {sortedSocials
@@ -65,13 +65,13 @@ export default function Header({ socials }: Props) {
                 className="text-gray-500 hover:text-gray-300 transition-colors"
                 style={{
                   display: "inline-block",
-                  width: "24px", // Reduced from 40px
-                  height: "24px", // Reduced from 40px
-                  lineHeight: "24px", // Reduced from 40px
+                  width: "24px",
+                  height: "24px",
+                  lineHeight: "24px",
                   textAlign: "center",
                 }}
               >
-                <Icon size={24} /> {/* Reduced from 40 */}
+                <Icon size={24} />
               </a>
             );
           })}
@@ -98,13 +98,13 @@ export default function Header({ socials }: Props) {
           className="text-gray-500 hover:text-gray-300 transition-colors"
           style={{
             display: "inline-block",
-            width: "24px", // Reduced from 40px
-            height: "24px", // Reduced from 40px
-            lineHeight: "24px", // Reduced from 40px
+            width: "24px",
+            height: "24px",
+            lineHeight: "24px",
             textAlign: "center",
           }}
         >
-          {React.createElement(FaEnvelope as React.ComponentType<{ size?: number }>, { size: 24 })} {/* Reduced from 40 */}
+          {React.createElement(FaEnvelope as React.ComponentType<{ size?: number }>, { size: 24 })}
         </a>
         <Link href="#contact">
           <p className="uppercase hidden md:inline-flex text-sm text-gray-400">
