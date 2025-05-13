@@ -39,3 +39,5 @@ yarn-error.log*
 next-env.d.ts
 Logos/
 public/sitemap-0.xml
+github_repo_status.txt
+repository_status.txt
