@@ -14,7 +14,7 @@
     "@heroicons/react": "^2.0.13",
     "@portabletext/react": "^2.0.0",
     "@sanity/image-url": "^1.1.0",
-    "@types/node": "18.11.9",
+    "@types/node": "22.15.17",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
     "@vercel/analytics": "^1.5.0",
