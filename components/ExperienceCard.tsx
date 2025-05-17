@@ -6,6 +6,40 @@ import SanityImage from "./SanityImage"; // Import the updated SanityImage compo
 
 type Props = { experience: Experience };
 
+// Add a static utility function to sort experiences
+// This can be imported separately by the parent component
+export function sortExperiences(experiences: Experience[]): Experience[] {
+  if (!experiences || !Array.isArray(experiences)) return [];
+  
+  return [...experiences].sort((a, b) => {
+    // First priority: Current positions first
+    if (a.isCurrentlyWorkingHere && !b.isCurrentlyWorkingHere) return -1;
+    if (!a.isCurrentlyWorkingHere && b.isCurrentlyWorkingHere) return 1;
+    
+    // Second priority: Compare end dates (most recent first)
+    // For current positions, use current date for comparison
+    const dateA = a.isCurrentlyWorkingHere ? new Date() : new Date(a.dateEnded || "");
+    const dateB = b.isCurrentlyWorkingHere ? new Date() : new Date(b.dateEnded || "");
+    
+    // Handle potential invalid dates by checking if they're valid
+    const validA = !isNaN(dateA.getTime());
+    const validB = !isNaN(dateB.getTime());
+    
+    if (validA && validB) {
+      return dateB.getTime() - dateA.getTime();
+    } else if (validA) {
+      return -1;
+    } else if (validB) {
+      return 1;
+    } else {
+      // If both dates are invalid, fall back to comparing start dates
+      const startA = new Date(a.dateStarted || "");
+      const startB = new Date(b.dateStarted || "");
+      return new Date(startB).getTime() - new Date(startA).getTime();
+    }
+  });
+}
+
 export default function ExperienceCard({ experience }: Props) {
   // Helper function to format dates
   const formatDate = (dateString: string): string => {
