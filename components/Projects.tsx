@@ -1,46 +1,48 @@
+// components/Projects.tsx
 import { motion } from "framer-motion";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react"; // Added useCallback
 import Link from "next/link";
-import { urlFor } from "../sanity";
+// urlFor might not be needed directly if SanityImage handles all images
+// import { urlFor } from "../sanity"; 
 import { Project } from "../typings";
+import SanityImage from "./SanityImage"; // Import the SanityImage component
 
 type Props = { projects: Project[] };
 
 export default function Projects({ projects }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Helper function to check if image is valid
+
   const isValidImage = (image: any) => {
-    return image && image.asset && image._type === "image";
+    return image && (image.asset?._ref || image._ref);
   };
-  
-  // Update current index when scrolling
-  const handleScroll = () => {
+
+  const handleScroll = useCallback(() => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const scrollPosition = container.scrollLeft;
       const itemWidth = container.clientWidth;
       const newIndex = Math.round(scrollPosition / itemWidth);
-      setCurrentIndex(newIndex);
+      // Only update if the index has actually changed
+      if (newIndex !== currentIndex) {
+        setCurrentIndex(newIndex);
+      }
     }
-  };
-  
-  // Set up scroll event listener
+  }, [currentIndex, setCurrentIndex]); // scrollContainerRef is stable
+
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (container) {
-      container.addEventListener('scroll', handleScroll);
+      container.addEventListener('scroll', handleScroll, { passive: true });
       return () => container.removeEventListener('scroll', handleScroll);
     }
-  }, []);
-  
-  // Navigation functions
+  }, [handleScroll]); // Now handleScroll is a dependency
+
   const scrollTo = (index: number) => {
     if (scrollContainerRef.current && index >= 0 && index < (projects?.length || 0)) {
-      scrollContainerRef.current.scrollTo({ 
-        left: index * scrollContainerRef.current.clientWidth, 
-        behavior: 'smooth' 
+      scrollContainerRef.current.scrollTo({
+        left: index * scrollContainerRef.current.clientWidth,
+        behavior: 'smooth'
       });
       setCurrentIndex(index);
     }
@@ -57,11 +59,10 @@ export default function Projects({ projects }: Props) {
         Projects
       </h3>
 
-      <div className="relative w-full flex flex-col items-center mt-16 sm:mt-20 md:mt-24">
-        {/* Navigation arrows - desktop only */}
+      <div className="relative w-full flex flex-col items-center mt-28 sm:mt-32 md:mt-36">
         <div className="absolute z-30 top-1/2 transform -translate-y-1/2 w-full px-4 justify-between hidden md:flex">
           {currentIndex > 0 && (
-            <button 
+            <button
               onClick={() => scrollTo(currentIndex - 1)}
               className="bg-darkGreen text-white p-3 rounded-full hover:bg-lightGreen transition-colors"
               aria-label="Previous project"
@@ -71,11 +72,11 @@ export default function Projects({ projects }: Props) {
               </svg>
             </button>
           )}
-          
+          <div className="flex-grow"></div>
           {currentIndex < (projects?.length || 0) - 1 && (
-            <button 
+            <button
               onClick={() => scrollTo(currentIndex + 1)}
-              className="bg-darkGreen text-white p-3 rounded-full hover:bg-lightGreen transition-colors"
+              className="bg-darkGreen text-white p-3 rounded-full hover:bg-lightGreen transition-colors ml-auto"
               aria-label="Next project"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,57 +85,63 @@ export default function Projects({ projects }: Props) {
             </button>
           )}
         </div>
-        
-        {/* Main carousel */}
-        <div 
+
+        <div
           ref={scrollContainerRef}
           className="w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-darkGreen/80"
         >
           {projects?.map((project, i) => (
             <div
               key={project._id}
-              className="w-screen flex-shrink-0 snap-center flex flex-col space-y-3 sm:space-y-5 items-center justify-center p-6 sm:p-10 md:p-20 h-screen"
+              className="w-screen flex-shrink-0 snap-center flex flex-col space-y-3 sm:space-y-5 items-center justify-center p-6 sm:p-10 md:p-16 h-screen"
             >
-              <motion.img
-                initial={{ y: -100, opacity: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2 }}
-                viewport={{ once: true }}
-                className="h-28 sm:h-40 md:h-60 lg:h-72 object-contain"
-                src={isValidImage(project?.image) 
-                  ? urlFor(project.image).url() 
-                  : "/placeholder-project.png"}
-                alt={project?.title || "Project image"}
-              />
+              <div className="relative h-28 sm:h-40 md:h-52 lg:h-60 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+                {isValidImage(project?.image) ? (
+                  <SanityImage
+                    asset={project.image}
+                    alt={project?.title || "Project image"}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-300 animate-pulse flex items-center justify-center text-gray-500">
+                    No image
+                  </div>
+                )}
+              </div>
 
-              <div className="space-y-4 sm:space-y-6 md:space-y-8 px-0 sm:px-6 md:px-10 max-w-6xl">
-                <h4 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-semibold text-center">
+              <div className="space-y-3 sm:space-y-4 md:space-y-5 px-0 sm:px-6 md:px-10 max-w-4xl text-center">
+                <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold">
                   <span className="underline decoration-darkGreen/50">
                     Project {i + 1}:
                   </span>{" "}
                   {project?.title}
                 </h4>
-                
-                <div className="flex flex-wrap justify-center gap-2">
+
+                <div className="flex flex-wrap justify-center items-center gap-2 my-2">
                   {project?.technologies?.map((technology) => (
                     isValidImage(technology?.image) ? (
-                      <img
-                        key={technology._id}
-                        className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 rounded-full object-cover"
-                        src={urlFor(technology.image).url()}
-                        alt={technology.title || "Technology"}
-                      />
+                      <div key={technology._id} className="h-6 w-6 sm:h-8 sm:w-8 relative"> {/* Parent for SanityImage with layout="fill" */}
+                        <SanityImage
+                          asset={technology.image}
+                          alt={technology.title || "Technology"}
+                          layout="fill" // Fills the h-6 w-6 or h-8 w-8 container
+                          objectFit="cover" // Or "contain" based on icon style
+                          className="rounded-full"
+                          // No priority for these small, numerous icons
+                        />
+                      </div>
                     ) : null
                   ))}
                 </div>
 
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-justify">
+                <p className="text-xs sm:text-sm md:text-base text-justify max-h-24 sm:max-h-28 overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-darkGreen/60">
                   {project?.summary}
                 </p>
 
                 {project?.linkToBuild && (
                   <Link href={project.linkToBuild} target="_blank" rel="noopener noreferrer">
-                    <p className="text-darkGreen text-xs sm:text-sm md:text-base underline text-center">
+                    <p className="text-darkGreen text-xs sm:text-sm md:text-base underline hover:text-lightGreen">
                       View on GitHub
                     </p>
                   </Link>
@@ -143,22 +150,20 @@ export default function Projects({ projects }: Props) {
             </div>
           ))}
         </div>
-        
-        {/* Dot indicators for mobile */}
+
         <div className="flex justify-center space-x-2 mt-4 md:hidden">
           {projects?.map((_, index) => (
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`w-2 h-2 rounded-full ${index === currentIndex ? 'bg-darkGreen' : 'bg-gray-400'}`}
+              className={`w-2.5 h-2.5 rounded-full transition-colors ${index === currentIndex ? 'bg-darkGreen' : 'bg-gray-400 hover:bg-gray-500'}`}
               aria-label={`Go to project ${index + 1}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Background skewed div */}
-      <div className="w-full absolute top-[30%] bg-darkGreen/10 left-0 h-[500px] -skew-y-12"></div>
+      <div className="w-full absolute top-[30%] bg-darkGreen/10 left-0 h-[500px] -skew-y-12 z-0"></div>
     </motion.div>
   );
 }

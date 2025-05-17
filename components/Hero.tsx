@@ -1,18 +1,18 @@
+// components/Hero.tsx
 'use client';
 
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
-import { urlFor } from "../sanity";
 import { PageInfo } from "../typings";
 import BackgroundCircles from "./BackgroundCircles";
+import SanityImage from "./SanityImage";
 
 type Props = { pageInfo: PageInfo };
 
 export default function Hero({ pageInfo }: Props) {
   const [isClient, setIsClient] = useState(false);
 
-  // Set isClient to true after component mounts (after hydration)
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -25,7 +25,7 @@ export default function Hero({ pageInfo }: Props) {
       "And I'm addicted to ☕️",
     ],
     loop: true,
-    delaySpeed: 3000,
+    delaySpeed: 2000,
     typeSpeed: 100,
     deleteSpeed: 50,
   });
@@ -34,16 +34,19 @@ export default function Hero({ pageInfo }: Props) {
     <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
       <BackgroundCircles />
 
-      {/* Use conditional rendering to prevent hydration mismatch */}
-      {isClient ? (
-        <img
-          className="relative rounded-full h-32 w-32 mx-auto object-cover"
-          src={pageInfo?.heroImage ? urlFor(pageInfo.heroImage).url() : "/placeholder.png"}
-          alt={pageInfo?.name || "Profile image"}
-        />
+      {isClient && pageInfo?.heroImage ? (
+        <div className="relative h-40 w-40 mx-auto">
+          <SanityImage
+            asset={pageInfo.heroImage}
+            alt={pageInfo?.name || "Profile image"}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-full"
+            priority
+          />
+        </div>
       ) : (
-        // Placeholder with same dimensions for server rendering
-        <div className="relative rounded-full h-32 w-32 mx-auto bg-gray-300" />
+        <div className="relative rounded-full h-40 w-40 mx-auto bg-gray-300 animate-pulse" />
       )}
 
       <div className="z-20">
