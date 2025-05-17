@@ -34,7 +34,8 @@ export default function Hero({ pageInfo }: Props) {
     <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
       <BackgroundCircles />
 
-      {isClient && pageInfo?.heroImage ? (
+      {/* Ensure pageInfo and pageInfo.heroImage are available for server rendering if possible to avoid layout shift / LCP delay */}
+      {pageInfo?.heroImage ? (
         <div className="relative h-40 w-40 mx-auto">
           <SanityImage
             asset={pageInfo.heroImage}
@@ -42,10 +43,15 @@ export default function Hero({ pageInfo }: Props) {
             layout="fill"
             objectFit="cover"
             className="rounded-full"
-            priority
+            priority // Correctly tells Next.js to prioritize this LCP image
+            // Add the 'sizes' prop to guide next/image on what image versions to request
+            // 10rem is 160px (h-40 w-40). This tells the browser the image is 160px wide at all screen sizes.
+            // If its displayed size changes at different breakpoints, adjust accordingly.
+            sizes="10rem" 
           />
         </div>
       ) : (
+        // Placeholder if no image, or before client-side hydration if image relies on isClient
         <div className="relative rounded-full h-40 w-40 mx-auto bg-gray-300 animate-pulse" />
       )}
 
