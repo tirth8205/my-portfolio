@@ -4,43 +4,9 @@ import React from "react";
 import { Experience } from "../typings";
 import SanityImage from "./SanityImage"; // Import the updated SanityImage component
 
-type Props = { experience: Experience };
+type Props = { experience: Experience }; // Defines that this component expects an 'experience' prop
 
-// Add a static utility function to sort experiences
-// This can be imported separately by the parent component
-export function sortExperiences(experiences: Experience[]): Experience[] {
-  if (!experiences || !Array.isArray(experiences)) return [];
-  
-  return [...experiences].sort((a, b) => {
-    // First priority: Current positions first
-    if (a.isCurrentlyWorkingHere && !b.isCurrentlyWorkingHere) return -1;
-    if (!a.isCurrentlyWorkingHere && b.isCurrentlyWorkingHere) return 1;
-    
-    // Second priority: Compare end dates (most recent first)
-    // For current positions, use current date for comparison
-    const dateA = a.isCurrentlyWorkingHere ? new Date() : new Date(a.dateEnded || "");
-    const dateB = b.isCurrentlyWorkingHere ? new Date() : new Date(b.dateEnded || "");
-    
-    // Handle potential invalid dates by checking if they're valid
-    const validA = !isNaN(dateA.getTime());
-    const validB = !isNaN(dateB.getTime());
-    
-    if (validA && validB) {
-      return dateB.getTime() - dateA.getTime();
-    } else if (validA) {
-      return -1;
-    } else if (validB) {
-      return 1;
-    } else {
-      // If both dates are invalid, fall back to comparing start dates
-      const startA = new Date(a.dateStarted || "");
-      const startB = new Date(b.dateStarted || "");
-      return new Date(startB).getTime() - new Date(startA).getTime();
-    }
-  });
-}
-
-export default function ExperienceCard({ experience }: Props) {
+export default function ExperienceCard({ experience }: Props) { // Correctly destructures 'experience'
   // Helper function to format dates
   const formatDate = (dateString: string): string => {
     if (!dateString) return "N/A"; // Return N/A if date string is missing
@@ -86,9 +52,9 @@ export default function ExperienceCard({ experience }: Props) {
           <SanityImage
             asset={experience.companyImage}
             alt={experience.company || "Company logo"}
-            fill
-            style={{ objectFit: "contain" }}
-            className="rounded-md"
+            fill 
+            style={{ objectFit: "contain" }} 
+            className="rounded-md" 
             sizes="(min-width: 1280px) 9rem, 0vw" 
           />
         </motion.div>
@@ -97,13 +63,11 @@ export default function ExperienceCard({ experience }: Props) {
       {/* Main content area of the card */}
       <div className="w-full px-1 sm:px-2 md:px-4">
         <div className="md:flex md:justify-between items-start">
-          {/* Left side: Job title, company, dates, tech stack */}
           <div className="md:flex-1">
             <div className="md:flex md:items-center md:justify-between">
               <h4 className="text-lg md:text-2xl font-light text-black">
                 {experience?.jobTitle || "Job Title"}
               </h4>
-              {/* Dates - hidden on mobile, shown on md+ */}
               <p className="hidden md:block uppercase text-gray-500 text-xs md:text-sm md:ml-4 whitespace-nowrap">
                 {formatDate(experience?.dateStarted)} -{" "}
                 {experience.isCurrentlyWorkingHere
@@ -116,7 +80,6 @@ export default function ExperienceCard({ experience }: Props) {
               {experience?.company || "Company Name"}
             </p>
 
-            {/* Dates - shown on mobile, hidden on md+ */}
             <p className="md:hidden uppercase py-1 text-gray-500 text-xs">
               {formatDate(experience?.dateStarted)} -{" "}
               {experience.isCurrentlyWorkingHere
@@ -124,7 +87,6 @@ export default function ExperienceCard({ experience }: Props) {
                 : formatDate(experience?.dateEnded)}
             </p>
 
-            {/* Technology Icons */}
             <div className="flex flex-wrap gap-2 my-2 md:my-3">
               {experience?.technologies?.map((technology) =>
                 isValidImage(technology?.image) ? (
@@ -132,9 +94,9 @@ export default function ExperienceCard({ experience }: Props) {
                     <SanityImage
                       asset={technology.image}
                       alt={technology.title || "Technology"}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-full"
+                      fill 
+                      style={{ objectFit: "cover" }} 
+                      className="rounded-full" 
                       sizes="(max-width: 639px) 1.75rem, 2rem" 
                     />
                   </div>
@@ -155,8 +117,8 @@ export default function ExperienceCard({ experience }: Props) {
               <SanityImage
                 asset={experience.companyImage}
                 alt={experience.company || "Company logo"}
-                fill
-                style={{ objectFit: "contain" }}
+                fill 
+                style={{ objectFit: "contain" }} 
                 className="rounded-md"
                 sizes="(min-width: 768px) and (max-width: 1279px) 6rem, 0vw"
               />
@@ -165,7 +127,6 @@ export default function ExperienceCard({ experience }: Props) {
         </div>
       </div>
       
-      {/* Bullet points for responsibilities/achievements */}
       {pointsToRender.length > 0 && (
         <div className="w-full px-1 sm:px-2 md:px-4 max-h-[150px] xs:max-h-[170px] md:max-h-[180px] overflow-hidden mt-2 md:mt-3">
           <ul className="list-disc text-black space-y-1.5 text-justify text-xs sm:text-sm md:text-base 
