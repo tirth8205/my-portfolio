@@ -1,83 +1,97 @@
-// components/SanityImage.tsx (or utils/SanityImage.tsx)
+// components/SanityImage.tsx
+import NextImage, { ImageProps as NextImageProps } from "next/image";
+import { urlFor } from "../sanity"; // Adjust path if needed
 
-import Image, { ImageProps as NextImageProps } from "next/image";
-import { urlFor } from "../sanity"; // Adjust this path if your sanity.js/client.ts is located elsewhere
+// Custom loader function for Sanity images (remains the same)
+const sanityImageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+  return urlFor(src)
+    .width(width)
+    .format("webp")
+    .quality(quality || 75)
+    .auto("format")
+    .url();
+};
 
 // Define the props for your SanityImage component
-interface SanityImageProps extends Omit<NextImageProps, 'src' | 'loader'> {
-  asset: any; // Sanity image asset object or reference string
-  alt: string; // Alt text is required for accessibility
-  imgClassName?: string; // Optional: For styling the actual Next.js <Image> component directly
-  // width and height can be passed directly if known, otherwise layout="fill" will be used
-  // For layout="fill", the parent element must have position: relative and dimensions.
+// Note: 'layout', 'objectFit', 'objectPosition' are handled differently now
+interface SanityImageProps extends Omit<NextImageProps, 'src' | 'loader' | 'layout' | 'objectFit' | 'objectPosition'> {
+  asset: any; 
+  alt: string;
+  // For layout="fill", parent must be relative and have dimensions. Image takes up full parent space.
+  // For other cases, provide width and height for aspect ratio, and control size with CSS or parent.
+  // next/image defaults to intrinsic-like scaling if width/height are provided.
+  // For responsive behavior like old layout="responsive", set width/height and style={{ width: '100%', height: 'auto' }}
+  fill?: boolean; // Use this instead of layout="fill"
+  style?: React.CSSProperties; // For objectFit, objectPosition, and other styles
 }
-
-// Custom loader function for Sanity images
-const sanityImageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  // 'src' will be the Sanity image asset ID string (e.g., "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg")
-  // We construct the full image URL using Sanity's urlFor builder
-  return urlFor(src)
-    .width(width) // Set the desired width
-    .format("webp") // Request WebP format for modern browsers
-    .quality(quality || 75) // Default quality to 75 if not specified
-    .auto("format") // Sanity specific: ensures WebP if browser supports, otherwise falls back to original
-    .url(); // Get the image URL string
-};
 
 export default function SanityImage({
   asset,
   alt,
-  className, // This className will be applied to the Next.js <Image> component's wrapper or the image itself depending on layout
-  imgClassName, // Kept for clarity, but Next.js Image applies className to the img tag when not using layout="fill"
-  width,
-  height,
+  width,    // Still provide for aspect ratio and initial sizing
+  height,   // Still provide for aspect ratio and initial sizing
+  fill,     // New prop to indicate fill behavior
+  style,    // Pass style directly for objectFit, etc.
+  priority = false,
   quality,
-  priority = false, // Default priority to false (LCP images should have this true)
-  layout, // "intrinsic", "fixed", "responsive", "fill"
-  objectFit, // "cover", "contain", etc. (useful with layout="fill" or "responsive")
-  ...rest // Spread any other valid NextImageProps
+  className, // Applied to the <img> tag
+  sizes,    // Important for responsive images when not using fill
+  ...rest
 }: SanityImageProps) {
   if (!asset) {
-    // Optional: Render a placeholder or null if the asset is missing
-    // For a consistent layout, a placeholder with dimensions is good.
-    if (width && height && layout !== "fill") {
-      return <div style={{ width, height, backgroundColor: '#e0e0e0' }} aria-label={alt || "Image placeholder"} />;
+    // Placeholder logic
+    if (fill && className) {
+        return <div className={className} style={{ width: '100%', height: '100%', backgroundColor: '#e0e0e0', ...style }} aria-label={alt || "Image placeholder"} />;
     }
-    if (layout === "fill" && className) {
-       return <div className={className} style={{ backgroundColor: '#e0e0e0' }} aria-label={alt || "Image placeholder"} />;
+    if (width && height) {
+        return <div style={{ width, height, backgroundColor: '#e0e0e0', ...style }} aria-label={alt || "Image placeholder"} />;
     }
-    // Fallback simple placeholder
-    return <div style={{ display: 'inline-block', width: '50px', height: '50px', backgroundColor: '#e0e0e0' }} aria-label={alt || "Image placeholder"} />;
+    return <div style={{ display: 'inline-block', width: '50px', height: '50px', backgroundColor: '#e0e0e0', ...style }} aria-label={alt || "Image placeholder"} />;
   }
 
-  // Sanity assets can be passed as the full object or just the _ref string.
-  // The urlFor builder can typically handle either.
-  // We need to pass the asset's string identifier (like 'image-xxxx-format') to the loader's 'src'.
   const imageAssetRef = asset?._ref || (typeof asset === 'string' ? asset : asset?.asset?._ref);
 
   if (!imageAssetRef) {
-    console.warn("SanityImage: Valid asset reference (_ref or string ID) could not be determined from the provided asset prop.", asset);
-    // Similar placeholder logic as above
-    if (width && height && layout !== "fill") {
-      return <div style={{ width, height, backgroundColor: '#e0e0e0' }} aria-label={alt || "Image placeholder (ref missing)"} />;
+    console.warn("SanityImage: Valid asset reference missing.", asset);
+    // Similar placeholder logic
+    if (fill && className) {
+        return <div className={className} style={{ width: '100%', height: '100%', backgroundColor: '#e0e0e0', ...style }} aria-label={alt || "Image placeholder (ref missing)"} />;
     }
-    return <div className={layout === "fill" && className ? className : ""} style={{ backgroundColor: '#e0e0e0' }} aria-label={alt || "Image placeholder (ref missing)"} />;
+    return <div style={{ width: width || 50, height: height || 50, backgroundColor: '#e0e0e0', ...style }} aria-label={alt || "Image placeholder (ref missing)"} />;
   }
 
-  const effectiveLayout = layout || (width && height ? "intrinsic" : "fill");
+  if (fill) {
+    return (
+      <NextImage
+        loader={sanityImageLoader}
+        src={imageAssetRef}
+        alt={alt}
+        fill // This is the new way for layout="fill"
+        style={style} // For objectFit, objectPosition
+        priority={priority}
+        quality={quality}
+        sizes={sizes || "100vw"} // Provide sizes or a default for fill images
+        className={className}
+        {...rest}
+      />
+    );
+  }
 
+  // For non-fill images (intrinsic/responsive-like behavior)
+  // next/image will use width/height for aspect ratio and initial render size.
+  // Responsiveness is controlled by CSS applied to the image or its container.
   return (
-    <Image
+    <NextImage
       loader={sanityImageLoader}
-      src={imageAssetRef} // Pass the Sanity asset reference string here
+      src={imageAssetRef}
       alt={alt}
-      width={effectiveLayout !== "fill" ? width : undefined}
-      height={effectiveLayout !== "fill" ? height : undefined}
-      layout={effectiveLayout}
-      objectFit={objectFit}
-      quality={quality}
+      width={width || 0} // next/image requires width/height unless fill is true
+      height={height || 0} // Provide 0 if not known, but aspect ratio might be lost
+      style={style} // For objectFit, objectPosition, and responsive width/height (e.g., { width: '100%', height: 'auto' })
       priority={priority}
-      className={imgClassName || className} // Apply className to the img tag (or wrapper for 'fill')
+      quality={quality}
+      sizes={sizes} // Crucial for responsive images to load optimal sources
+      className={className}
       {...rest}
     />
   );
