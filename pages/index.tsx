@@ -1,24 +1,24 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
+import Header from "../src/components/Header";
+import Hero from "../src/components/Hero";
 import styles from "../styles/Home.module.css";
-import { Experience, PageInfo, Skill, Project, Social } from "../typings";
-import { fetchExperiences } from "../utils/fetchExperience";
-import { fetchProjects } from "../utils/fetchProjects";
-import { fetchSkills } from "../utils/fetchSkills";
-import { fetchSocials } from "../utils/fetchSocials";
-import About from "../components/About";
-import WorkExperience from "../components/WorkExperience";
-import Skills from "../components/Skills";
-import Projects from "../components/Projects";
-import ContactMe from "../components/ContactMe";
+import { Experience, PageInfo, Skill, Project, Social } from "../src/types";
+import { fetchExperiences } from "../src/lib/fetchExperience";
+import { fetchProjects } from "../src/lib/fetchProjects";
+import { fetchSkills } from "../src/lib/fetchSkills";
+import { fetchSocials } from "../src/lib/fetchSocials";
+import About from "../src/components/About";
+import WorkExperience from "../src/components/WorkExperience";
+import Skills from "../src/components/Skills";
+import Projects from "../src/components/Projects";
+import ContactMe from "../src/components/ContactMe";
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import Script from "next/script";
 import { groq } from "next-sanity";
-import { sanityClient } from "../sanity";
+import { sanityClient } from "../src/lib/sanity";
 
 const pageInfoQuery = groq`
     *[_type == 'pageInfo'][0]
