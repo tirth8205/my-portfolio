@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Project } from "../types";
-import SanityImage from "./SanityImage"; // Ensure this is the updated SanityImage component
+import SanityImage from "./SanityImage";
 
 type Props = { projects: Project[] };
 
@@ -54,8 +54,8 @@ export default function Projects({ projects }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen relative flex flex-col items-center text-left max-w-full mx-auto z-0 overflow-hidden 
-                 pt-32 sm:pt-36 md:pt-40 pb-8 sm:pb-10 md:pb-12 px-4" // Overall section padding
+      className="min-h-screen relative flex flex-col items-center text-left max-w-full mx-auto z-0 overflow-hidden 
+                 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-8 sm:pb-10 md:pb-12 px-4 sm:px-6" // Overall section padding
     >
       {/* Section Title */}
       <h3 className="absolute left-0 right-0 mx-auto text-center top-16 sm:top-20 md:top-24 
@@ -96,9 +96,9 @@ export default function Projects({ projects }: Props) {
                          p-4 pt-6 sm:p-5 sm:pt-6 md:p-6 md:pt-8 box-border" // Use w-full, padding adjusted
             >
               {/* Project Image Container */}
-              <div className="relative h-28 sm:h-32 md:h-40 lg:h-44 
-                              w-full max-w-xs sm:max-w-sm md:max-w-[460px] lg:max-w-[500px] 
-                              mx-auto flex-shrink-0 mb-2 md:mb-3">
+              <div className="relative h-24 sm:h-28 md:h-36 lg:h-40 xl:h-44 
+                              w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:max-w-2xl 
+                              mx-auto flex-shrink-0 mb-2 sm:mb-3 md:mb-4">
                 {isValidImage(project?.image) ? (
                   <SanityImage 
                     asset={project.image} 
@@ -114,17 +114,17 @@ export default function Projects({ projects }: Props) {
               </div>
 
               {/* Text Content Container */}
-              <div className="flex flex-col items-center flex-1 w-full max-w-xl lg:max-w-2xl text-center overflow-hidden px-1">
-                <h4 className="text-md sm:text-lg md:text-xl font-semibold flex-shrink-0 mb-1 sm:mb-1.5">
+              <div className="flex flex-col items-center flex-1 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl text-center overflow-hidden px-1 sm:px-2">
+                <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold flex-shrink-0 mb-1 sm:mb-1.5 md:mb-2">
                   <span className="underline decoration-darkGreen/50">Project {i + 1}:</span> {project?.title}
                 </h4>
 
                 {/* Technology Icons */}
-                <div className="flex flex-wrap justify-center items-center gap-1.5 my-1 sm:my-1.5 md:my-2 flex-shrink-0">
+                <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-1.5 my-1 sm:my-1.5 md:my-2 lg:my-3 flex-shrink-0">
                   {project?.technologies?.map((technology) => (
                     isValidImage(technology?.image) ? (
                       // Container for each tech icon
-                      <div key={technology._id} className="h-5 w-5 sm:h-6 sm:w-6 relative">
+                      <div key={technology._id} className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 relative">
                         <SanityImage 
                           asset={technology.image} 
                           alt={technology.title || "Technology"} 
@@ -138,17 +138,17 @@ export default function Projects({ projects }: Props) {
                 </div>
 
                 {/* Project Summary */}
-                <p className="text-xs sm:text-sm md:text-base text-justify 
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-justify 
                               flex-1 overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-darkGreen/60 
-                              w-full my-1 sm:my-1.5 md:my-2">
+                              w-full my-1 sm:my-1.5 md:my-2 lg:my-3 leading-relaxed">
                   {project?.summary}
                 </p>
 
                 {/* Link to Build/GitHub */}
                 {project?.linkToBuild && (
-                  <div className="mt-auto pt-1 sm:pt-2 flex-shrink-0"> {/* Pushes link to bottom */}
+                  <div className="mt-auto pt-1 sm:pt-2 md:pt-3 flex-shrink-0"> {/* Pushes link to bottom */}
                     <Link href={project.linkToBuild} target="_blank" rel="noopener noreferrer">
-                      <p className="text-darkGreen text-xs sm:text-sm underline hover:text-lightGreen">View on GitHub</p>
+                      <p className="text-darkGreen text-xs sm:text-sm md:text-base underline hover:text-lightGreen transition-colors duration-200">View on GitHub</p>
                     </Link>
                   </div>
                 )}
