@@ -9,7 +9,7 @@ type Props = { pageInfo: PageInfo };
 export default function About({ pageInfo }: Props) {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden 
-                   pt-28 sm:pt-32 md:pt-36 pb-10 px-4"> {/* Overall section padding and layout */}
+                   pt-28 sm:pt-32 md:pt-36 pb-10 px-4 bg-lightBackground dark:bg-darkBackground"> {/* Overall section padding and layout */}
       
       {/* Section Title */}
       <h3 className="absolute left-0 right-0 mx-auto text-center top-16 sm:top-20 md:top-24 
@@ -62,12 +62,12 @@ export default function About({ pageInfo }: Props) {
           transition={{ duration: 1.2, delay: 0.2 }} // Staggered animation
           className="flex-grow space-y-4 md:space-y-6 max-w-md lg:max-w-lg xl:max-w-xl"
         >
-          <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-center md:text-left">
+          <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-center md:text-left text-darkBlack dark:text-white">
             Here is a{" "}
-            <span className="underline decoration-darkGreen/50">little</span>{" "}
+            <span className="underline decoration-primary/50">little</span>{" "}
             background
           </h4>
-          <p className="text-sm sm:text-base md:text-lg text-justify">
+          <p className="text-sm sm:text-base md:text-lg text-justify text-grayColor">
             {pageInfo?.backgroundInformation}
           </p>
         </motion.div>
