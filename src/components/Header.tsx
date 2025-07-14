@@ -1,10 +1,15 @@
 // components/Header.tsx
+'use client';
+
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React from "react"; // React import is good practice, though not always strictly necessary for JSX only
-import { FaLinkedin, FaTwitter, FaGithub, FaMedium, FaEnvelope } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaLinkedin, FaTwitter, FaGithub, FaMedium } from "react-icons/fa";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { IconType } from "react-icons";
+import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { Social } from "../types";
+import DarkModeToggle from "./DarkModeToggle";
 
 type Props = {
   socials: Social[];
@@ -16,7 +21,18 @@ interface IconProps {
   className?: string;
 }
 
+const navigationItems = [
+  { href: "#hero", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "#contact", label: "Contact" },
+];
+
 export default function Header({ socials }: Props) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const order = ["LinkedIn", "X", "GitHub", "Medium"];
 
   const sortedSocials = [...socials].sort((a, b) => {
@@ -37,63 +53,142 @@ export default function Header({ socials }: Props) {
   };
 
   return (
-    <header className="sticky top-0 p-5 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center">
-      <motion.div
-        initial={{ x: -500, opacity: 0, scale: 0.5 }}
-        animate={{ x: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5 }}
-        className="flex flex-row items-center space-x-3 sm:space-x-4"
-      >
-        {sortedSocials
-          .filter((social) => social.url && !(social.url.includes("huggingface.co")))
-          .map((social) => {
-            const IconFromMap = iconMap[social.title];
-            if (!IconFromMap) return null;
-
-            const SpecificIconComponent = IconFromMap as React.FC<IconProps>;
-            const ariaLabelText = `Follow Tirth Kanani on ${social.title}`;
-
-            return (
-              <a // External links are standard <a> tags
-                key={social._id}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={ariaLabelText}
-                className="text-gray-500 hover:text-gray-300 transition-colors"
-                style={{
-                  display: "inline-block", // Style for consistent icon sizing and alignment
-                  width: "24px",
-                  height: "24px",
-                  lineHeight: "24px",
-                  textAlign: "center",
-                }}
-              >
-                <SpecificIconComponent size={24} />
-              </a>
-            );
-          })}
-      </motion.div>
-
-      <motion.div
-        initial={{ x: 500, opacity: 0, scale: 0.5 }}
-        animate={{ x: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5 }}
-        className="flex flex-row items-center space-x-3" // Removed cursor-pointer if Link itself handles interaction
-      >
-        {/* Updated Link component usage */}
-        <Link
-          href="#contact"
-          className="flex flex-row items-center text-gray-500 hover:text-gray-300 transition-colors"
-          aria-label="Get in touch by email"
+    <>
+      <header className="sticky top-0 bg-lightBackground/80 dark:bg-darkBackground/80 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20 p-5 flex items-center justify-between max-w-7xl mx-auto z-50">
+        {/* Logo/Brand */}
+        <motion.div
+          initial={{ x: -500, opacity: 0, scale: 0.5 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5 }}
+          className="flex items-center space-x-4"
         >
-          {/* Children of Link are now direct, Link component renders the <a> */}
-          {React.createElement(FaEnvelope as React.FC<IconProps>, { size: 24 })}
-          <p className="uppercase hidden md:inline-flex text-sm text-gray-400 ml-2">
-            Get in touch
-          </p>
-        </Link>
-      </motion.div>
-    </header>
+          <Link href="#hero" className="text-2xl font-display font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            TK
+          </Link>
+          
+          {/* Desktop Social Icons */}
+          <div className="hidden md:flex items-center space-x-3">
+            {sortedSocials
+              .filter((social) => social.url && !(social.url.includes("huggingface.co")))
+              .map((social) => {
+                const IconFromMap = iconMap[social.title];
+                if (!IconFromMap) return null;
+
+                const SpecificIconComponent = IconFromMap as React.FC<IconProps>;
+                const ariaLabelText = `Follow Tirth Kanani on ${social.title}`;
+
+                return (
+                  <motion.a
+                    key={social._id}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={ariaLabelText}
+                    className="text-grayColor hover:text-primary transition-colors duration-300"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <SpecificIconComponent size={20} />
+                  </motion.a>
+                );
+              })}
+          </div>
+        </motion.div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center space-x-8">
+          {navigationItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-grayColor hover:text-primary transition-colors duration-300"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right Side - Dark Mode Toggle + Mobile Menu */}
+        <motion.div
+          initial={{ x: 500, opacity: 0, scale: 0.5 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5 }}
+          className="flex items-center space-x-4"
+        >
+          <DarkModeToggle />
+          
+          {/* Contact Button (Desktop) */}
+          <Link
+            href="#contact"
+            className="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-full hover:shadow-lg transition-all duration-300"
+          >
+            <EnvelopeIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">Contact</span>
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2 text-grayColor hover:text-primary transition-colors duration-300"
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? (
+              <XMarkIcon className="w-6 h-6" />
+            ) : (
+              <Bars3Icon className="w-6 h-6" />
+            )}
+          </button>
+        </motion.div>
+      </header>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="lg:hidden fixed top-20 left-0 right-0 bg-lightBackground/95 dark:bg-darkBackground/95 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20 z-40"
+        >
+          <nav className="flex flex-col space-y-4 p-6">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-medium text-grayColor hover:text-primary transition-colors duration-300"
+              >
+                {item.label}
+              </Link>
+            ))}
+            
+            {/* Mobile Social Icons */}
+            <div className="flex items-center space-x-4 pt-4 border-t border-gray-200/20 dark:border-gray-700/20">
+              {sortedSocials
+                .filter((social) => social.url && !(social.url.includes("huggingface.co")))
+                .map((social) => {
+                  const IconFromMap = iconMap[social.title];
+                  if (!IconFromMap) return null;
+
+                  const SpecificIconComponent = IconFromMap as React.FC<IconProps>;
+                  const ariaLabelText = `Follow Tirth Kanani on ${social.title}`;
+
+                  return (
+                    <a
+                      key={social._id}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={ariaLabelText}
+                      className="text-grayColor hover:text-primary transition-colors duration-300"
+                    >
+                      <SpecificIconComponent size={20} />
+                    </a>
+                  );
+                })}
+            </div>
+          </nav>
+        </motion.div>
+      )}
+    </>
   );
 }
