@@ -38,7 +38,7 @@ export default function Skills({ skills }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen flex relative flex-col text-center md:text-left max-w-7xl px-4 sm:px-6 md:px-10 justify-center mx-auto items-center"
+      className="min-h-screen flex relative flex-col text-center md:text-left max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10 justify-center mx-auto items-center py-16 sm:py-20 md:py-24"
     >
       <h3 className="absolute left-0 right-0 mx-auto text-center top-16 sm:top-20 md:top-24 uppercase tracking-[10px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl">
         Skills
@@ -49,7 +49,7 @@ export default function Skills({ skills }: Props) {
       </h3>
 
       {/* Combined responsive grid */}
-      <div className="w-full max-h-[70vh] md:max-h-none overflow-y-auto md:overflow-y-visible mt-40 sm:mt-44 md:mt-48">
+      <div className="w-full max-h-[65vh] sm:max-h-[70vh] md:max-h-none overflow-y-auto md:overflow-y-visible mt-32 sm:mt-36 md:mt-40 lg:mt-44">
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
           {skills?.map((skill, index) => (
             <Skill
