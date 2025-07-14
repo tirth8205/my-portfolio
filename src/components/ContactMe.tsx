@@ -63,19 +63,19 @@ export default function ContactMe({}: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen relative flex flex-col text-center md:text-left md:flex-row max-w-7xl px-4 sm:px-6 md:px-10 justify-evenly mx-auto items-center"
+      className="min-h-screen relative flex flex-col text-center md:text-left md:flex-row max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10 justify-evenly mx-auto items-center py-16 sm:py-20 md:py-24"
     >
       <h3 className="absolute left-0 right-0 mx-auto text-center top-16 sm:top-20 md:top-24 uppercase tracking-[10px] sm:tracking-[15px] md:tracking-[20px] text-gray-500 text-base sm:text-lg md:text-2xl">
         Contact
       </h3>
 
-      <div className="flex flex-col space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-4 xl:space-y-2 w-full mt-24 sm:mt-20 md:mt-16 lg:mt-8 max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-2xl mx-auto">
-        <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-center">
+      <div className="flex flex-col space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-4 xl:space-y-3 w-full mt-16 sm:mt-18 md:mt-20 lg:mt-12 xl:mt-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto">
+        <h4 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-center leading-relaxed">
           Need a creative mind? Look no further!{" "}
           <span className="decoration-darkGreen/50 underline">Let&apos;s join forces</span> and make magic happen. Coffee&apos;s on me – unless you prefer tea!
         </h4>
 
-        <div className="space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-2 xl:space-y-1 lg:flex lg:flex-row lg:space-x-6 lg:justify-center lg:items-center">
+        <div className="space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-0 lg:flex lg:flex-row lg:space-x-4 xl:space-x-6 lg:justify-center lg:items-center lg:flex-wrap">
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-2">
             <PhoneIcon className="text-darkGreen h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-5 lg:w-5 animate-pulse" />
             <p className="text-xs sm:text-sm md:text-base lg:text-sm">+44 7741918549</p>
@@ -92,7 +92,7 @@ export default function ContactMe({}: Props) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2 sm:space-y-3 md:space-y-4 w-full mx-auto px-0 sm:px-4 md:px-8 lg:px-12"
+          className="flex flex-col space-y-2 sm:space-y-3 md:space-y-4 w-full mx-auto px-0 sm:px-2 md:px-4 lg:px-6 xl:px-8"
         >
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 md:space-x-4 w-full">
             <input
@@ -140,7 +140,7 @@ export default function ContactMe({}: Props) {
           )}
         </form>
 
-        <div className="w-full text-center mt-4 sm:mt-6 md:mt-8">
+        <div className="w-full text-center mt-3 sm:mt-4 md:mt-6 lg:mt-8">
           <p className="text-gray-500 text-xs sm:text-sm md:text-base flex items-center justify-center">
             Crafted with{" "}
             <motion.span
