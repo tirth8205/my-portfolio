@@ -1,0 +1,41 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "author": "Mitchell Sparrow <mitch.sparrow@hotmail.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "sanity start",
+    "build": "sanity build"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@babel/runtime": "7.27.0",
+    "@babel/runtime-corejs3": "7.27.0",
+    "@sanity/base": "^2.13.1",
+    "@sanity/core": "^0.139.3",
+    "@sanity/default-layout": "^2.13.1",
+    "@sanity/default-login": "^2.27.0",
+    "@sanity/desk-tool": "^2.1.6",
+    "@sanity/eslint-config-studio": "^2.0.1",
+    "@sanity/vision": "^3.99.0",
+    "elliptic": "6.6.1",
+    "eslint": "^8.6.0",
+    "express": "^5.1.0",
+    "nanoid": "5.1.5",
+    "path-to-regexp": "^8.2.0",
+    "prop-types": "^15.7",
+    "react": "^17.0",
+    "react-dom": "^17.0",
+    "styled-components": "^5.2.0",
+    "tar-fs": "^1.16.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MitchellSparrow/portfolioWebsite.git"
+  }
+}
