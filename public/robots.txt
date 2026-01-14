@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.tirthkanani.com
+Host: https://tirthkanani.com
 
 # Sitemaps
-Sitemap: https://www.tirthkanani.com/sitemap.xml
+Sitemap: https://tirthkanani.com/sitemap.xml
