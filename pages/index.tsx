@@ -34,7 +34,7 @@ export default function Home() {
     <>
       <Head>
         {/* Primary Meta Tags */}
-        <title>Tirth Kanani | AI & Machine Learning Engineer</title>
+        <title>AI/ML Engineer</title>
         <meta name="title" content="Tirth Kanani | AI & Machine Learning Engineer" />
         <meta name="description" content="AI Engineer with 3+ years building ML products. Expertise in Python, PyTorch, LLMs, MLOps, and Full-Stack development. Open to new opportunities in London, UK." />
         <meta name="keywords" content="Tirth Kanani, AI Engineer, Machine Learning Engineer, Python Developer, PyTorch, LLMs, Large Language Models, MLOps, Full-Stack Developer, Software Engineer, Deep Learning, NLP, Natural Language Processing, Computer Vision, Data Science, London, UK" />
