@@ -85,7 +85,8 @@ export default function Home() {
                   code-review-graph
                 </a>
                 , a local knowledge graph for Claude Code that cuts token usage by 49x.
-                It has picked up over five thousand stars on GitHub. I also built{' '}
+                It has picked up over five thousand stars on GitHub. I am also the
+                founder of{' '}
                 <a
                   href="https://crumbleux.com"
                   target="_blank"
