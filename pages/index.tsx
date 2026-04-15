@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import KnowledgeGraph from '../src/components/KnowledgeGraph';
 import SocialLinks from '../src/components/SocialLinks';
 import LondonClock from '../src/components/LondonClock';
 import Kodama from '../src/components/Kodama';
@@ -52,7 +51,6 @@ export default function Home() {
         <meta name="twitter:creator" content="@tirth_8205" />
       </Head>
 
-      <KnowledgeGraph />
       <Kodama />
 
       <div className="relative z-10 min-h-screen flex flex-col">
@@ -68,7 +66,7 @@ export default function Home() {
             </motion.h1>
 
             <motion.div
-              className="space-y-4 text-[15px] md:text-base leading-relaxed text-neutral-500 mb-8"
+              className="space-y-4 text-[15px] md:text-base leading-relaxed text-neutral-600 mb-8"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -85,7 +83,35 @@ export default function Home() {
                   code-review-graph
                 </a>
                 , a local knowledge graph for Claude Code that cuts token usage by 49x.
-                It has picked up over five thousand stars on GitHub. I am also the
+                It has picked up over{' '}
+                <span className="relative whitespace-nowrap inline-block px-1.5 -mx-1.5">
+                  ten thousand stars
+                  <motion.svg
+                    className="absolute pointer-events-none"
+                    style={{
+                      left: '-4px',
+                      top: '-6px',
+                      width: 'calc(100% + 8px)',
+                      height: 'calc(100% + 12px)',
+                    }}
+                    viewBox="0 0 200 50"
+                    fill="none"
+                    preserveAspectRatio="none"
+                  >
+                    <motion.path
+                      d="M 20,25 C 15,8 55,2 100,3 C 145,2 185,10 183,25 C 185,42 148,48 100,47 C 52,48 15,42 18,25 C 19,18 40,12 60,10"
+                      stroke="#d97706"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      vectorEffect="non-scaling-stroke"
+                      opacity={0.45}
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.8, delay: 1.5, ease: 'easeOut' }}
+                    />
+                  </motion.svg>
+                </span>{' '}
+                on GitHub. I am also the
                 founder of{' '}
                 <a
                   href="https://crumbleux.com"
@@ -101,12 +127,12 @@ export default function Home() {
               <p>
                 Before that I spent time decoding imagined speech from brain waves with{' '}
                 <a
-                  href="https://github.com/tirth8205/EEGSpeech"
+                  href="https://github.com/tirth8205/GraphMinds"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-900 hover:text-blue-600 transition-colors underline decoration-neutral-300 underline-offset-2 hover:decoration-blue-400"
                 >
-                  EEGSpeech
+                  GraphMinds
                 </a>{' '}
                 as part of my MSc at the University of Birmingham, where I graduated as
                 valedictorian. I have also built adversarial testing frameworks for{' '}
@@ -118,7 +144,8 @@ export default function Home() {
                 >
                   LLM safety
                 </a>{' '}
-                and took first place at the Epiminds multi-agent hackathon.
+                and took first place at the Epiminds multi-agent hackathon with
+                SupplyMinds.
               </p>
               <p>
                 I am based in London and generally thinking about knowledge graphs,
@@ -145,7 +172,7 @@ export default function Home() {
             />
 
             <motion.h2
-              className="text-sm font-medium tracking-wide text-neutral-500 uppercase mb-6"
+              className="text-sm font-medium tracking-wide text-neutral-600 uppercase mb-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.3 }}
@@ -166,11 +193,14 @@ export default function Home() {
                     href={`/writing/${post.slug}`}
                     className="group flex items-baseline gap-4 py-1"
                   >
-                    <span className="text-sm text-neutral-600 shrink-0 tabular-nums">
+                    <span className="text-sm text-neutral-700 shrink-0 tabular-nums">
                       {post.year}
                     </span>
-                    <span className="text-[15px] text-neutral-500 group-hover:text-neutral-900 transition-colors duration-200">
+                    <span className="text-[15px] text-neutral-600 group-hover:text-neutral-900 transition-colors duration-200 flex-1">
                       {post.title}
+                    </span>
+                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0">
+                      →
                     </span>
                   </Link>
                 </motion.div>
@@ -180,12 +210,13 @@ export default function Home() {
         </main>
 
         <motion.footer
-          className="px-6 py-6 flex justify-between items-center max-w-xl mx-auto w-full text-xs text-neutral-600"
+          className="px-6 py-6 flex justify-between items-center max-w-xl mx-auto w-full text-xs text-neutral-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
           <LondonClock />
+          <span className="text-neutral-400 tabular-nums">51.5°N, 0.1°W</span>
         </motion.footer>
       </div>
     </>

@@ -106,19 +106,12 @@ export default function ArticlePage({ article }: Props) {
           </motion.div>
 
           {/* Footer */}
-          <motion.footer
-            className="mt-16 pt-8 border-t border-neutral-200"
+          <motion.div
+            className="mt-16 border-t border-neutral-200"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
-          >
-            <Link
-              href="/"
-              className="text-sm text-neutral-600 hover:text-neutral-400 transition-colors"
-            >
-              {'\u2190'} Back to home
-            </Link>
-          </motion.footer>
+          />
         </article>
       </div>
     </>
