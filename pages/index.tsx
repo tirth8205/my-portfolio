@@ -23,7 +23,7 @@ export default function Home() {
         <meta name="title" content="Tirth Kanani" />
         <meta
           name="description"
-          content="AI engineer based in London. I build knowledge graph systems, developer tools, and brain-computer interfaces."
+          content="I build infrastructure and tools that make frontier AI systems more reliable, interpretable, and efficient in the real world."
         />
         <meta name="author" content="Tirth Kanani" />
         <meta name="robots" content="index, follow" />
@@ -36,7 +36,7 @@ export default function Home() {
         <meta property="og:title" content="Tirth Kanani" />
         <meta
           property="og:description"
-          content="AI engineer based in London. I build knowledge graph systems, developer tools, and brain-computer interfaces."
+          content="I build infrastructure and tools that make frontier AI systems more reliable, interpretable, and efficient in the real world."
         />
         <meta property="og:site_name" content="Tirth Kanani" />
         <meta property="og:locale" content="en_GB" />
@@ -46,7 +46,7 @@ export default function Home() {
         <meta name="twitter:title" content="Tirth Kanani" />
         <meta
           name="twitter:description"
-          content="AI engineer based in London. I build knowledge graph systems, developer tools, and brain-computer interfaces."
+          content="I build infrastructure and tools that make frontier AI systems more reliable, interpretable, and efficient in the real world."
         />
         <meta name="twitter:creator" content="@tirth_8205" />
       </Head>
@@ -72,8 +72,11 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <p>
-                I build things where AI meets systems that need to work properly. Most
-                recently I created{' '}
+                I build infrastructure and tools that make frontier AI systems
+                more reliable, interpretable, and efficient in the real world.
+              </p>
+              <p>
+                Most recently I created{' '}
                 <a
                   href="https://github.com/tirth8205/code-review-graph"
                   target="_blank"
@@ -82,8 +85,15 @@ export default function Home() {
                 >
                   code-review-graph
                 </a>
-                , a local knowledge graph for Claude Code that cuts token usage by 49x.
-                It has picked up over{' '}
+                {' '}— a persistent, incremental code knowledge graph
+                purpose-built as an affordance for LLM agents and coding agents.
+                It uses Tree-sitter AST parsing across 12+ languages, multi-hop
+                dependency reasoning via blast-radius analysis, and SHA-256
+                hashed incremental indexing. This lets it re-index a 2,900-file
+                monorepo in under 2 seconds while delivering 6.8× average
+                context compression (up to 49× on large monorepos). It is now
+                shipped as an open-source Claude Code plugin with MCP server
+                integration and has picked up over{' '}
                 <span className="relative whitespace-nowrap inline-block px-1.5 -mx-1.5">
                   ten thousand stars
                   <motion.svg
@@ -111,21 +121,29 @@ export default function Home() {
                     />
                   </motion.svg>
                 </span>{' '}
-                on GitHub. I am also the
-                founder of{' '}
+                on GitHub.
+              </p>
+              <p>
+                I am also the founder of{' '}
                 <a
                   href="https://crumbleux.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-neutral-900 hover:text-blue-600 transition-colors underline decoration-neutral-300 underline-offset-2 hover:decoration-blue-400"
                 >
-                  Crumble
+                  CrumbleUX
                 </a>
-                , an AI-powered UX auditor that watches your screen and speaks design
-                feedback aloud.
+                , where I ship a full-stack LLM product end-to-end (Python
+                inference glue + TypeScript/Next.js/Node.js/PostgreSQL). I
+                designed real-time Gemini Live streaming pipelines with
+                bidirectional audio/video and structured prompting systems for
+                reliable VLM critiques.
               </p>
               <p>
-                Before that I spent time decoding imagined speech from brain waves with{' '}
+                Previously I was a Graduate Research Assistant at the University
+                of Birmingham&apos;s HCI &amp; AI Lab, where I built multi-agent
+                reliability evaluations and Graph Neural Networks that improved
+                anomaly detection by 22%. My MSc thesis{' '}
                 <a
                   href="https://github.com/tirth8205/GraphMinds"
                   target="_blank"
@@ -134,23 +152,14 @@ export default function Home() {
                 >
                   GraphMinds
                 </a>{' '}
-                as part of my MSc at the University of Birmingham, where I graduated as
-                valedictorian. I have also built adversarial testing frameworks for{' '}
-                <a
-                  href="https://github.com/tirth8205/Jailbreak-Eval"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-neutral-900 hover:text-blue-600 transition-colors underline decoration-neutral-300 underline-offset-2 hover:decoration-blue-400"
-                >
-                  LLM safety
-                </a>{' '}
-                and took first place at the Epiminds multi-agent hackathon with
-                SupplyMinds.
+                explored how knowledge graphs can make LLM systems more
+                transparent and steerable. I graduated as valedictorian with
+                distinction.
               </p>
               <p>
-                I am based in London and generally thinking about knowledge graphs,
-                AI safety, and how to make language models more useful without burning
-                through tokens.
+                Based in London. Currently thinking about agentic systems,
+                knowledge graphs, AI safety and alignment, context-efficient
+                retrieval, and building AI that is both powerful and trustworthy.
               </p>
             </motion.div>
 
