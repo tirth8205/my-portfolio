@@ -191,7 +191,7 @@ export default function Home() {
                 >
                   <Link
                     href={`/writing/${post.slug}`}
-                    className="group flex items-baseline gap-4 py-1"
+                    className="group flex items-baseline gap-2 md:gap-4 py-1.5"
                   >
                     <span className="text-sm text-neutral-700 shrink-0 tabular-nums">
                       {post.year}
@@ -199,7 +199,7 @@ export default function Home() {
                     <span className="text-[15px] text-neutral-600 group-hover:text-neutral-900 transition-colors duration-200 flex-1">
                       {post.title}
                     </span>
-                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0">
+                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0 hidden md:inline">
                       →
                     </span>
                   </Link>
@@ -210,7 +210,7 @@ export default function Home() {
         </main>
 
         <motion.footer
-          className="px-6 py-6 flex justify-between items-center max-w-xl mx-auto w-full text-xs text-neutral-500"
+          className="px-6 py-6 flex flex-col items-center gap-1.5 md:flex-row md:justify-between max-w-xl mx-auto w-full text-xs text-neutral-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}

@@ -56,7 +56,7 @@ export default function ArticlePage({ article }: Props) {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-sm text-neutral-600 hover:text-neutral-400 transition-colors mb-12"
+              className="inline-flex items-center gap-1.5 text-sm text-neutral-600 hover:text-neutral-400 transition-colors mb-12 py-1.5 -my-1.5"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />

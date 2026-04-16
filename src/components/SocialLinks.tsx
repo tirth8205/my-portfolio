@@ -39,14 +39,14 @@ const links = [
 
 export default function SocialLinks() {
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-3 md:gap-5">
       {links.map((link) => (
         <a
           key={link.label}
           href={link.href}
           target={link.href.startsWith('mailto') ? undefined : '_blank'}
           rel={link.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-          className="text-neutral-400 hover:text-neutral-900 transition-colors duration-200"
+          className="text-neutral-400 hover:text-neutral-900 transition-colors duration-200 p-1.5 -m-1.5"
           aria-label={link.label}
         >
           {link.icon}

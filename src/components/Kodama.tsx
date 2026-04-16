@@ -105,7 +105,7 @@ export default function Kodama() {
       `}</style>
 
       <div
-        className="fixed bottom-5 right-5 z-50 cursor-pointer select-none transition-transform duration-300 ease-out"
+        className="fixed bottom-3 right-3 md:bottom-5 md:right-5 z-50 cursor-pointer select-none transition-transform duration-300 ease-out scale-[0.8] md:scale-100 origin-bottom-right"
         style={{ transform: hovered ? 'translateY(-2px)' : 'translateY(0)' }}
         onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
