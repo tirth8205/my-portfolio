@@ -108,7 +108,9 @@ export default function One() {
             </p>
             <p>
               I won&apos;t describe the project on this page. If you write to
-              me, I&apos;ll tell you over a long coffee in London.
+              me, I&apos;ll tell you in a long conversation. A coffee if
+              you&apos;re in London, a call if you&apos;re anywhere else.
+              Where you live doesn&apos;t matter.
             </p>
             <p>
               Send a note to{' '}
