@@ -164,6 +164,35 @@ export default function Home() {
             </motion.div>
 
             <motion.div
+              className="mb-10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.18 }}
+            >
+              <Link
+                href="/one"
+                className="group block border border-neutral-200 hover:border-neutral-900 transition-colors px-5 py-4"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="text-xs uppercase tracking-wide text-neutral-500 mb-1.5">
+                      Open call
+                    </div>
+                    <div className="text-[15px] text-neutral-900">
+                      Looking for one person to build something with.
+                    </div>
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    className="text-neutral-300 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-all duration-200 shrink-0 pt-0.5 text-sm"
+                  >
+                    →
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+
+            <motion.div
               className="mb-16"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
