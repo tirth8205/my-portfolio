@@ -93,9 +93,9 @@ export default function Home() {
                 monorepo in under 2 seconds while delivering 6.8× average
                 context compression (up to 49× on large monorepos). It is now
                 shipped as an open-source Claude Code plugin with MCP server
-                integration and has picked up over{' '}
+                integration and has picked up more than{' '}
                 <span className="relative whitespace-nowrap inline-block px-1.5 -mx-1.5">
-                  ten thousand stars
+                  16,000 stars
                   <motion.svg
                     className="absolute pointer-events-none"
                     style={{
