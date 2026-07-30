@@ -3,6 +3,8 @@ export interface Article {
   title: string;
   year: string;
   date: string;
+  kind: 'project' | 'essay';
+  blurb?: string;
   description: string;
   mediumUrl?: string;
   content: string[];
@@ -14,6 +16,7 @@ export const articles: Article[] = [
     title: 'The Coming Intelligence Import Bill',
     year: '2026',
     date: '27 July 2026',
+    kind: 'essay',
     description: 'Why access to frontier AI is becoming a strategic trade relationship, and what countries should build before the API gateway acquires a toll.',
     mediumUrl: 'https://tirthkanani18.medium.com/the-coming-intelligence-import-bill-520186a5c7d2',
     content: [
@@ -43,6 +46,8 @@ export const articles: Article[] = [
     title: 'code-review-graph',
     year: '2026',
     date: '12 March 2026',
+    kind: 'project',
+    blurb: 'Local codebase context for coding agents',
     description: 'A local knowledge graph that maps codebases using tree-sitter, reducing Claude Code token usage by up to 49x on daily coding tasks.',
     mediumUrl: 'https://tirthkanani18.medium.com/i-built-a-knowledge-graph-that-cuts-claude-codes-token-usage-by-49x-ca73ef078981',
     content: [
@@ -66,6 +71,8 @@ export const articles: Article[] = [
     title: 'Jailbreak-Eval',
     year: '2025',
     date: '18 September 2025',
+    kind: 'project',
+    blurb: 'Adversarial testing for language models',
     description: 'A multi-agent adversarial testing framework for LLM safety, with five attack strategies and ensemble evaluation.',
     content: [
       'If you deploy a language model in production, you need to know where it breaks. Jailbreak-Eval is a framework I built for systematic adversarial testing of LLMs. It throws structured attacks at a model and measures how well it holds up.',
@@ -86,6 +93,8 @@ export const articles: Article[] = [
     title: 'EEGSpeech',
     year: '2025',
     date: '14 June 2025',
+    kind: 'project',
+    blurb: 'Decoding imagined speech from EEG signals',
     description: 'A brain-computer interface that decodes imagined speech from EEG signals using a CNN-LSTM model, achieving over 92% accuracy.',
     mediumUrl: 'https://tirthkanani18.medium.com/building-a-brain-computer-interface-how-i-decoded-speech-from-brain-waves-using-deep-learning-91fb86074cbf',
     content: [
@@ -107,6 +116,8 @@ export const articles: Article[] = [
     title: 'GraphMinds',
     year: '2025',
     date: '8 May 2025',
+    kind: 'project',
+    blurb: 'Knowledge graphs for traceable local models',
     description: 'An MSc thesis project that combines knowledge graphs with local LLMs for private, transparent analysis of unstructured documents.',
     mediumUrl: 'https://tirthkanani18.medium.com/graphminds-unlocking-transparent-secure-ai-with-knowledge-graphs-and-llms-711b9a7c64b8',
     content: [
@@ -128,6 +139,7 @@ export const articles: Article[] = [
     title: 'From rule-based algorithms to agentic AI',
     year: '2025',
     date: '8 May 2025',
+    kind: 'essay',
     description: 'How software went from fixed rules to language models to agents that plan and act, and what that shift asks of the people building it.',
     mediumUrl: 'https://tirthkanani18.medium.com/from-rule-based-algorithms-to-agentic-ai-how-automation-got-smart-9b232d839a6e',
     content: [
@@ -149,6 +161,8 @@ export const articles: Article[] = [
     title: 'ResearchWebGraph',
     year: '2025',
     date: '4 May 2025',
+    kind: 'project',
+    blurb: 'Exploring research papers as a graph',
     description: 'An open-source tool for exploring academic papers through knowledge graph visualisation and AI-grounded question answering.',
     mediumUrl: 'https://tirthkanani18.medium.com/researchwebgraph-my-journey-building-an-ai-powered-research-tool-3647b613dfa0',
     content: [
@@ -170,6 +184,7 @@ export const articles: Article[] = [
     title: 'How I got here',
     year: '2025',
     date: '22 April 2025',
+    kind: 'essay',
     description: 'From taking apart radios in Ahmedabad to building AI systems in London, via a brain-computer interface and a hackathon win.',
     mediumUrl: 'https://tirthkanani18.medium.com/my-journey-into-ai-and-cognitive-research-chasing-the-code-of-the-human-mind-4b391a9c65c1',
     content: [

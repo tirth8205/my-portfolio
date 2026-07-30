@@ -95,7 +95,7 @@ export default function ArticlePage({ article }: Props) {
 
           {/* Body */}
           <motion.div
-            className="space-y-5 text-[15px] md:text-base leading-[1.75] text-neutral-600"
+            className="space-y-5 text-[15px] md:text-base leading-[1.75] text-neutral-700"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}

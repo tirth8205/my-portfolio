@@ -20,6 +20,9 @@ const fade = {
 const GITHUB_REPO = 'tirth8205/code-review-graph';
 const FALLBACK_STARS = 27750;
 
+const projects = articles.filter((a) => a.kind === 'project');
+const essays = articles.filter((a) => a.kind === 'essay');
+
 async function fetchStarCount(): Promise<number | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
@@ -66,7 +69,7 @@ export default function Home({ initialStars }: HomeProps) {
         <meta name="title" content="Tirth Kanani" />
         <meta
           name="description"
-          content="I build infrastructure and tools that make frontier AI systems more reliable, interpretable, and efficient in the real world."
+          content="I build tools that give AI systems the right context: less of it, better chosen. Creator of code-review-graph, founder of CrumbleUX, based in London."
         />
         <meta name="author" content="Tirth Kanani" />
         <meta name="robots" content="index, follow" />
@@ -79,7 +82,7 @@ export default function Home({ initialStars }: HomeProps) {
         <meta property="og:title" content="Tirth Kanani" />
         <meta
           property="og:description"
-          content="I build infrastructure and tools that make frontier AI systems more reliable, interpretable, and efficient in the real world."
+          content="I build tools that give AI systems the right context: less of it, better chosen. Creator of code-review-graph, founder of CrumbleUX, based in London."
         />
         <meta property="og:site_name" content="Tirth Kanani" />
         <meta property="og:locale" content="en_GB" />
@@ -89,7 +92,7 @@ export default function Home({ initialStars }: HomeProps) {
         <meta name="twitter:title" content="Tirth Kanani" />
         <meta
           name="twitter:description"
-          content="I build infrastructure and tools that make frontier AI systems more reliable, interpretable, and efficient in the real world."
+          content="I build tools that give AI systems the right context: less of it, better chosen. Creator of code-review-graph, founder of CrumbleUX, based in London."
         />
         <meta name="twitter:creator" content="@tirth_8205" />
       </Head>
@@ -109,17 +112,17 @@ export default function Home({ initialStars }: HomeProps) {
             </motion.h1>
 
             <motion.div
-              className="space-y-4 text-[15px] md:text-base leading-relaxed text-neutral-600 mb-8"
+              className="space-y-4 text-[15px] md:text-base leading-relaxed text-neutral-700 mb-8"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <p>
-                I build infrastructure and tools that make frontier AI systems
-                more reliable, interpretable, and efficient in the real world.
+                I build tools that give AI systems the right context: less of
+                it, better chosen.
               </p>
               <p>
-                Most recently I created{' '}
+                Most recently I built{' '}
                 <a
                   href="https://github.com/tirth8205/code-review-graph"
                   target="_blank"
@@ -128,15 +131,14 @@ export default function Home({ initialStars }: HomeProps) {
                 >
                   code-review-graph
                 </a>
-                {' '}— a persistent, incremental code knowledge graph
-                purpose-built as an affordance for LLM agents and coding agents.
-                It uses Tree-sitter AST parsing across 12+ languages, multi-hop
-                dependency reasoning via blast-radius analysis, and SHA-256
-                hashed incremental indexing. This lets it re-index a 2,900-file
-                monorepo in under 2 seconds while delivering 6.8× average
-                context compression (up to 49× on large monorepos). It is now
-                shipped as an open-source Claude Code plugin with MCP server
-                integration and has picked up{' '}
+                , a local knowledge graph that helps coding agents work in
+                large repositories without reading the whole codebase.
+              </p>
+              <p>
+                It parses source code with Tree-sitter, maps dependencies, and
+                hands the agent only the files and symbols a change touches.
+                On big repositories that cuts token usage by up to 49 times.
+                The open-source Claude Code plugin has picked up{' '}
                 <span className="relative whitespace-nowrap inline-block px-1.5 -mx-1.5">
                   {stars.toLocaleString('en-GB')} stars
                   <motion.svg
@@ -167,7 +169,7 @@ export default function Home({ initialStars }: HomeProps) {
                 on GitHub.
               </p>
               <p>
-                I am also the founder of{' '}
+                I also run{' '}
                 <a
                   href="https://crumbleux.com"
                   target="_blank"
@@ -176,17 +178,16 @@ export default function Home({ initialStars }: HomeProps) {
                 >
                   CrumbleUX
                 </a>
-                , where I ship a full-stack LLM product end-to-end (Python
-                inference glue + TypeScript/Next.js/Node.js/PostgreSQL). I
-                designed real-time Gemini Live streaming pipelines with
-                bidirectional audio/video and structured prompting systems for
-                reliable VLM critiques.
+                , an AI product that watches your screen and critiques the UX
+                aloud, like a designer sitting beside you. I build and operate
+                it end-to-end: Python for inference, TypeScript and Next.js
+                for the product. The difficult part is not streaming live
+                audio and video to a model. It is getting critiques back that
+                hold up.
               </p>
               <p>
-                Previously I was a Graduate Research Assistant at the University
-                of Birmingham&apos;s HCI &amp; AI Lab, where I built multi-agent
-                reliability evaluations and Graph Neural Networks that improved
-                anomaly detection by 22%. My MSc thesis{' '}
+                Previously I was a research assistant in the University of
+                Birmingham&apos;s HCI &amp; AI Lab. My MSc thesis,{' '}
                 <a
                   href="https://github.com/tirth8205/GraphMinds"
                   target="_blank"
@@ -194,15 +195,13 @@ export default function Home({ initialStars }: HomeProps) {
                   className="text-neutral-900 hover:text-blue-600 transition-colors underline decoration-neutral-300 underline-offset-2 hover:decoration-blue-400"
                 >
                   GraphMinds
-                </a>{' '}
-                explored how knowledge graphs can make LLM systems more
-                transparent and steerable. I graduated as valedictorian with
-                distinction.
+                </a>
+                , used knowledge graphs to help a local language model show
+                where its answers come from. I graduated as valedictorian.
               </p>
               <p>
-                Based in London. Currently thinking about agentic systems,
-                knowledge graphs, AI safety and alignment, context-efficient
-                retrieval, and building AI that is both powerful and trustworthy.
+                Based in London. Interested in agents that use less context,
+                show their sources and fail more safely.
               </p>
             </motion.div>
 
@@ -229,11 +228,11 @@ export default function Home({ initialStars }: HomeProps) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              Writing
+              Selected work
             </motion.h2>
 
-            <div className="space-y-4 mb-8">
-              {articles.map((post, i) => (
+            <div className="space-y-4 mb-12">
+              {projects.map((post, i) => (
                 <motion.div
                   key={post.slug}
                   custom={i}
@@ -248,7 +247,50 @@ export default function Home({ initialStars }: HomeProps) {
                     <span className="text-sm text-neutral-700 shrink-0 tabular-nums">
                       {post.year}
                     </span>
-                    <span className="text-[15px] text-neutral-600 group-hover:text-neutral-900 transition-colors duration-200 flex-1">
+                    <span className="flex-1 min-w-0">
+                      <span className="block text-[15px] text-neutral-700 group-hover:text-neutral-900 transition-colors duration-200">
+                        {post.title}
+                      </span>
+                      {post.blurb && (
+                        <span className="block text-[13px] text-neutral-500">
+                          {post.blurb}
+                        </span>
+                      )}
+                    </span>
+                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0 hidden md:inline">
+                      →
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.h2
+              className="text-sm font-medium tracking-wide text-neutral-600 uppercase mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.35 }}
+            >
+              Writing
+            </motion.h2>
+
+            <div className="space-y-4 mb-8">
+              {essays.map((post, i) => (
+                <motion.div
+                  key={post.slug}
+                  custom={i + projects.length}
+                  initial="hidden"
+                  animate="show"
+                  variants={fade}
+                >
+                  <Link
+                    href={`/writing/${post.slug}`}
+                    className="group flex items-baseline gap-2 md:gap-4 py-1.5"
+                  >
+                    <span className="text-sm text-neutral-700 shrink-0 tabular-nums">
+                      {post.year}
+                    </span>
+                    <span className="text-[15px] text-neutral-700 group-hover:text-neutral-900 transition-colors duration-200 flex-1">
                       {post.title}
                     </span>
                     <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0 hidden md:inline">

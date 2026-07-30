@@ -26,7 +26,7 @@ pages/
 ├── index.tsx          # Main page (bio, writing list, footer)
 ├── writing/[slug].tsx # Individual article pages
 ├── _app.tsx           # App wrapper
-└── _document.tsx      # Document head, font loading
+└── _document.tsx      # Document head (system font stack, no webfonts)
 
 src/
 ├── components/
