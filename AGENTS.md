@@ -24,7 +24,7 @@ A minimal, typography-driven personal site built with Next.js. Inspired by benji
 ```
 pages/
 ├── index.tsx          # Main page (bio, writing list, footer)
-├── one.tsx            # Open call for a collaborator
+├── writing/[slug].tsx # Individual article pages
 ├── _app.tsx           # App wrapper
 └── _document.tsx      # Document head, font loading
 
@@ -33,6 +33,8 @@ src/
 │   ├── KnowledgeGraph.tsx   # Full-screen interactive canvas background
 │   ├── LondonClock.tsx      # Live London time display
 │   └── SocialLinks.tsx      # Social media icon links
+├── data/
+│   └── writing.ts           # Articles rendered at /writing/[slug]
 
 styles/
 └── globals.css        # Tailwind base, scrollbar, selection
@@ -46,7 +48,7 @@ sanity/                # Sanity CMS project (schemas, config)
 
 ### Key Patterns
 
-The main page is a single column of prose with inline project links, a curated writing list, and a footer showing London time. Content is currently hardcoded in index.tsx. Sanity schemas exist for pageInfo, skill, experience, project, and social types but are not yet wired to the frontend.
+The main page is a single column of prose with inline project links, a curated writing list, and a footer showing London time. The bio is hardcoded in index.tsx; article content lives in src/data/writing.ts. The GitHub star count for code-review-graph is fetched live from the GitHub API, statically at build time with hourly revalidation and again on the client after mount. Sanity schemas exist for pageInfo, skill, experience, project, and social types but are not yet wired to the frontend.
 
 The KnowledgeGraph component renders a full-screen canvas with animated nodes and edges. Nodes brighten and attract toward the cursor. Clicking triggers a ripple that propagates through connected nodes. Touch events are supported for mobile.
 

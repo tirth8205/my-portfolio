@@ -10,12 +10,41 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: 'intelligence-import-bill',
+    title: 'The Coming Intelligence Import Bill',
+    year: '2026',
+    date: '27 July 2026',
+    description: 'Why access to frontier AI is becoming a strategic trade relationship, and what countries should build before the API gateway acquires a toll.',
+    mediumUrl: 'https://tirthkanani18.medium.com/the-coming-intelligence-import-bill-520186a5c7d2',
+    content: [
+      'On 30 March 2026, a 28-year assumption about digital trade expired. Since 1998, members of the World Trade Organization had repeatedly agreed not to impose customs duties on electronic transmissions. At the Fourteenth Ministerial Conference in Yaoundé, they failed to renew that moratorium. No customs officer began inspecting software downloads or AI prompts the next morning, but the assumption that digital trade stays duty-free is now exactly that, an assumption.',
+
+      'When a company sends data to a model operating abroad and receives software, analysis, product designs or operational decisions in return, nothing physical crosses a port. Productive capability has crossed a border all the same. Today the payment appears as an API charge, an enterprise licence or a cloud bill. Tomorrow the intelligence import bill may contain more lines.',
+
+      'In July, Demis Hassabis proposed a US-led standards body for frontier AI, modelled partly on FINRA, the industry-funded organisation that oversees American securities brokerages. Laboratories would submit their most capable models for testing against dangerous cyber, biological and deceptive capabilities before release. The proposal deserves to be taken seriously, and it raises a question it does not answer. Who will build the models being tested? Standards can make imported intelligence safer. They cannot guarantee it remains affordable, available or under the importing country’s control. A country with excellent regulators and no capability of its own does not have sovereignty. It has well-managed dependency.',
+
+      'Countries have depended on foreign technology for decades, so it is fair to ask why AI should be treated differently. Three reasons. Advanced AI is becoming an input into decisions rather than a tool executing a specified process. The dependency compounds, because organisations redesign their data, workflows and security practices around a particular model until replacing it means rebuilding the institution rather than installing a substitute. And every model embodies choices about acceptable behaviour and tolerable risk that were made under another jurisdiction’s laws and political pressures.',
+
+      'The coming friction will arrive from both directions. Importing governments may tax intelligence to protect their revenue bases, which is part of what the dispute in Yaoundé was about. Producing countries may condition access through export licences, restrictions on model weights, or priority for domestic customers when capacity is scarce. Not every condition will be unreasonable. The point is that a supposedly borderless market is acquiring borders, and dependency does not always appear as a tariff. Sometimes it appears as a capability that is unavailable precisely when it is most valuable.',
+
+      'That would matter less if frontier capability were widely distributed. It is not. The Stanford AI Index reports that industry produced more than 90 per cent of notable models in 2025, with American organisations producing 50 and Chinese organisations 30. Private AI investment in the United States reached $285.9 billion, more than twenty times the recorded figure for China. None of this is evidence of wrongdoing. Concentration creates leverage regardless of how fairly it arose.',
+
+      'The strongest counterargument is open-weight AI. The UK’s AI Security Institute found that the most capable open model it tested performed similarly on its cyber evaluations to closed systems released only four to seven months earlier. Open weights weaken pricing power and blunt the threat of sudden withdrawal, and countries should use them. But operating today’s generation is not the same as being able to build tomorrow’s, and there is no guarantee the most capable future systems will be released openly. Open weights are a route towards capability, not an excuse to avoid building it.',
+
+      'Not every country can reproduce Silicon Valley, and pretending otherwise turns sovereignty into branding. Britain’s £500 million Sovereign AI programme and £1.1 billion hardware plan illustrate what a serious beginning looks like without approaching parity with the largest American laboratories. For most countries, minimum viable sovereignty will mean domestic expertise, competitive open weights, national or pooled allied computing, and dependable partners. Every country does not need to build everything. Every country needs a strategy for what it must be able to do without asking another country’s permission.',
+
+      'This is also why standards bodies and capability building belong together. Countries that bring models, computing and evaluation expertise to a standards regime participate as technical peers. Countries that bring only demand participate as customers.',
+
+      'There may never be a single universal tariff called an AI duty. Some of the coming cost will be importer taxation, some producer conditioning, some ordinary pricing power in a concentrated market. The name of the mechanism matters less than the position of the country facing it. Countries that can train, adapt and evaluate competitive systems will keep using foreign models from a position of choice. The next customs frontier may have no ports or cargo ships. It may be an API gateway, and the time to build an alternative is before that gateway acquires a toll.',
+    ],
+  },
+  {
     slug: 'code-review-graph',
     title: 'code-review-graph',
     year: '2026',
     date: '12 March 2026',
     description: 'A local knowledge graph that maps codebases using tree-sitter, reducing Claude Code token usage by up to 49x on daily coding tasks.',
-    mediumUrl: 'https://medium.com/@tirthkanani18/i-built-a-knowledge-graph-that-cuts-claude-codes-token-usage-by-49x-b67bff8b0be3',
+    mediumUrl: 'https://tirthkanani18.medium.com/i-built-a-knowledge-graph-that-cuts-claude-codes-token-usage-by-49x-ca73ef078981',
     content: [
       'When Claude Code reviews a pull request, it reads your entire codebase to understand context. Every function, every import, every file gets serialised into tokens. For anything beyond a small project, this is wasteful. Most of the code has nothing to do with the change being reviewed. I built code-review-graph to fix that.',
 
@@ -58,7 +87,7 @@ export const articles: Article[] = [
     year: '2025',
     date: '14 June 2025',
     description: 'A brain-computer interface that decodes imagined speech from EEG signals using a CNN-LSTM model, achieving over 92% accuracy.',
-    mediumUrl: 'https://medium.com/@tirthkanani18/building-a-brain-computer-interface-how-i-decoded-speech-from-brain-waves-using-deep-learning-3d8e29a39e74',
+    mediumUrl: 'https://tirthkanani18.medium.com/building-a-brain-computer-interface-how-i-decoded-speech-from-brain-waves-using-deep-learning-91fb86074cbf',
     content: [
       'For people living with ALS or locked-in syndrome, the gap between thinking a word and speaking it can be permanent. EEGSpeech is a brain-computer interface I built to narrow that gap. It decodes which speech sound a person is imagining, not speaking aloud, from their brain activity recorded through EEG electrodes on the scalp.',
 
@@ -79,7 +108,7 @@ export const articles: Article[] = [
     year: '2025',
     date: '8 May 2025',
     description: 'An MSc thesis project that combines knowledge graphs with local LLMs for private, transparent analysis of unstructured documents.',
-    mediumUrl: 'https://medium.com/@tirthkanani18/graphminds-unlocking-transparent-secure-ai-with-knowledge-graphs-and-llms-4ad7df4d6c2a',
+    mediumUrl: 'https://tirthkanani18.medium.com/graphminds-unlocking-transparent-secure-ai-with-knowledge-graphs-and-llms-711b9a7c64b8',
     content: [
       'This was my MSc thesis at the University of Birmingham, supervised by Professor Christopher Baber. The question was straightforward: can you get useful answers from a language model about sensitive documents without sending those documents to the cloud, and can you verify where each answer comes from?',
 
@@ -95,12 +124,33 @@ export const articles: Article[] = [
     ],
   },
   {
+    slug: 'agentic-ai',
+    title: 'From rule-based algorithms to agentic AI',
+    year: '2025',
+    date: '8 May 2025',
+    description: 'How software went from fixed rules to language models to agents that plan and act, and what that shift asks of the people building it.',
+    mediumUrl: 'https://tirthkanani18.medium.com/from-rule-based-algorithms-to-agentic-ai-how-automation-got-smart-9b232d839a6e',
+    content: [
+      'When you ask Google Maps for the fastest route to a restaurant, nobody at Google plans the journey for you. When a suspicious prize draw lands in your spam folder, nobody at Gmail read it first. For decades this was what automation meant: software following rules written in advance, doing one job well and nothing else. The spam filter could not plan a route. The route planner could not read an email. Neither could learn a new trick without an engineer shipping it.',
+
+      'Large language models broke that pattern. Trained on billions of words, they could answer questions, draft documents, translate, and help debug code, all through plain conversation. One system could suddenly do many jobs. But the first generation had sharp limits. Their knowledge stopped at a training cutoff, they could not act on the world, and they could not check anything new without a person wiring them to it.',
+
+      'Agentic AI is the next step: systems that plan, decide and act with far less step-by-step instruction. An agent that notices traffic building before your meeting does not just warn you. It suggests an earlier departure, books the ride, and messages the people waiting. In a hospital, an agent can watch patient data against the latest studies and flag a doctor when something looks wrong.',
+
+      'The early deployments cluster where work is high-volume and structured. Customer service agents now resolve the majority of routine queries on their own. Security teams use agents to scan network activity continuously and surface intrusions faster than human review could. Supply chains, drug discovery pipelines and manufacturing lines are picking up agents that order, schedule and adjust without waiting to be asked.',
+
+      'The caveats are real. Agents make mistakes, their reasoning can be hard to inspect, and in hospitals and courtrooms those properties are not acceptable quirks. Many organisations trialling agents report exactly this worry. The direction of travel is towards multi-agent systems, where separate agents coordinate on traffic, energy and public services across a city, and eventually towards systems general enough to raise harder questions about safety and control.',
+
+      'The story from Google Maps to agentic AI is a story about software gradually acquiring initiative. Rules did one job. Language models did many, when asked. Agents act before being asked. Making that initiative reliable and accountable is now the interesting part of the work.',
+    ],
+  },
+  {
     slug: 'research-web-graph',
     title: 'ResearchWebGraph',
     year: '2025',
     date: '4 May 2025',
     description: 'An open-source tool for exploring academic papers through knowledge graph visualisation and AI-grounded question answering.',
-    mediumUrl: 'https://medium.com/@tirthkanani18/researchwebgraph-my-journey-building-an-ai-powered-research-tool-f3e4b5c6d7a8',
+    mediumUrl: 'https://tirthkanani18.medium.com/researchwebgraph-my-journey-building-an-ai-powered-research-tool-3647b613dfa0',
     content: [
       'Reading academic papers is slow. Finding the right ones is slower. Building a mental model of how ideas connect across a research area takes weeks. I built ResearchWebGraph to compress that process without losing the depth.',
 
@@ -121,6 +171,7 @@ export const articles: Article[] = [
     year: '2025',
     date: '22 April 2025',
     description: 'From taking apart radios in Ahmedabad to building AI systems in London, via a brain-computer interface and a hackathon win.',
+    mediumUrl: 'https://tirthkanani18.medium.com/my-journey-into-ai-and-cognitive-research-chasing-the-code-of-the-human-mind-4b391a9c65c1',
     content: [
       'I did not set out to become an AI engineer. The path started with a question that had nothing to do with code: how does the human mind work? Growing up in Ahmedabad, I was the sort of person who took things apart to understand them. Radios, old phones, anything with a mechanism. The brain was the one machine I could not open.',
 

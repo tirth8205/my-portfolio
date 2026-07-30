@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { GetStaticProps } from 'next';
 import { motion } from 'framer-motion';
 import SocialLinks from '../src/components/SocialLinks';
 import LondonClock from '../src/components/LondonClock';
@@ -15,7 +17,48 @@ const fade = {
   }),
 };
 
-export default function Home() {
+const GITHUB_REPO = 'tirth8205/code-review-graph';
+const FALLBACK_STARS = 27750;
+
+async function fetchStarCount(): Promise<number | null> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
+      headers: { Accept: 'application/vnd.github+json' },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return typeof data.stargazers_count === 'number'
+      ? data.stargazers_count
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+interface HomeProps {
+  initialStars: number;
+}
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const stars = await fetchStarCount();
+  return {
+    props: { initialStars: stars ?? FALLBACK_STARS },
+    revalidate: 3600,
+  };
+};
+
+export default function Home({ initialStars }: HomeProps) {
+  const [stars, setStars] = useState(initialStars);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchStarCount().then((count) => {
+      if (!cancelled && count !== null) setStars(count);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -93,9 +136,9 @@ export default function Home() {
                 monorepo in under 2 seconds while delivering 6.8× average
                 context compression (up to 49× on large monorepos). It is now
                 shipped as an open-source Claude Code plugin with MCP server
-                integration and has picked up more than{' '}
+                integration and has picked up{' '}
                 <span className="relative whitespace-nowrap inline-block px-1.5 -mx-1.5">
-                  16,000 stars
+                  {stars.toLocaleString('en-GB')} stars
                   <motion.svg
                     className="absolute pointer-events-none"
                     style={{
@@ -161,35 +204,6 @@ export default function Home() {
                 knowledge graphs, AI safety and alignment, context-efficient
                 retrieval, and building AI that is both powerful and trustworthy.
               </p>
-            </motion.div>
-
-            <motion.div
-              className="mb-10"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.18 }}
-            >
-              <Link
-                href="/one"
-                className="group block border border-neutral-200 hover:border-neutral-900 transition-colors px-5 py-4"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <div className="text-xs uppercase tracking-wide text-neutral-500 mb-1.5">
-                      Open call
-                    </div>
-                    <div className="text-[15px] text-neutral-900">
-                      Looking for one person to build something with.
-                    </div>
-                  </div>
-                  <span
-                    aria-hidden="true"
-                    className="text-neutral-300 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-all duration-200 shrink-0 pt-0.5 text-sm"
-                  >
-                    →
-                  </span>
-                </div>
-              </Link>
             </motion.div>
 
             <motion.div
