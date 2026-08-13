@@ -9,10 +9,11 @@ import Kodama from '../src/components/Kodama';
 import { articles } from '../src/data/writing';
 
 const fade = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 12, filter: 'blur(4px)' },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: { delay: 0.35 + i * 0.06, duration: 0.5, ease: 'easeOut' },
   }),
 };
@@ -52,11 +53,14 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
 export default function Home({ initialStars }: HomeProps) {
   const [stars, setStars] = useState(initialStars);
+  const [refreshing, setRefreshing] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     fetchStarCount().then((count) => {
-      if (!cancelled && count !== null) setStars(count);
+      if (cancelled) return;
+      if (count !== null) setStars(count);
+      setRefreshing(false);
     });
     return () => {
       cancelled = true;
@@ -74,7 +78,7 @@ export default function Home({ initialStars }: HomeProps) {
         <meta name="author" content="Tirth Kanani" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#fafafb" />
         <link rel="canonical" href="https://tirthkanani.com" />
 
         <meta property="og:type" content="website" />
@@ -104,8 +108,8 @@ export default function Home({ initialStars }: HomeProps) {
           <div className="w-full max-w-xl mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-0">
             <motion.h1
               className="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-8"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.5 }}
             >
               Tirth Kanani
@@ -113,8 +117,8 @@ export default function Home({ initialStars }: HomeProps) {
 
             <motion.div
               className="space-y-4 text-[15px] md:text-base leading-relaxed text-neutral-700 mb-8"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <p>
@@ -140,7 +144,9 @@ export default function Home({ initialStars }: HomeProps) {
                 On big repositories that cuts token usage by up to 49 times.
                 The open-source Claude Code plugin has picked up{' '}
                 <span className="relative whitespace-nowrap inline-block px-1.5 -mx-1.5">
-                  {stars.toLocaleString('en-GB')} stars
+                  <span className={refreshing ? 'shimmer-text' : undefined}>
+                    {stars.toLocaleString('en-GB')} stars
+                  </span>
                   <motion.svg
                     className="absolute pointer-events-none"
                     style={{
@@ -223,11 +229,14 @@ export default function Home({ initialStars }: HomeProps) {
             />
 
             <motion.h2
-              className="text-sm font-medium tracking-wide text-neutral-600 uppercase mb-6"
+              className="flex items-baseline gap-2.5 text-sm font-medium tracking-wide text-neutral-600 uppercase mb-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
+              <span className="font-mono text-xs text-neutral-400 tabular-nums">
+                01
+              </span>
               Selected work
             </motion.h2>
 
@@ -242,13 +251,13 @@ export default function Home({ initialStars }: HomeProps) {
                 >
                   <Link
                     href={`/writing/${post.slug}`}
-                    className="group flex items-baseline gap-2 md:gap-4 py-1.5"
+                    className="group flex items-baseline gap-2 md:gap-4 py-1.5 px-3 -mx-3 rounded-lg hover:bg-neutral-100 transition-colors duration-200 ease-link"
                   >
-                    <span className="text-sm text-neutral-700 shrink-0 tabular-nums">
+                    <span className="font-mono text-[13px] text-neutral-500 shrink-0 tabular-nums">
                       {post.year}
                     </span>
                     <span className="flex-1 min-w-0">
-                      <span className="block text-[15px] text-neutral-700 group-hover:text-neutral-900 transition-colors duration-200">
+                      <span className="block text-[15px] text-neutral-700 group-hover:text-neutral-900 transition-colors duration-200 ease-link">
                         {post.title}
                       </span>
                       {post.blurb && (
@@ -257,7 +266,7 @@ export default function Home({ initialStars }: HomeProps) {
                         </span>
                       )}
                     </span>
-                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0 hidden md:inline">
+                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 ease-link text-sm shrink-0 hidden md:inline">
                       →
                     </span>
                   </Link>
@@ -266,11 +275,14 @@ export default function Home({ initialStars }: HomeProps) {
             </div>
 
             <motion.h2
-              className="text-sm font-medium tracking-wide text-neutral-600 uppercase mb-6"
+              className="flex items-baseline gap-2.5 text-sm font-medium tracking-wide text-neutral-600 uppercase mb-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.35 }}
             >
+              <span className="font-mono text-xs text-neutral-400 tabular-nums">
+                02
+              </span>
               Writing
             </motion.h2>
 
@@ -285,15 +297,15 @@ export default function Home({ initialStars }: HomeProps) {
                 >
                   <Link
                     href={`/writing/${post.slug}`}
-                    className="group flex items-baseline gap-2 md:gap-4 py-1.5"
+                    className="group flex items-baseline gap-2 md:gap-4 py-1.5 px-3 -mx-3 rounded-lg hover:bg-neutral-100 transition-colors duration-200 ease-link"
                   >
-                    <span className="text-sm text-neutral-700 shrink-0 tabular-nums">
+                    <span className="font-mono text-[13px] text-neutral-500 shrink-0 tabular-nums">
                       {post.year}
                     </span>
-                    <span className="text-[15px] text-neutral-700 group-hover:text-neutral-900 transition-colors duration-200 flex-1">
+                    <span className="text-[15px] text-neutral-700 group-hover:text-neutral-900 transition-colors duration-200 ease-link flex-1">
                       {post.title}
                     </span>
-                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-sm shrink-0 hidden md:inline">
+                    <span className="text-neutral-300 group-hover:text-neutral-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 ease-link text-sm shrink-0 hidden md:inline">
                       →
                     </span>
                   </Link>
@@ -310,7 +322,9 @@ export default function Home({ initialStars }: HomeProps) {
           transition={{ duration: 0.5, delay: 0.8 }}
         >
           <LondonClock />
-          <span className="text-neutral-400 tabular-nums">51.5°N, 0.1°W</span>
+          <span className="font-mono text-neutral-400 tabular-nums">
+            51.5°N, 0.1°W
+          </span>
         </motion.footer>
       </div>
     </>

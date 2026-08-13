@@ -60,7 +60,7 @@ export default function LondonClock() {
         />
         <circle cx={12} cy={12} r={1} fill="currentColor" />
       </svg>
-      <span className="tabular-nums">{time} London</span>
+      <span className="font-mono tabular-nums">{time} London</span>
     </div>
   );
 }

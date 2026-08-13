@@ -46,7 +46,7 @@ export default function ArticlePage({ article }: Props) {
         <meta name="twitter:creator" content="@tirth_8205" />
       </Head>
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen">
         <article className="max-w-xl mx-auto px-6 pt-24 pb-16 md:pt-32 md:pb-24">
           {/* Back link */}
           <motion.div
