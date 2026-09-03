@@ -6,12 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test tests/*.test.cjs"
   },
   "dependencies": {
     "@sanity/client": "^6.15.7",
     "@sanity/image-url": "^1.0.2",
-    "framer-motion": "^11.0.8",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"

@@ -5,8 +5,14 @@ export interface Article {
   date: string;
   kind: 'project' | 'essay';
   blurb?: string;
+  featured?: boolean;
+  proof?: string;
   description: string;
   mediumUrl?: string;
+  links?: {
+    label: string;
+    href: string;
+  }[];
   content: string[];
 }
 
@@ -48,8 +54,16 @@ export const articles: Article[] = [
     date: '12 March 2026',
     kind: 'project',
     blurb: 'Local codebase context for coding agents',
+    featured: true,
+    proof: '30,000+ GitHub stars · up to 49× fewer tokens',
     description: 'A local knowledge graph that maps codebases using tree-sitter, reducing Claude Code token usage by up to 49x on daily coding tasks.',
     mediumUrl: 'https://tirthkanani18.medium.com/i-built-a-knowledge-graph-that-cuts-claude-codes-token-usage-by-49x-ca73ef078981',
+    links: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/tirth8205/code-review-graph',
+      },
+    ],
     content: [
       'When Claude Code reviews a pull request, it reads your entire codebase to understand context. Every function, every import, every file gets serialised into tokens. For anything beyond a small project, this is wasteful. Most of the code has nothing to do with the change being reviewed. I built code-review-graph to fix that.',
 
@@ -63,7 +77,77 @@ export const articles: Article[] = [
 
       'A question I kept returning to was how many hops to traverse. Too few and you miss a function three calls deep where the bug actually lives. Too many and you are back to feeding in half the codebase. Two hops with a configurable override covers the vast majority of real changes.',
 
-      'The project is open source under an MIT licence and has picked up over five thousand stars on GitHub. That response suggests the problem resonates. If you use any LLM-based coding tool, the core idea applies: less context, more relevant context, better results.',
+      'The project is open source under an MIT licence and has picked up more than 30,000 stars on GitHub. That response suggests the problem resonates. If you use any LLM-based coding tool, the core idea applies: less context, more relevant context, better results.',
+    ],
+  },
+  {
+    slug: 'crumbleux',
+    title: 'CrumbleUX',
+    year: '2026',
+    date: '3 September 2026',
+    kind: 'project',
+    blurb: 'An AI UX team that watches products being used',
+    featured: true,
+    proof: 'Founder · product, inference and infrastructure',
+    description: 'A real-time product critique system that watches and listens to a session, then responds through six distinct UX perspectives.',
+    links: [
+      {
+        label: 'Live product',
+        href: 'https://crumbleux.com',
+      },
+    ],
+    content: [
+      'Most product feedback arrives too late. A recording is collected, a researcher watches it later, and the useful observation is separated from the moment that caused it. I built CrumbleUX to make that loop immediate: it watches a product session, listens to the person using it, and responds while the context is still visible.',
+
+      'The product brings six UX perspectives into one session. Each one looks for a different failure mode, from unclear hierarchy and accessibility problems to hesitation, trust and conversion friction. The aim is not to imitate a room full of designers. It is to make critique specific enough that a team can decide what to change next.',
+
+      'I built and operate the system end to end. The application is TypeScript and Next.js, the inference layer is Python, and the product handles live screen and audio streams, accounts, teams, billing and the less visible work required to keep user sessions private and reliable.',
+
+      'Streaming is not the hardest part. A model can describe almost anything on a screen; useful critique requires knowing what matters, avoiding repetitive observations and grounding each comment in the interaction that prompted it. Much of the work has been turning plausible commentary into advice a product team can act on.',
+
+      'CrumbleUX is an active product, not a claim that automated critique replaces research with real users. It is most useful earlier in the loop, when a team needs another set of eyes quickly and can still change the product cheaply.',
+    ],
+  },
+  {
+    slug: 'hfm-arc-agi-3',
+    title: 'Harmonic Flow Models for ARC-AGI-3',
+    year: '2026',
+    date: '2 July 2026',
+    kind: 'project',
+    blurb: 'Auditable exploration for interactive abstract reasoning',
+    featured: true,
+    proof: 'Presented at Pre-ICML @ London 2026',
+    description: 'An HFM-inspired exploration layer for ARC-AGI-3 with canonical state keys, transition memory, online action scoring and explicit failure analysis.',
+    links: [
+      {
+        label: 'ARC-AGI-3 benchmark',
+        href: 'https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/overview',
+      },
+      {
+        label: 'Benchmark report',
+        href: 'https://arcprize.org/media/ARC_AGI_3_Technical_Report.pdf',
+      },
+      {
+        label: 'ls20 scorecard · seed 0',
+        href: 'https://three.arcprize.org/scorecards/62ab10ce-f3bf-407f-8bc3-168bba5f6359',
+      },
+      {
+        label: 'ls20 scorecard · seed 1',
+        href: 'https://three.arcprize.org/scorecards/e23e521f-aa5b-4e8b-8ebc-7ea74c11dca6',
+      },
+    ],
+    content: [
+      'ARC-AGI-3 turns abstract reasoning into interaction. An agent must explore a small visual world, infer its rules from feedback and choose what to do next under an action budget. A correct move is not supplied in advance, so state representation and exploration matter as much as the final answer.',
+
+      'I implemented an HFM-inspired exploration layer inside the official ARC-AGI-3 agent scaffold. It builds canonical keys for observed states, extracts connected components as possible objects, proposes legal coordinate actions and remembers the transitions that follow. This is the original layer; the surrounding runner and toolkit come from the official scaffold.',
+
+      'Actions are scored online using novelty, frontier value, repeated-state penalties and no-op detection. When the agent enters a loop, a stuck detector changes the exploration policy rather than spending the rest of the budget repeating an action that has already failed. Every decision keeps its provenance so a run can be inspected afterwards.',
+
+      'Recorded scorecards reached two levels on the public game ls20 across two seeds with a 120-action cap. That result used an explicitly configured public-game route; it is not evidence of route-free generalisation. Three harder games, m0r0, ft09 and vc33, remained unsolved in the same sweep.',
+
+      'Those failures were useful. They exposed the limits of component heuristics when objects change identity, rewards are delayed or an action only becomes meaningful after a longer sequence. The project therefore includes a claim audit and experiment log alongside the agent, treating negative results as part of the system rather than something to edit out.',
+
+      'A poster describing the work was externally selected and presented at Pre-ICML @ London 2026 at UCL. The project is ongoing; it is an auditable exploration experiment, not a claim to have solved ARC-AGI-3 or built a general ARC solver.',
     ],
   },
   {
@@ -73,17 +157,29 @@ export const articles: Article[] = [
     date: '18 September 2025',
     kind: 'project',
     blurb: 'Adversarial testing for language models',
-    description: 'A multi-agent adversarial testing framework for LLM safety, with five attack strategies and ensemble evaluation.',
+    featured: true,
+    proof: 'Five attack generators · reproducible pilot baselines',
+    description: 'A multi-agent adversarial testing framework for LLM safety, with five attack generators and ensemble evaluation.',
+    links: [
+      {
+        label: 'Source code',
+        href: 'https://github.com/tirth8205/Jailbreak-Eval',
+      },
+      {
+        label: 'Pilot results',
+        href: 'https://github.com/tirth8205/Jailbreak-Eval/tree/main/results',
+      },
+    ],
     content: [
       'If you deploy a language model in production, you need to know where it breaks. Jailbreak-Eval is a framework I built for systematic adversarial testing of LLMs. It throws structured attacks at a model and measures how well it holds up.',
 
-      'The framework implements five distinct attack strategies. GCG generates adversarial suffixes through gradient-based optimisation. PAIR uses an attacker LLM to iteratively refine prompts that bypass the target model\u2019s safety training. The remaining three strategies use mutation, persona injection, and multi-turn escalation. Each approach targets a different class of vulnerability.',
+      'The public release exposes five generators: template-based attacks, mutation, GCG, PAIR and a coordinated multi-agent swarm. Multi-turn escalation can wrap those generators to test how a model behaves across a conversation rather than against one isolated prompt.',
 
-      'Evaluation uses an ensemble of three methods. A keyword classifier catches obvious failures. A fine-tuned safety classifier handles subtler cases. An LLM judge assesses responses that fall into grey areas where neither automated method is confident. The three scores are combined into a weighted safety rating for each test case.',
+      'Evaluation uses an ensemble of three methods. Keyword matching catches obvious refusals. Pretrained classifiers handle subtler cases. An LLM judge assesses responses that fall into grey areas where neither automated method is confident. The scores are combined into a weighted safety rating for each test case.',
 
       'The multi-agent swarm is the part I find most interesting architecturally. Five specialised agents share a memory pool and coordinate their attacks. One agent might discover that a particular phrasing partially bypasses a safety filter, and the others can build on that discovery in subsequent rounds. This mimics how real adversaries work: iteratively, adaptively, and with shared context.',
 
-      'I built the system to work across multiple LLM providers: OpenAI, Anthropic, Groq, and locally-hosted models through Ollama. The Streamlit dashboard shows results in real time as attacks run, with breakdowns by strategy, severity, and model.',
+      'I built the public release to work across OpenAI, Anthropic, OpenRouter and Hugging Face models. The Streamlit dashboard shows results as attacks run, with breakdowns by generator, severity and model.',
 
       'The purpose is defensive. You cannot patch what you have not measured. Running Jailbreak-Eval against a model before deployment surfaces the specific failure modes that need attention. It is not a guarantee of safety, but it is a structured alternative to guessing.',
     ],
@@ -206,3 +302,7 @@ export const articles: Article[] = [
     ],
   },
 ];
+
+export const featuredProjects = articles.filter(
+  (article) => article.kind === 'project' && article.featured,
+);
