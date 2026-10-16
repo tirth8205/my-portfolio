@@ -8,8 +8,12 @@ const { renderToStaticMarkup } = require('react-dom/server');
 
 const root = path.resolve(__dirname, '..');
 
+const moduleCache = new Map();
+
 function loadTypeScriptModule(relativePath, jsx = false) {
   const filename = path.join(root, relativePath);
+  if (moduleCache.has(filename)) return moduleCache.get(filename);
+
   const source = fs.readFileSync(filename, 'utf8');
   const output = ts.transpileModule(source, {
     compilerOptions: {
@@ -21,7 +25,22 @@ function loadTypeScriptModule(relativePath, jsx = false) {
     fileName: filename,
   }).outputText;
   const loaded = { exports: {} };
-  new Function('module', 'exports', 'require', output)(loaded, loaded.exports, require);
+  moduleCache.set(filename, loaded.exports);
+
+  // Resolve sibling TypeScript modules the way Next does.
+  const localRequire = (request) => {
+    if (!request.startsWith('.')) return require(request);
+    const base = path.relative(root, path.resolve(path.dirname(filename), request));
+    for (const ext of ['.ts', '.tsx']) {
+      if (fs.existsSync(path.join(root, base + ext))) {
+        return loadTypeScriptModule(base + ext, ext === '.tsx');
+      }
+    }
+    return require(path.join(root, base));
+  };
+
+  new Function('module', 'exports', 'require', output)(loaded, loaded.exports, localRequire);
+  moduleCache.set(filename, loaded.exports);
   return loaded.exports;
 }
 
@@ -105,4 +124,60 @@ test('the rabbit signature is a keyboard-operable control', () => {
   for (const mood of ['sleeping', 'coffee', 'gym', 'coding', 'idle']) {
     assert.notEqual(getNextMood(mood), mood);
   }
+});
+
+test('recent news covers No. 10 and Claude Founder House', () => {
+  const { recent } = loadTypeScriptModule('src/data/profile.ts');
+  const titles = recent.map((item) => item.title).join('\n');
+
+  assert.match(titles, /10 Downing Street/);
+  assert.match(titles, /Claude Founder House/);
+  for (const item of recent) {
+    assert.ok(item.when && item.detail && item.note, `${item.title} needs a date, detail and note`);
+  }
+});
+
+test('the machine view is markdown built from the same content as the human view', () => {
+  const { homeMarkdown, parseInline } = loadTypeScriptModule('src/lib/markdown.ts');
+  const { bio, recent } = loadTypeScriptModule('src/data/profile.ts');
+  const { featuredProjects } = loadTypeScriptModule('src/data/writing.ts');
+  const markdown = homeMarkdown(12345);
+
+  assert.match(markdown, /^# Tirth Kanani\n/);
+  for (const paragraph of bio) assert.ok(markdown.includes(paragraph));
+  for (const item of recent) assert.ok(markdown.includes(item.title));
+  for (const project of featuredProjects) {
+    assert.ok(markdown.includes(`(https://tirthkanani.com/writing/${project.slug}.md)`));
+  }
+  assert.match(markdown, /12,345 GitHub stars/);
+
+  assert.deepEqual(parseInline('See [a](https://a.com) and [b](/b).'), [
+    { type: 'text', text: 'See ' },
+    { type: 'link', label: 'a', href: 'https://a.com' },
+    { type: 'text', text: ' and ' },
+    { type: 'link', label: 'b', href: '/b' },
+    { type: 'text', text: '.' },
+  ]);
+});
+
+test('every article has a markdown twin and llms.txt lists them', () => {
+  const { articleMarkdown, llmsTxt } = loadTypeScriptModule('src/lib/markdown.ts');
+  const { articles, featuredProjects } = loadTypeScriptModule('src/data/writing.ts');
+
+  for (const article of articles) {
+    const markdown = articleMarkdown(article);
+    assert.ok(markdown.startsWith(`# ${article.title}\n`));
+    assert.ok(markdown.includes(article.content[0]));
+  }
+
+  const index = llmsTxt();
+  assert.match(index, /^# Tirth Kanani\n\n> /);
+  for (const project of featuredProjects) assert.ok(index.includes(`/writing/${project.slug}.md`));
+});
+
+test('the portrait is a clean rectangle of ramp glyphs', () => {
+  const { portrait } = loadTypeScriptModule('src/data/portrait.ts');
+
+  assert.ok(portrait.length > 60);
+  assert.match(portrait.join(''), /^[ .:;+xX$&]+$/);
 });

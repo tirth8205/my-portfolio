@@ -55,7 +55,7 @@ export const articles: Article[] = [
     kind: 'project',
     blurb: 'Local codebase context for coding agents',
     featured: true,
-    proof: '30,000+ GitHub stars · up to 49× fewer tokens',
+    proof: '32,000+ GitHub stars · up to 49× fewer tokens',
     description: 'A local knowledge graph that maps codebases using tree-sitter, reducing Claude Code token usage by up to 49x on daily coding tasks.',
     mediumUrl: 'https://tirthkanani18.medium.com/i-built-a-knowledge-graph-that-cuts-claude-codes-token-usage-by-49x-ca73ef078981',
     links: [
@@ -76,6 +76,8 @@ export const articles: Article[] = [
       'Integration works through the Model Context Protocol. code-review-graph registers as an MCP server, and Claude Code queries it whenever it needs codebase context. The graph decides what is relevant. The model does the reasoning. Each handles what it is good at.',
 
       'A question I kept returning to was how many hops to traverse. Too few and you miss a function three calls deep where the bug actually lives. Too many and you are back to feeding in half the codebase. Two hops with a configurable override covers the vast majority of real changes.',
+
+      'In September 2026 I demoed it live on stage at Claude Founder House in London. The example was a simple question: how does FastAPI build a route handler? Grep matches routing.py and hands the model all 4,912 lines. The graph knows where that function starts and ends, so it returns eight. Across 18 questions on six real repositories, an agent using the graph needed a median of 8.9 times fewer tokens to reach the same answer as a baseline agent.',
 
       'The project is open source under an MIT licence and has picked up more than 30,000 stars on GitHub. That response suggests the problem resonates. If you use any LLM-based coding tool, the core idea applies: less context, more relevant context, better results.',
     ],
@@ -104,6 +106,8 @@ export const articles: Article[] = [
       'I built and operate the system end to end. The application is TypeScript and Next.js, the inference layer is Python, and the product handles live screen and audio streams, accounts, teams, billing and the less visible work required to keep user sessions private and reliable.',
 
       'Streaming is not the hardest part. A model can describe almost anything on a screen; useful critique requires knowing what matters, avoiding repetitive observations and grounding each comment in the interaction that prompted it. Much of the work has been turning plausible commentary into advice a product team can act on.',
+
+      'The first version came together in a single night. In May 2026 I built it solo at the Build with AI Hack Night, a Google I/O event hosted by GDG London, and it won. Most of what has happened since is the slower work of making that prototype dependable.',
 
       'CrumbleUX is an active product, not a claim that automated critique replaces research with real users. It is most useful earlier in the loop, when a team needs another set of eyes quickly and can still change the product cheaply.',
     ],

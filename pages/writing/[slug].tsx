@@ -33,6 +33,11 @@ export default function ArticlePage({ article }: Props) {
           rel="canonical"
           href={`https://tirthkanani.com/writing/${article.slug}`}
         />
+        <link
+          rel="alternate"
+          type="text/markdown"
+          href={`https://tirthkanani.com/writing/${article.slug}.md`}
+        />
 
         <meta property="og:type" content="article" />
         <meta

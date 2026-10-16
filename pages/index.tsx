@@ -5,25 +5,14 @@ import { GetStaticProps } from 'next';
 import SocialLinks from '../src/components/SocialLinks';
 import LondonClock from '../src/components/LondonClock';
 import Kodama from '../src/components/Kodama';
+import AsciiPortrait from '../src/components/AsciiPortrait';
+import ModeSwitch from '../src/components/ModeSwitch';
 import { articles, featuredProjects } from '../src/data/writing';
+import { bio, recent } from '../src/data/profile';
+import { FALLBACK_STARS, fetchStarCount, starsProof } from '../src/lib/stars';
+import { markdownUrl, parseInline } from '../src/lib/markdown';
 
-const GITHUB_REPO = 'tirth8205/code-review-graph';
-const FALLBACK_STARS = 30000;
 const essays = articles.filter((article) => article.kind === 'essay');
-
-async function fetchStarCount(): Promise<number | null> {
-  try {
-    const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
-      headers: { Accept: 'application/vnd.github+json' },
-    });
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    return typeof data.stargazers_count === 'number' ? data.stargazers_count : null;
-  } catch {
-    return null;
-  }
-}
 
 interface HomeProps {
   initialStars: number;
@@ -40,6 +29,22 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
 const inlineLink =
   'text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900';
+
+function Prose({ source }: { source: string }) {
+  return (
+    <p>
+      {parseInline(source).map((segment, index) =>
+        segment.type === 'link' ? (
+          <a key={index} href={segment.href} className={inlineLink}>
+            {segment.label}
+          </a>
+        ) : (
+          segment.text
+        ),
+      )}
+    </p>
+  );
+}
 
 export default function Home({ initialStars }: HomeProps) {
   const [stars, setStars] = useState(initialStars);
@@ -70,6 +75,7 @@ export default function Home({ initialStars }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#fafaf8" />
         <link rel="canonical" href="https://tirthkanani.com" />
+        <link rel="alternate" type="text/markdown" href={markdownUrl()} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://tirthkanani.com" />
@@ -93,43 +99,66 @@ export default function Home({ initialStars }: HomeProps) {
       <div className="min-h-screen">
         <main className="mx-auto w-full max-w-[620px] px-6 pb-20 pt-20 md:pb-24 md:pt-28">
           <header className="mb-16 md:mb-20">
-            <h1 className="mb-8 text-[2rem] font-semibold leading-none tracking-[-0.035em] text-[#1c1c1a] md:text-[2.35rem]">
-              Tirth Kanani
-            </h1>
+            <div className="md:flex md:items-start md:gap-12">
+              <AsciiPortrait className="mb-10 text-[2.2px] text-[#1c1c1a] md:order-last md:mb-0 md:-mt-2 md:text-[2.8px]" />
 
-            <div className="space-y-4 text-[15px] leading-[1.72] text-[#53534f] md:text-base">
-              <p>
-                I build tools that help AI systems find the right context:
-                less of it, better chosen.
-              </p>
-              <p>
-                I created{' '}
-                <a
-                  href="https://github.com/tirth8205/code-review-graph"
-                  className={inlineLink}
-                >
-                  code-review-graph
-                </a>{' '}
-                and I am building{' '}
-                <a
-                  href="https://crumbleux.com"
-                  className={inlineLink}
-                >
-                  CrumbleUX
-                </a>
-                . Both turn messy signals into useful decisions.
-              </p>
-              <p>
-                Based in London. My MSc research at Birmingham explored
-                traceable local language models; now I am testing auditable
-                agents against ARC-AGI-3.
-              </p>
+              <div className="min-w-0 flex-1">
+                <h1 className="mb-8 text-[2rem] font-semibold leading-none tracking-[-0.035em] text-[#1c1c1a] md:text-[2.35rem]">
+                  Tirth Kanani
+                </h1>
+
+                <div className="space-y-4 text-[15px] leading-[1.72] text-[#53534f] [text-wrap:pretty] md:text-base">
+                  {bio.map((paragraph) => (
+                    <Prose key={paragraph} source={paragraph} />
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="mt-8">
               <SocialLinks />
             </div>
           </header>
+
+          <section aria-labelledby="recently" className="mb-16 md:mb-20">
+            <h2 id="recently" className="mb-5 text-[15px] font-medium text-[#1c1c1a]">
+              Recently
+            </h2>
+
+            <ul className="border-y border-[#dddcd6]">
+              {recent.map((item) => {
+                const body = (
+                  <>
+                    <div className="mb-1 flex items-baseline justify-between gap-6">
+                      <h3 className="text-[15px] font-medium text-[#1c1c1a] decoration-neutral-400 underline-offset-4 group-hover:underline md:text-base">
+                        {item.title}
+                      </h3>
+                      <span className="shrink-0 text-xs tabular-nums text-[#6b6b65]">
+                        {item.when}
+                      </span>
+                    </div>
+                    <p className="text-sm leading-relaxed text-[#62625d]">{item.detail}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-[#6b6b65]">{item.note}</p>
+                  </>
+                );
+
+                return (
+                  <li key={item.title} className="border-b border-[#dddcd6] last:border-b-0">
+                    {item.slug ? (
+                      <Link
+                        href={`/writing/${item.slug}`}
+                        className="group block py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
+                      >
+                        {body}
+                      </Link>
+                    ) : (
+                      <div className="py-5">{body}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
 
           <section aria-labelledby="selected-work" className="mb-16 md:mb-20">
             <h2
@@ -143,7 +172,7 @@ export default function Home({ initialStars }: HomeProps) {
               {featuredProjects.map((project) => {
                 const proof =
                   project.slug === 'code-review-graph'
-                    ? `${stars.toLocaleString('en-GB')} GitHub stars · up to 49× fewer tokens`
+                    ? starsProof(stars)
                     : project.proof;
 
                 return (
@@ -204,7 +233,7 @@ export default function Home({ initialStars }: HomeProps) {
           </section>
         </main>
 
-        <footer className="mx-auto flex w-full max-w-[620px] items-end justify-between gap-6 px-6 pb-8 text-xs text-[#6b6b65]">
+        <footer className="mx-auto flex w-full max-w-[620px] items-end justify-between gap-6 px-6 pb-20 text-xs text-[#6b6b65] md:pb-8">
           <div className="flex min-w-0 flex-col gap-1.5 md:w-full md:flex-row md:items-center md:justify-between">
             <LondonClock />
             <span className="tabular-nums">51.5°N, 0.1°W</span>
@@ -212,6 +241,8 @@ export default function Home({ initialStars }: HomeProps) {
           <Kodama />
         </footer>
       </div>
+
+      <ModeSwitch mode="human" />
     </>
   );
 }

@@ -1,14 +1,9 @@
-const links = [
-  { label: 'X', href: 'https://x.com/tirth_8205' },
-  { label: 'GitHub', href: 'https://github.com/tirth8205' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/tirthkanani' },
-  { label: 'Email', href: 'mailto:tirthkanani18@gmail.com' },
-];
+import { socialLinks } from '../data/profile';
 
 export default function SocialLinks() {
   return (
     <nav aria-label="Elsewhere" className="flex flex-wrap items-center gap-x-5 gap-y-2">
-      {links.map((link) => (
+      {socialLinks.map((link) => (
           <a
             key={link.label}
             href={link.href}

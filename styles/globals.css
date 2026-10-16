@@ -16,6 +16,16 @@
     background: rgba(59, 130, 246, 0.15);
   }
 
+  html:has([data-mode='machine']),
+  html:has([data-mode='machine']) body {
+    background-color: #0c0c0b;
+    color-scheme: dark;
+  }
+
+  [data-mode='machine'] ::selection {
+    background: rgba(244, 244, 239, 0.2);
+  }
+
   ::-webkit-scrollbar {
     width: 4px;
   }
@@ -69,6 +79,13 @@
 .bunny-z-1 { animation: bunny-z1 3s ease-out infinite; }
 .bunny-z-2 { animation: bunny-z2 3s ease-out 1.5s infinite; }
 .bunny-note-1 { animation: bunny-note 2.8s ease-out infinite; }
+
+/* Hidden until the client starts the develop-in, so it never flashes complete first. */
+.ascii-portrait[data-ready='false'] { opacity: 0; }
+
+@media (scripting: none) {
+  .ascii-portrait[data-ready='false'] { opacity: 1; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
