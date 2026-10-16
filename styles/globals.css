@@ -80,6 +80,13 @@
 .bunny-z-2 { animation: bunny-z2 3s ease-out 1.5s infinite; }
 .bunny-note-1 { animation: bunny-note 2.8s ease-out infinite; }
 
+/* Hidden until the client starts the develop-in, so it never flashes complete first. */
+.ascii-portrait[data-ready='false'] { opacity: 0; }
+
+@media (scripting: none) {
+  .ascii-portrait[data-ready='false'] { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 

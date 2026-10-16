@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import { GetStaticProps } from 'next';
+import AsciiPortrait from '../src/components/AsciiPortrait';
 import ModeSwitch from '../src/components/ModeSwitch';
 import { FALLBACK_STARS, fetchStarCount } from '../src/lib/stars';
 import { homeMarkdown, markdownUrl, parseInline } from '../src/lib/markdown';
@@ -90,6 +91,8 @@ export default function Machine({ markdown }: MachineProps) {
               {copied ? 'Copied' : 'Copy'}
             </button>
           </div>
+
+          <AsciiPortrait className="mb-12 text-[3.6px] text-white md:text-[4.4px]" />
 
           <pre className="whitespace-pre-wrap text-[12.5px] leading-[1.75] [overflow-wrap:anywhere] md:text-[13px]">
             {markdown.split('\n').map((line, index) => (
