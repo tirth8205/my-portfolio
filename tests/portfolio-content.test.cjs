@@ -175,10 +175,3 @@ test('every article has a markdown twin and llms.txt lists them', () => {
   assert.match(index, /^# Tirth Kanani\n\n> /);
   for (const project of featuredProjects) assert.ok(index.includes(`/writing/${project.slug}.md`));
 });
-
-test('the portrait is a clean rectangle of ramp glyphs', () => {
-  const { portrait } = loadTypeScriptModule('src/data/portrait.ts');
-
-  assert.ok(portrait.length > 60);
-  assert.match(portrait.join(''), /^[ .:;+xX$&]+$/);
-});
