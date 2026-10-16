@@ -92,7 +92,7 @@ export default function Machine({ markdown }: MachineProps) {
             </button>
           </div>
 
-          <AsciiPortrait glow className="mb-12 text-[3.6px] text-[#a3a39b] md:text-[4.2px]" />
+          <AsciiPortrait className="mb-12 text-[3.6px] text-[#d6d6cf] md:text-[4.2px]" />
 
           <pre className="whitespace-pre-wrap text-[12.5px] leading-[1.75] [overflow-wrap:anywhere] md:text-[13px]">
             {markdown.split('\n').map((line, index) => (

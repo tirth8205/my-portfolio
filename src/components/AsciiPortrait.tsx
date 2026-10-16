@@ -4,42 +4,10 @@ import { portrait } from '../data/portrait';
 const RAMP = ' .:;+xX$&';
 const MAX = RAMP.length - 1;
 const COLS = Math.max(...portrait.map((line) => line.length));
-const INK = portrait.map((line) =>
+const LEVELS = portrait.map((line) =>
   Array.from(line.padEnd(COLS, ' '), (char) => Math.max(0, RAMP.indexOf(char))),
 );
-
-// For light glyphs on a dark ground: flip the tones inside the figure and
-// leave the empty space that touches the edges empty.
-function invert(levels: number[][]) {
-  const rows = levels.length;
-  const outside = levels.map((row) => row.map(() => false));
-  const stack: [number, number][] = [];
-
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < COLS; col++) {
-      const edge = row === 0 || row === rows - 1 || col === 0 || col === COLS - 1;
-      if (edge && levels[row][col] === 0) {
-        outside[row][col] = true;
-        stack.push([row, col]);
-      }
-    }
-  }
-
-  while (stack.length) {
-    const [row, col] = stack.pop()!;
-    for (const [r, c] of [[row + 1, col], [row - 1, col], [row, col + 1], [row, col - 1]]) {
-      if (r >= 0 && r < rows && c >= 0 && c < COLS && !outside[r][c] && levels[r][c] === 0) {
-        outside[r][c] = true;
-        stack.push([r, c]);
-      }
-    }
-  }
-
-  return levels.map((row, r) => row.map((level, c) => (outside[r][c] ? 0 : MAX - level)));
-}
-
-const GLOW = invert(INK);
-const text = (levels: number[][]) => levels.map((row) => row.map((level) => RAMP[level]).join('')).join('\n');
+const FULL = portrait.map((line) => line.padEnd(COLS, ' ')).join('\n');
 
 const DEVELOP_MS = 1600;
 const LENS_RADIUS = 9;
@@ -52,10 +20,10 @@ interface Lens {
   target: number;
 }
 
-function compose(grid: number[][], progress: number, thresholds: Float32Array, lens: Lens) {
+function compose(progress: number, thresholds: Float32Array, lens: Lens) {
   let out = '';
-  for (let row = 0; row < grid.length; row++) {
-    const levels = grid[row];
+  for (let row = 0; row < LEVELS.length; row++) {
+    const levels = LEVELS[row];
     for (let col = 0; col < COLS; col++) {
       let level = levels[col];
 
@@ -74,26 +42,23 @@ function compose(grid: number[][], progress: number, thresholds: Float32Array, l
 
       out += RAMP[level];
     }
-    if (row < grid.length - 1) out += '\n';
+    if (row < LEVELS.length - 1) out += '\n';
   }
   return out;
 }
 
 interface AsciiPortraitProps {
   className?: string;
-  /** Light glyphs on a dark ground. */
-  glow?: boolean;
 }
 
-export default function AsciiPortrait({ className = '', glow = false }: AsciiPortraitProps) {
-  const grid = glow ? GLOW : INK;
-  const [frameText, setFrameText] = useState(() => text(grid));
+export default function AsciiPortrait({ className = '' }: AsciiPortraitProps) {
+  const [text, setText] = useState(FULL);
   const [ready, setReady] = useState(false);
   const ref = useRef<HTMLPreElement>(null);
   const frame = useRef<number | null>(null);
   const started = useRef(0);
   const progress = useRef(1);
-  const thresholds = useRef(new Float32Array(INK.length * COLS));
+  const thresholds = useRef(new Float32Array(LEVELS.length * COLS));
   const lens = useRef<Lens>({ col: 0, row: 0, strength: 0, target: 0 });
 
   const tick = useCallback(() => {
@@ -109,12 +74,12 @@ export default function AsciiPortrait({ className = '', glow = false }: AsciiPor
     l.strength += (l.target - l.strength) * 0.18;
     if (Math.abs(l.target - l.strength) < 0.01) l.strength = l.target;
 
-    setFrameText(compose(grid, progress.current, thresholds.current, l));
+    setText(compose(progress.current, thresholds.current, l));
 
     if (progress.current < 1 || l.strength !== l.target) {
       frame.current = requestAnimationFrame(tick);
     }
-  }, [grid]);
+  }, []);
 
   const schedule = useCallback(() => {
     if (frame.current === null) frame.current = requestAnimationFrame(tick);
@@ -124,16 +89,16 @@ export default function AsciiPortrait({ className = '', glow = false }: AsciiPor
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!reduceMotion) {
-      // Dense glyphs settle first, so the face develops like a print.
-      for (let row = 0; row < grid.length; row++) {
+      // Bright glyphs settle first, so the face develops like a print.
+      for (let row = 0; row < LEVELS.length; row++) {
         for (let col = 0; col < COLS; col++) {
-          const density = grid[row][col] / MAX;
+          const density = LEVELS[row][col] / MAX;
           thresholds.current[row * COLS + col] = Math.random() * 0.55 + (1 - density) * 0.27;
         }
       }
       progress.current = 0;
       started.current = performance.now();
-      setFrameText(compose(grid, 0, thresholds.current, lens.current));
+      setText(compose(0, thresholds.current, lens.current));
       schedule();
     }
 
@@ -142,14 +107,14 @@ export default function AsciiPortrait({ className = '', glow = false }: AsciiPor
     return () => {
       if (frame.current !== null) cancelAnimationFrame(frame.current);
     };
-  }, [grid, schedule]);
+  }, [schedule]);
 
   const handlePointerMove = (event: PointerEvent<HTMLPreElement>) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
 
     lens.current.col = ((event.clientX - rect.left) / rect.width) * COLS;
-    lens.current.row = ((event.clientY - rect.top) / rect.height) * grid.length;
+    lens.current.row = ((event.clientY - rect.top) / rect.height) * LEVELS.length;
     lens.current.target = 1;
     schedule();
   };
@@ -168,7 +133,7 @@ export default function AsciiPortrait({ className = '', glow = false }: AsciiPor
       onPointerLeave={handlePointerLeave}
       className={`ascii-portrait w-max select-none whitespace-pre font-mono leading-[1.2] ${className}`}
     >
-      {frameText}
+      {text}
     </pre>
   );
 }

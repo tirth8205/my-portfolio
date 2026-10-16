@@ -130,10 +130,11 @@ test('recent news covers No. 10 and Claude Founder House', () => {
   const { recent } = loadTypeScriptModule('src/data/profile.ts');
   const titles = recent.map((item) => item.title).join('\n');
 
-  assert.match(titles, /10 Downing Street/);
+  assert.match(titles, /No\. 10/);
   assert.match(titles, /Claude Founder House/);
   for (const item of recent) {
-    assert.ok(item.when && item.detail && item.note, `${item.title} needs a date, detail and note`);
+    assert.ok(item.when && item.detail, `${item.title} needs a date and detail`);
+    assert.match(item.href, /^https:\/\//, `${item.title} needs a link`);
   }
 });
 

@@ -16,33 +16,32 @@ export interface RecentItem {
   when: string;
   title: string;
   detail: string;
-  note: string;
-  slug?: string;
+  href: string;
 }
+
+const linkedInPost = (id: string) => `https://www.linkedin.com/feed/update/urn:li:activity:${id}/`;
 
 export const recent: RecentItem[] = [
   {
     when: 'Oct 2026',
-    title: 'Future States Hackathon, 10 Downing Street',
+    title: 'Built Gateway Check at the Future States Hackathon, No. 10',
     detail:
-      'One of 35 engineers picked from more than 1,500 applicants to spend two days building with civil servants on real problems across government.',
-    note: 'Run by 10DS and the Cabinet Office',
+      'One of 35 engineers chosen from more than 1,500 applicants, run by 10DS and the Cabinet Office. Gateway Check reads domestic abuse evidence for legal aid against Schedule 1 before it is submitted, and every verdict rests on a quote found word for word in the letter.',
+    href: 'https://github.com/tirth8205/No10_Hackathon',
   },
   {
     when: 'Sep 2026',
-    title: 'Claude Founder House, London',
+    title: 'Demoed code-review-graph at Claude Founder House',
     detail:
-      'Demoed code-review-graph live on stage at Anthropic’s day for founders and builders.',
-    note: 'Median 8.9× fewer tokens across 18 questions on six real repositories',
-    slug: 'code-review-graph',
+      'Live on stage at Anthropic’s day for founders and builders in London. Median 8.9× fewer tokens across 18 questions on six real repositories.',
+    href: linkedInPost('7508887893927469056'),
   },
   {
     when: 'May 2026',
-    title: 'Build with AI Hack Night, Google I/O London',
+    title: 'Won the Build with AI Hack Night at Google I/O London',
     detail:
-      'Won solo with CrumbleUX, built in one night during my first week at Telana.',
-    note: 'Hosted by GDG London',
-    slug: 'crumbleux',
+      'Solo, with CrumbleUX built in one night during my first week at Telana. Hosted by GDG London.',
+    href: linkedInPost('7463224958392131584'),
   },
 ];
 

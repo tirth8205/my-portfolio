@@ -97,22 +97,20 @@ export default function Home({ initialStars }: HomeProps) {
       </Head>
 
       <div className="min-h-screen">
-        <main className="mx-auto w-full max-w-[620px] px-6 pb-20 pt-20 md:pb-24 md:pt-28">
-          <header className="mb-16 md:mb-20">
-            <div className="md:flex md:items-start md:gap-12">
-              <AsciiPortrait className="mb-10 text-[2.2px] text-[#1c1c1a] md:order-last md:mb-0 md:-mt-2 md:text-[2.8px]" />
+        <main className="mx-auto w-full max-w-[620px] px-6 pb-16 pt-14 md:pb-20 md:pt-20">
+          <header className="mb-12 flow-root md:mb-16">
+            <div className="float-right mb-3 ml-5 rounded-md bg-[#0c0c0b] p-2 md:ml-10 md:p-2.5">
+              <AsciiPortrait className="text-[1.6px] text-[#fafaf8] md:text-[2.6px]" />
+            </div>
 
-              <div className="min-w-0 flex-1">
-                <h1 className="mb-8 text-[2rem] font-semibold leading-none tracking-[-0.035em] text-[#1c1c1a] md:text-[2.35rem]">
-                  Tirth Kanani
-                </h1>
+            <h1 className="mb-6 text-[2rem] font-semibold leading-none tracking-[-0.035em] text-[#1c1c1a] md:mb-8 md:text-[2.35rem]">
+              Tirth Kanani
+            </h1>
 
-                <div className="space-y-4 text-[15px] leading-[1.72] text-[#53534f] [text-wrap:pretty] md:text-base">
-                  {bio.map((paragraph) => (
-                    <Prose key={paragraph} source={paragraph} />
-                  ))}
-                </div>
-              </div>
+            <div className="space-y-4 text-[15px] leading-[1.72] text-[#53534f] [text-wrap:pretty] md:text-base">
+              {bio.map((paragraph) => (
+                <Prose key={paragraph} source={paragraph} />
+              ))}
             </div>
 
             <div className="mt-8">
@@ -120,50 +118,35 @@ export default function Home({ initialStars }: HomeProps) {
             </div>
           </header>
 
-          <section aria-labelledby="recently" className="mb-16 md:mb-20">
-            <h2 id="recently" className="mb-5 text-[15px] font-medium text-[#1c1c1a]">
+          <section aria-labelledby="recently" className="mb-12 md:mb-16">
+            <h2 id="recently" className="mb-4 text-[15px] font-medium text-[#1c1c1a]">
               Recently
             </h2>
 
             <ul className="border-y border-[#dddcd6]">
-              {recent.map((item) => {
-                const body = (
-                  <>
-                    <div className="mb-1 flex items-baseline justify-between gap-6">
-                      <h3 className="text-[15px] font-medium text-[#1c1c1a] decoration-neutral-400 underline-offset-4 group-hover:underline md:text-base">
-                        {item.title}
-                      </h3>
-                      <span className="shrink-0 text-xs tabular-nums text-[#6b6b65]">
-                        {item.when}
-                      </span>
-                    </div>
-                    <p className="text-sm leading-relaxed text-[#62625d]">{item.detail}</p>
-                    <p className="mt-2 text-xs leading-relaxed text-[#6b6b65]">{item.note}</p>
-                  </>
-                );
-
-                return (
-                  <li key={item.title} className="border-b border-[#dddcd6] last:border-b-0">
-                    {item.slug ? (
-                      <Link
-                        href={`/writing/${item.slug}`}
-                        className="group block py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
-                      >
-                        {body}
-                      </Link>
-                    ) : (
-                      <div className="py-5">{body}</div>
-                    )}
-                  </li>
-                );
-              })}
+              {recent.map((item) => (
+                <li key={item.href} className="border-b border-[#dddcd6] last:border-b-0">
+                  <a
+                    href={item.href}
+                    title={item.detail}
+                    className="group flex items-baseline justify-between gap-6 py-3.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
+                  >
+                    <span className="text-[15px] leading-snug text-[#53534f] decoration-neutral-400 underline-offset-4 group-hover:text-[#1c1c1a] group-hover:underline">
+                      {item.title}
+                    </span>
+                    <span className="shrink-0 text-xs tabular-nums text-[#6b6b65]">
+                      {item.when}
+                    </span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </section>
 
-          <section aria-labelledby="selected-work" className="mb-16 md:mb-20">
+          <section aria-labelledby="selected-work" className="mb-12 md:mb-16">
             <h2
               id="selected-work"
-              className="mb-5 text-[15px] font-medium text-[#1c1c1a]"
+              className="mb-4 text-[15px] font-medium text-[#1c1c1a]"
             >
               Selected work
             </h2>
@@ -182,7 +165,7 @@ export default function Home({ initialStars }: HomeProps) {
                   >
                     <Link
                       href={`/writing/${project.slug}`}
-                      className="group block py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
+                      className="group block py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
                     >
                       <div className="mb-1 flex items-baseline justify-between gap-6">
                         <h3 className="text-[15px] font-medium text-[#1c1c1a] decoration-neutral-400 underline-offset-4 group-hover:underline md:text-base">
@@ -206,7 +189,7 @@ export default function Home({ initialStars }: HomeProps) {
           </section>
 
           <section aria-labelledby="writing">
-            <h2 id="writing" className="mb-5 text-[15px] font-medium text-[#1c1c1a]">
+            <h2 id="writing" className="mb-4 text-[15px] font-medium text-[#1c1c1a]">
               Writing
             </h2>
 
@@ -218,7 +201,7 @@ export default function Home({ initialStars }: HomeProps) {
                 >
                   <Link
                     href={`/writing/${article.slug}`}
-                    className="group flex items-baseline justify-between gap-6 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
+                    className="group flex items-baseline justify-between gap-6 py-3.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-900"
                   >
                     <span className="text-[15px] leading-snug text-[#53534f] decoration-neutral-400 underline-offset-4 group-hover:text-[#1c1c1a] group-hover:underline">
                       {article.title}

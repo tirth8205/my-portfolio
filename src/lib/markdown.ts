@@ -45,10 +45,7 @@ export function homeMarkdown(stars: number): string {
     ...bio.flatMap((paragraph) => [paragraph, '']),
     '## Recently',
     '',
-    ...recent.map((item) => {
-      const title = item.slug ? `[${item.title}](${markdownUrl(item.slug)})` : item.title;
-      return `- ${item.when}: ${title}. ${item.detail} ${item.note}.`;
-    }),
+    ...recent.map((item) => `- ${item.when}: [${item.title}](${item.href}). ${item.detail}`),
     '',
     '## Selected work',
     '',
