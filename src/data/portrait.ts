@@ -1,43 +1,47 @@
 // Tirth's Memoji as a drawing, on a hand-drawn body. Made for light glyphs on a dark
 // ground; brightness runs ' .:;+xX$&'.
 export const portrait = String.raw`
-                                                 :$$x;;+:$$x;;+:   ;;+
-                                           $$x;;+:$$x;;+:$     .$$x   :$$
-                                    $$  ;+:$$x            $.....         x;
-                                   :  x;;+                 x;     ...      ;
-                                  +    ;                     ;+:     ...    +
-                              $x;;     .;    x;;+:$$x;          $$       ... :
-                             $.         .+    ;.      ;+:$$       x;          $$
-                              .           :$$ ;....        x;;      ;           x
-                            :                x ......         +:     +           ;;
-                          ;+                       ...          $$   +             +
-                          ;           .;xXXXXx+;:.    ..  .       x;  :             :
-                         ;          :X$$&&&&&&&&&$x+.     :x+:.     ;+...           :
-                         ;        .x$$$$&&&&&&&&&&&&$x;   .&&$X+:    ...X+           $
-                         ;       .+X$$$$&&&&&&&&&&&&&&&X;. X&&&&X+.   ..X$x          $
-                         ;       ;XX$$$$&&$$&&&&&&&&&&&&$x;X&&&&&$+;.   X$$:         $
-                         ;       +XX$X+;:......:+$&&&&&&&&$$&&&$Xx+:.   X$$;         $
-                          ;      ;XX;;+XX$$$$Xx++X$&&&&&&&&&&$x::;++:....:++         $
-                          ;     ;;+;++++++++++xXX$$$$&&&&&$$$$$$$$$$X+;X$x;:  .     :
-                          +.   x  +xX$$XXXXXXXX+;;$$XXXXX$$$Xx+;+++++;;;;++++:$     :
-                        xxX+   x ;XXX+;;...  .:+xx $+xXxx+;x +xXxx++xXXXXXx;   $   +
-                        XXx;   x ++++$&;.;:   ;;;x $X$$$XX$ ++;.:;   +:;+XXX+ $.   +
-                        X$$x  ;x +xX$&&x;..  x $&+ $$&&&&$$ ;xx...  ; ;&X;xxx $.  ;xx
-                        x$$X :+x; X$$&&&&&&&&$$&X $X&&&&&$Xx+&$;:.::;+X&&$$x+ $. .+xX$
-                         $$$x++xX+;x$&&&&&&&&&X;;xX$&&&&&&$x:x&&&&&&&&&&&$$X ;+: +X$X
-                         +$$X++xXXxx++++xxx+++xXXX$$&&&&$$$$x;;X&&&&&&&&&X+;+++;.X$$
-                          +XX$++X$$XXXXXXX$$XXX$&$x$&&&&&XX$$XXx+++xxxx++xXXx+++X$$+
-                              $+xX$$$$$$$$$$$&&&&$+xXX$XX+x$&&&$XXXXX$$XXXXxx++X$$+
-                               x+xX$$$$$XXxX$$&&&&&$Xxxxx$$&&&&$$$$$X$$$$$Xx+;$$x
-                                +xXX$$$$$$X..:;++xxxXXXXXXXXXxx++xxX$$$$$Xx++
-                                ;+xxX$$$&&&x.   ......:::....   :$$$$$$XXx+;
-                                  ++xXX$$&&$X+.               .+$&&&$$XXx+;
-                                   ;$xXX$$&$$XXx+;;;;;::::::;xxX$&$$XXx+$x
-                                     $xxXX$$$$XXxxxxxxxxxxxxxXX$$$XXx+;$
-                                       ;+xXX$$XXXXXXXXxxxxXXXX$XXXx+;+
+                                                      .......   $
+                                            $x;;+:$$x;;        :   ;;+:$$
+                                        ;+:$$x;;+:     +:$.     $$x      x;
+                                  +:$ x;;+:$              $x.   ...        ;
+                                 ;   $ ;                    ;;+     ..      +:
+                                 ;    x                        :$      ...    $
+                            :$$x;     .;     x;;+:$$x;;          $x       .... $
+                           +.          .;     ;.       +:$$        ;            x;
+                            :            +:$  ;....        x;;      ;             ;
+                          ;+                $x......          +:     +             +
+                         ;                        ....          $$    :             :
+                        x              :;+++;:.      ..           x;   $         .   $
+                        x           :X$$&&&&&$$Xx;:    .  .:..      ;  $         .    $
+                       $          :X$$$&&&&&&&&&&&$X+:    .X$x+:.    +:..;.           $
+                       $         ;X$$$$&&&&&&&&&&&&&&$x:   +&&&X+;.   ...$X;           x
+                       $        ;XX$$$$&&&&&&&&&&&&&&&&$x: ;&&&&&X+:     X$X.          x
+                       $        +XX$$$$$$$X$$$&&&&&&&&&&&X+x&&&&&&$x;.   X$$+          x
+                       $        xXXXx;:........:+&&&&&&&&&$$&&&$Xx+;..   x$$x          x
+                        x       xXX:;+X$$$$$$Xx+x$$&&&&&&&&&&&$:.:;++:....:+x          x
+                        x     $x+++++++++++++xX$$$$$$&&&&&&$$$$$$$$$$X+;XXx;:.        $
+                         ;   $   ;xX$$$$$$$XXx+;;+$$$$$$$$$$$Xx++++++;;:;++xx:$:.     $
+                       $$x    $ ;XXXx;;......;xxx; $++xx+;;;;:+xXXXXXXXXXXx++        $
+                      $x++   .$ xx+;+$+;Xx   x.:++ $XXXXXXXx:xx+:..  ..:+xXXX+  x   :
+                      $$Xx.  ;$ ++x$&&x ;   $ ;$++ $$&&&&$$ ;;;..x+   :;X;;xXx  x   ;$$
+                      $$$X. :+$ +X$$&&$XXx+;+x$&$ $X&&&&&$Xx $&:.    + $&&XXxx  x  .++xx
+                       $$$;:++xx x$&&&&&&&&&&&&X:+x$&&&&&&$x X&$xxxXX$$$&&$$X+ $;  +XX$
+                       $&$Xx++xXx;+X$&&&&&&&$x;;xX$&&&&&&&&X+:X&&&&&&&&&&&&$X $+; .X$$$
+                        $$$x++xXXxXx+++++++++xXXX$$$&&&&$$$$Xx;;x$&&&&&&&$X+;+x+;:+X$$
+                         xXx;+xX$$$XXXXXXXXXXX$&$XX&&&&&&$x$&$XXXx++++++++XXXx+++xX$$
+                             $xXX$$$$$$$$$$$&&&&$X+xX$$$X+x$&&&$$XXXXX$$XXXXXx+;x$$X
+                             $+xXX$$$$$XXXX$$&&&&&$XxxxxxX$$&&&&$$$$XXX$$$$XX+$$xx+
+                              $+xXX$$$$$XX..;++xxxXX$$$$$$$$$$XXxxxxX$$$$$Xxx+
+                               x+xXX$$$&&&x   ...::;;;;;;;;::..  :X$$$$$XXxx+;
+                                ;+xXX$$&&&$X;                   ;$&&&$$XXx+++
+                                 ;+xxX$$$&$$Xx+;:..........  .+XX&&&$$XXx+;
+                                   ;+xXX$$$$$Xxxxxxx+++++++xxxxX$$$$XXx+$x
+                                     $xxXX$$$XXXxxxXXxxxxxxxxXX$$XXXx++$
+                                       ++xXX$$XXXXXXXXxxxxXXXXXXXXx+;+
                                          ++$XXXXXXXXXXXXXXXXXXXx$$x
-                                            $x+xXXXXXXXXXXXxx++;
-                                                 ;;;;;;;;;$
+                                            $xxxxXXXXXXXXXxxx++;
+                                                  ;;;;;;;;
                                             &;:..  .:;;++++;     ;
                                             &;.               .:;x&
                                            &$;.            .::;+xX&&
