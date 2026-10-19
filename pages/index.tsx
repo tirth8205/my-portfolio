@@ -5,7 +5,6 @@ import { GetStaticProps } from 'next';
 import SocialLinks from '../src/components/SocialLinks';
 import LondonClock from '../src/components/LondonClock';
 import Kodama from '../src/components/Kodama';
-import AsciiPortrait from '../src/components/AsciiPortrait';
 import ModeSwitch from '../src/components/ModeSwitch';
 import { articles, featuredProjects } from '../src/data/writing';
 import { bio, recent } from '../src/data/profile';
@@ -98,11 +97,7 @@ export default function Home({ initialStars }: HomeProps) {
 
       <div className="min-h-screen">
         <main className="mx-auto w-full max-w-[620px] px-6 pb-16 pt-14 md:pb-20 md:pt-20">
-          <header className="mb-12 flow-root md:mb-16">
-            <div className="float-right mb-3 ml-5 rounded-md bg-black p-2 md:ml-8 md:p-3">
-              <AsciiPortrait className="text-[1.8px] font-bold text-white md:text-[2.9px]" />
-            </div>
-
+          <header className="mb-12 md:mb-16">
             <h1 className="mb-6 text-[2rem] font-semibold leading-none tracking-[-0.035em] text-[#1c1c1a] md:mb-8 md:text-[2.35rem]">
               Tirth Kanani
             </h1>
