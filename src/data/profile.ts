@@ -9,7 +9,7 @@ export const summary =
 export const bio = [
   'I am an engineer and researcher in London. Much of my work concerns how a language model can be given exactly the information a task demands, and nothing more.',
   'That question led me to build [code-review-graph](https://github.com/tirth8205/code-review-graph), an open-source tool that maps a codebase so that a coding assistant reads only what a change requires. I am also building [CrumbleUX](https://crumbleux.com), which watches a product in use and critiques it from six distinct points of view, much as a good design team would.',
-  'I work as an AI and automation engineer at Telana, and I hold the UK’s Global Talent endorsement. My MSc at the University of Birmingham asked whether a model running on one’s own machine could answer questions about private documents and show where each answer came from. I am now building agents whose every decision can be examined afterwards, and testing them against the ARC-AGI-3 benchmark.',
+  'I work as an AI and automation engineer at Telana, and I hold the UK’s Global Talent visa. My MSc at the University of Birmingham asked whether a model running on one’s own machine could answer questions about private documents and show where each answer came from. I am now building agents whose every decision can be examined afterwards, and testing them against the ARC-AGI-3 benchmark.',
 ];
 
 export interface RecentItem {
