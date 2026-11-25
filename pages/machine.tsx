@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useState } from 'react';
 import { GetStaticProps } from 'next';
 import ModeSwitch from '../src/components/ModeSwitch';
@@ -35,7 +36,7 @@ function Line({ source }: { source: string }) {
             <span className="bg-[#2a2a27] text-[#f4f4ef] transition-colors group-hover:bg-[#f4f4ef] group-hover:text-[#0c0c0b]">
               [{segment.label}]
             </span>
-            <span className="text-[#6f6f68]">({segment.href})</span>
+            <span className="text-[#9d9d94]">({segment.href})</span>
           </a>
         ) : (
           <span key={index}>{segment.text}</span>
@@ -73,9 +74,15 @@ export default function Machine({ markdown }: MachineProps) {
         <link rel="alternate" type="text/markdown" href={markdownUrl()} />
       </Head>
 
-      <div data-mode="machine" className="min-h-screen font-mono text-[#bdbdb5]">
+      <div data-mode="machine" className="min-h-screen bg-[#0c0c0b] font-mono text-[#bdbdb5]">
         <main className="mx-auto w-full max-w-[680px] border-x border-[#232321] px-5 pb-32 pt-10 md:px-8 md:pt-16">
-          <div className="mb-10 flex items-center justify-between gap-4 text-[11px] text-[#6f6f68]">
+          <Link
+            href="/"
+            className="machine-small-text mb-6 inline-block text-[12px] md:text-[11px] text-[#9d9d94] transition-colors hover:text-[#f4f4ef] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#f4f4ef]"
+          >
+            ← Back to site
+          </Link>
+          <div className="machine-small-text mb-10 flex items-center justify-between gap-4 text-[12px] md:text-[11px] text-[#9d9d94]">
             <a
               href={markdownUrl()}
               className="truncate transition-colors hover:text-[#f4f4ef] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#f4f4ef]"

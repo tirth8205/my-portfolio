@@ -1,32 +1,20 @@
 import { articles, featuredProjects, Article } from '../data/writing';
 import { SITE_URL, bio, name, recent, socialLinks, summary } from '../data/profile';
 import { starsProof } from './stars';
-
-export type InlineSegment =
-  | { type: 'text'; text: string }
-  | { type: 'link'; label: string; href: string };
-
-const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
-
-export function parseInline(source: string): InlineSegment[] {
-  const segments: InlineSegment[] = [];
-  let cursor = 0;
-
-  for (const match of Array.from(source.matchAll(LINK))) {
-    const start = match.index ?? 0;
-    if (start > cursor) segments.push({ type: 'text', text: source.slice(cursor, start) });
-    segments.push({ type: 'link', label: match[1], href: match[2] });
-    cursor = start + match[0].length;
-  }
-
-  if (cursor < source.length) segments.push({ type: 'text', text: source.slice(cursor) });
-  return segments;
-}
+import { INLINE_LINK as LINK, parseInline } from './inline';
+export { parseInline } from './inline';
+export type { InlineSegment } from './inline';
 
 export const markdownUrl = (slug?: string) =>
   slug ? `${SITE_URL}/writing/${slug}.md` : `${SITE_URL}/index.md`;
 
 const absolute = (href: string) => (href.startsWith('/') ? `${SITE_URL}${href}` : href);
+
+// Pages on this site are linked by their markdown twins in the machine view.
+const twin = (href: string) => (href.startsWith('/') ? `${SITE_URL}${href}.md` : href);
+
+const withTwins = (source: string) =>
+  source.replace(LINK, (_, label: string, href: string) => `[${label}](${twin(href)})`);
 
 const articleItem = (article: Article, detail?: string) =>
   `- [${article.title}](${markdownUrl(article.slug)}) (${article.year})${detail ? `: ${detail}` : ''}`;
@@ -42,10 +30,13 @@ export function homeMarkdown(stars: number): string {
     '',
     `> ${summary}`,
     '',
-    ...bio.flatMap((paragraph) => [paragraph, '']),
+    ...bio.flatMap((paragraph) => [withTwins(paragraph), '']),
     '## Recently',
     '',
-    ...recent.map((item) => `- ${item.when}: [${item.title}](${item.href}). ${item.detail}`),
+    ...recent.map((item) => {
+      const links = item.links.map((link) => `[${link.label}](${twin(link.href)})`).join(' · ');
+      return `- ${item.when}: ${item.title}. ${[item.proof, item.detail].filter(Boolean).join(' ')} ${links}`;
+    }),
     '',
     '## Selected work',
     '',
@@ -76,7 +67,7 @@ export function homeMarkdown(stars: number): string {
 }
 
 export function articleMarkdown(article: Article): string {
-  const meta = [article.date, article.mediumUrl && `[Read on Medium](${article.mediumUrl})`]
+  const meta = [article.date, article.updatedAt && `Updated ${article.updatedAt}`, article.mediumUrl && `[Original on Medium](${article.mediumUrl})`]
     .filter(Boolean)
     .join(' · ');
 
@@ -87,11 +78,16 @@ export function articleMarkdown(article: Article): string {
     '',
     meta,
     ...(article.proof ? ['', article.proof] : []),
+    ...(article.caveat ? ['', article.caveat] : []),
     ...(article.links?.length
       ? ['', article.links.map((link) => `[${link.label}](${absolute(link.href)})`).join(' · ')]
       : []),
     '',
-    ...article.content.flatMap((paragraph) => [paragraph, '']),
+    ...article.content.flatMap((paragraph, index) => [
+      ...(article.headings?.[index] ? [`## ${article.headings[index]}`, ''] : []),
+      paragraph,
+      '',
+    ]),
     '---',
     '',
     `By [${name}](${markdownUrl()}). Human version: ${SITE_URL}/writing/${article.slug}`,

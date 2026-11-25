@@ -1,6 +1,6 @@
 const GITHUB_REPO = 'tirth8205/code-review-graph';
 
-export const FALLBACK_STARS = 32000;
+export const FALLBACK_STARS = 32900;
 
 export async function fetchStarCount(): Promise<number | null> {
   try {
@@ -17,5 +17,5 @@ export async function fetchStarCount(): Promise<number | null> {
 }
 
 export function starsProof(stars: number): string {
-  return `${stars.toLocaleString('en-GB')} GitHub stars · up to 49× fewer tokens`;
+  return `${stars.toLocaleString('en-GB')} GitHub stars · median 8.9× fewer tokens across 18 questions on six repositories`;
 }
