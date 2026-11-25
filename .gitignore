@@ -26,9 +26,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Local env files
-.env*.local
+# Local env files (only the example is shared)
 .env
+.env.*
+!.env.example
 
 # Vercel
 .vercel
@@ -165,6 +166,12 @@ GEMINI.md
 .agents/
 .codex/
 .claude/
+.gstack/
+artifacts/
+
+# Notes stay local; only READMEs are shared
+*.md
+!README.md
 
 # Lock files (keep only one)
 package-lock.json
